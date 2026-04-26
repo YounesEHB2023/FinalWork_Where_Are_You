@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickupSystem : MonoBehaviour
+public class PickupSystem_V1 : MonoBehaviour
 {
     public Transform holdPoint;
     public float pickupRange = 3f;
