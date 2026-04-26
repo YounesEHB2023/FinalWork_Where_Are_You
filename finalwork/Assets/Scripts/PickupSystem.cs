@@ -52,10 +52,10 @@ public class PickupSystem : MonoBehaviour
 
                 if (heldRb != null)
                 {
-                    heldRb.useGravity = false;
-                    heldRb.isKinematic = true;
                     heldRb.linearVelocity = Vector3.zero;
-                    heldRb.angularVelocity = Vector3.zero;
+heldRb.angularVelocity = Vector3.zero;
+heldRb.useGravity = false;
+heldRb.isKinematic = true;
                 }
 
                 heldObject.transform.SetParent(holdPoint);
