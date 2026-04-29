@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: 6fe1c94d37064094c89dade63999f2e6
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm2_Height
+    second: {fileID: 2800000, guid: c31ee87072ccb134b9dd51985e12bd33, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm2_Metalness
+    second: {fileID: 2800000, guid: c4a90458cdd99f5468237bc355e2cced, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm2_Normal
+    second: {fileID: 2800000, guid: 924e2a4a4bf30ee49a17ab082e49c7cc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm2_Roughness
+    second: {fileID: 2800000, guid: 286bcb7be89921342a0a666a1beba64b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm_Cloth1_Height
+    second: {fileID: 2800000, guid: 8fbcae169c57e034dbe3a616745907b2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm_Cloth1_Metalness
+    second: {fileID: 2800000, guid: dce31285fcea4b142a3555cb6d4e0817, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm_Cloth1_Normal
+    second: {fileID: 2800000, guid: 67577fa38e834764b962683b56f0f24a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Arm_Cloth1_Roughness
+    second: {fileID: 2800000, guid: 107897730216f8342bb3ea414a60a9e2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Around2_Height
+    second: {fileID: 2800000, guid: 880df8aa9bd97404b9ca392b3cfd98a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Around2_Metalness
+    second: {fileID: 2800000, guid: 329dc51f9aa82c849865cdc0daeec8d9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Around2_Normal
+    second: {fileID: 2800000, guid: 56322ad07121a3246b6fad29728fa334, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Around2_Roughness
+    second: {fileID: 2800000, guid: 30ea0ddc0148d984c854b11634162cea, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Open2_Height
+    second: {fileID: 2800000, guid: 7a9fb32a2cff4fe4d9eb1ce10c45e19a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Open2_Metalness
+    second: {fileID: 2800000, guid: 5bdbce753ae24db4f8e06d6594cce237, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Open2_Normal
+    second: {fileID: 2800000, guid: b944066608ba59b408a803af5cf53b74, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Open2_Roughness
+    second: {fileID: 2800000, guid: f721c47c85deb884f8813996e1fca57a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Turn2_Height
+    second: {fileID: 2800000, guid: 8370d8c7646d6474fb0b04fdd871fcf9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Turn2_Metalness
+    second: {fileID: 2800000, guid: e77fd4886b1909c47befe33f1ff9b76a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Turn2_Normal
+    second: {fileID: 2800000, guid: 7e10e439e855083448639583e6451d8d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_Turn2_Roughness
+    second: {fileID: 2800000, guid: c1dc56b7efd5eef4fa899f1ca2bf1dac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_pocket2_Height
+    second: {fileID: 2800000, guid: 84bd1550d8274f647986b47891b53c54, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_pocket2_Metalness
+    second: {fileID: 2800000, guid: 59c7720881d49254fa50c745fdbdd558, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_pocket2_Normal
+    second: {fileID: 2800000, guid: b61a3fd968d673345a35e38457c066c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Bag_pocket2_Roughness
+    second: {fileID: 2800000, guid: d73f36218eeb32e49b46d875a9339de5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Around2_Height
+    second: {fileID: 2800000, guid: 0011a9a89b28847438a9105f96cb752e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Around2_Metalness
+    second: {fileID: 2800000, guid: a46de69e61433494f8af50c58e550281, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Around2_Normal
+    second: {fileID: 2800000, guid: 7e81c5ab619dc5c499c3d5af053ee2c4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Around2_Roughness
+    second: {fileID: 2800000, guid: da046bd38a1cdb64ba4dd73d617b351d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Open2_Height
+    second: {fileID: 2800000, guid: 6f1f0a32afd27cc41a365e1910c8f4e1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Open2_Metalness
+    second: {fileID: 2800000, guid: a69301e5314201542a81ea4dd3a1f193, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Open2_Normal
+    second: {fileID: 2800000, guid: ac30804d62a4fff42acff62974d239cc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Open2_Roughness
+    second: {fileID: 2800000, guid: bd71ce41001938a47ad361440199e4f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Square2_Height
+    second: {fileID: 2800000, guid: de29f0ca23595d94091ed7a64e83f518, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Square2_Metalness
+    second: {fileID: 2800000, guid: 76f60c474749a2244bf800b944ceee72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Square2_Normal
+    second: {fileID: 2800000, guid: fd3f2bf93fc7b054293f5ca8b3806372, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Belt_Square2_Roughness
+    second: {fileID: 2800000, guid: a95ade2ddf08c864cac0455b6b7c85ac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Button1_Height
+    second: {fileID: 2800000, guid: a8c5d9a20998d584098dfd9d4ac6277f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Button1_Metalness
+    second: {fileID: 2800000, guid: bd7ca0192afaf654f8fee7e8f8a0adf2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Button1_Normal
+    second: {fileID: 2800000, guid: 0eb88368f367d5348a57e21cc4ea5f72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Button1_Roughness
+    second: {fileID: 2800000, guid: 57feaa775caf6f14896bf076492f2d7e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Cape3_Height
+    second: {fileID: 2800000, guid: a8111d991047cd3418e5f4f3f44edc18, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Cape3_Metalness
+    second: {fileID: 2800000, guid: 8dc6ea01e79fa7b49954a78b41bac43c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Cape3_Normal
+    second: {fileID: 2800000, guid: 98fa50e87a4678e40ae6814c9f6bd90c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Cape3_Roughness
+    second: {fileID: 2800000, guid: ef9f534d0ae915d47844fc0d8b07f096, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Coat2_Height
+    second: {fileID: 2800000, guid: 869ddd8704a2d6044ae908502b31d6d3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Coat2_Metalness
+    second: {fileID: 2800000, guid: b20ea5c58dfacd5449272bc59c6b8a6e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Coat2_Normal
+    second: {fileID: 2800000, guid: 62e7a42c5c4051844a497e012932ea4e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Coat2_Roughness
+    second: {fileID: 2800000, guid: e2119887898597444811ff7744394f0d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_EYES1_Emissive
+    second: {fileID: 2800000, guid: 685da66858760ee4e8dd50c6ac5e328e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_EYES1_Height
+    second: {fileID: 2800000, guid: 6308d94007082c04ba08ca9008e758b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_EYES1_Metalness
+    second: {fileID: 2800000, guid: ed52d8f23443be64c82ecb24339412e2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_EYES1_Normal
+    second: {fileID: 2800000, guid: 03dd84831919fdc4e810d94745990f0b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_EYES1_Roughness
+    second: {fileID: 2800000, guid: 6b0c853cea64d4c4d970b07d4e9737c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Front_Piece2_Height
+    second: {fileID: 2800000, guid: 7a4b05cbf95909e40b1d6df4687ca0cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Front_Piece2_Metalness
+    second: {fileID: 2800000, guid: cd1e68fd6b9c8f644a3371da02fae536, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Front_Piece2_Normal
+    second: {fileID: 2800000, guid: 6d29acf510895864c8317ec58ed2cf67, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Front_Piece2_Roughness
+    second: {fileID: 2800000, guid: 8d53866fed598bb499542a54f66d1a06, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Head7_Height
+    second: {fileID: 2800000, guid: 5069b3f055f93364dbe246c14daccd77, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Head7_Metalness
+    second: {fileID: 2800000, guid: 96957917f62285247b8117d2b3350183, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Head7_Normal
+    second: {fileID: 2800000, guid: f94f0400f5aacbf498c68b968beb2d29, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Head7_Roughness
+    second: {fileID: 2800000, guid: 1bc132a4319398a4c85f1b25aa0a0469, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Hood2_Height
+    second: {fileID: 2800000, guid: 1e4fe3e14dde2f1408ddcdda38e85a5c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Hood2_Metalness
+    second: {fileID: 2800000, guid: 34dd042a89d24bb4c995a2914a613e73, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Hood2_Normal
+    second: {fileID: 2800000, guid: e366a82d5df7f9e49842af3b1c676024, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Hood2_Roughness
+    second: {fileID: 2800000, guid: c5f437b79b00dc242b16c950527999b2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Leg1_Height
+    second: {fileID: 2800000, guid: c69e68151d0c538499058dad60253f72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Leg1_Metalness
+    second: {fileID: 2800000, guid: 736d64d062628864c8dfda2d7572485f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Leg1_Normal
+    second: {fileID: 2800000, guid: 591e362bf2eaf5944a03a86c2522bed0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Leg1_Roughness
+    second: {fileID: 2800000, guid: 81e7ce31e97c6b846b2b638d8191a145, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Scarf2_Height
+    second: {fileID: 2800000, guid: a3e7b66040e90b34d8160db35b4e3105, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Scarf2_Metalness
+    second: {fileID: 2800000, guid: 7810ad354c9ba4a41a70ecdb2ed35c95, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Scarf2_Normal
+    second: {fileID: 2800000, guid: b024393db4c88ba4287afbef7b3ada63, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Scarf2_Roughness
+    second: {fileID: 2800000, guid: 40271666785e8e5439480e812fa8a4a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Big_Part2_Height
+    second: {fileID: 2800000, guid: 8eff8d9f65a3690469ae0e101952c070, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Big_Part2_Metalness
+    second: {fileID: 2800000, guid: 1ba14cc1c3ac17c4497b8af440c37bce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Big_Part2_Normal
+    second: {fileID: 2800000, guid: 0534fb81fe444eb4d82f45a34bfe7fa4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Big_Part2_Roughness
+    second: {fileID: 2800000, guid: dd24ff6127fd9434b9365e2fd7d5652e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Small_Part2_Height
+    second: {fileID: 2800000, guid: 4001e8452aec2544a8cae48e151803ce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Small_Part2_Metalness
+    second: {fileID: 2800000, guid: 888288fcb89093c4a865e76d2726afcd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Small_Part2_Normal
+    second: {fileID: 2800000, guid: a409b336937c64d499f3c6e15e9579fa, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Shoe_Small_Part2_Roughness
+    second: {fileID: 2800000, guid: ac01d327fbf0e6449b2a8bc37cdacfab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Sweater2_Height
+    second: {fileID: 2800000, guid: 7c3e66e79aaba2a41b8ece2f13683017, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Sweater2_Metalness
+    second: {fileID: 2800000, guid: 2983ff36c9420974586799c1f2baff61, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Sweater2_Normal
+    second: {fileID: 2800000, guid: f5a2884ace49c3d4aa9957d1a18d9813, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CharacterModel_Sweater2_Roughness
+    second: {fileID: 2800000, guid: 94514525fd8d2624cabab3732d696d97, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
