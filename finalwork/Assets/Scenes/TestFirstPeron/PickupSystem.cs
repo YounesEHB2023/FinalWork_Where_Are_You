@@ -6,6 +6,7 @@ public class PickupSystem : MonoBehaviour
     [Header("References")]
     public Camera playerCamera;
     public Transform holdPoint;
+    public Animator animator;
 
     [Header("Pickup Settings")]
     public float pickupDistance = 3f;
@@ -19,22 +20,16 @@ public class PickupSystem : MonoBehaviour
         if (PressedInteract())
         {
             if (heldObject == null)
-            {
                 TryPickup();
-            }
             else
-            {
                 DropObject();
-            }
         }
     }
 
     bool PressedInteract()
     {
         bool keyboardPressed = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
-
         bool controllerPressed = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
-        // buttonSouth = X op PS5
 
         return keyboardPressed || controllerPressed;
     }
@@ -53,14 +48,19 @@ public class PickupSystem : MonoBehaviour
                 if (heldRb != null)
                 {
                     heldRb.linearVelocity = Vector3.zero;
-heldRb.angularVelocity = Vector3.zero;
-heldRb.useGravity = false;
-heldRb.isKinematic = true;
+                    heldRb.angularVelocity = Vector3.zero;
+                    heldRb.useGravity = false;
+                    heldRb.isKinematic = true;
                 }
 
                 heldObject.transform.SetParent(holdPoint);
                 heldObject.transform.localPosition = Vector3.zero;
                 heldObject.transform.localRotation = Quaternion.identity;
+
+                if (animator != null)
+                {
+                    animator.SetBool("IsHolding", true);
+                }
             }
         }
     }
@@ -78,6 +78,11 @@ heldRb.isKinematic = true;
             heldRb.angularVelocity = Vector3.zero;
 
             heldRb.AddForce(playerCamera.transform.forward * dropForwardForce, ForceMode.Impulse);
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("IsHolding", false);
         }
 
         heldObject = null;
