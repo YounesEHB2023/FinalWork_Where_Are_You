@@ -49,14 +49,7 @@ public class InventorySystem : MonoBehaviour
                 SelectSlot(2);
         }
 
-        if (Gamepad.current != null)
-        {
-            if (Gamepad.current.dpad.right.wasPressedThisFrame)
-                SelectNextSlot();
 
-            if (Gamepad.current.dpad.left.wasPressedThisFrame)
-                SelectPreviousSlot();
-        }
     }
 
     void DetectInputDevice()

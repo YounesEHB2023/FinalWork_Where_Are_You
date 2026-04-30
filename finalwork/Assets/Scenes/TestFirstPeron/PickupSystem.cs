@@ -30,54 +30,52 @@ public class PickupSystem : MonoBehaviour
     }
 
     void HandleInventorySelection()
-{
-    if (inventory == null) return;
-
-    if (Keyboard.current != null)
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            SwitchToInventoryItem(0);
+        if (inventory == null) return;
 
-        if (Keyboard.current.digit2Key.wasPressedThisFrame)
-            SwitchToInventoryItem(1);
-
-        if (Keyboard.current.digit3Key.wasPressedThisFrame)
-            SwitchToInventoryItem(2);
-    }
-
-    if (Gamepad.current != null)
-    {
-        if (Gamepad.current.dpad.left.wasPressedThisFrame || Gamepad.current.dpad.right.wasPressedThisFrame)
+        if (Keyboard.current != null)
         {
-            GameObject selectedItem = inventory.GetSelectedItem();
+            if (Keyboard.current.digit1Key.wasPressedThisFrame) SwitchToInventoryItem(0);
+            if (Keyboard.current.digit2Key.wasPressedThisFrame) SwitchToInventoryItem(1);
+            if (Keyboard.current.digit3Key.wasPressedThisFrame) SwitchToInventoryItem(2);
+        }
 
-            if (selectedItem != null)
-                HoldInventoryItem(selectedItem);
-            else
-                HideHeldObject();
+        if (Gamepad.current != null)
+        {
+            if (Gamepad.current.dpad.right.wasPressedThisFrame)
+            {
+                inventory.SelectNextSlot();
+                SyncHandWithSelectedSlot();
+            }
+
+            if (Gamepad.current.dpad.left.wasPressedThisFrame)
+            {
+                inventory.SelectPreviousSlot();
+                SyncHandWithSelectedSlot();
+            }
         }
     }
-}
 
-void SwitchToInventoryItem(int slotIndex)
-{
-    if (inventory == null) return;
+    void SwitchToInventoryItem(int slotIndex)
+    {
+        inventory.SelectSlot(slotIndex);
+        SyncHandWithSelectedSlot();
+    }
 
-    inventory.SelectSlot(slotIndex);
+    void SyncHandWithSelectedSlot()
+    {
+        GameObject selectedItem = inventory.GetSelectedItem();
 
-    GameObject selectedItem = inventory.GetSelectedItem();
-
-    if (selectedItem != null)
-        HoldInventoryItem(selectedItem);
-    else
-        HideHeldObject();
-}
+        if (selectedItem != null)
+            HoldInventoryItem(selectedItem);
+        else
+            HideHeldObject();
+    }
 
     bool PressedInteract()
     {
         bool keyboardPressed = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
         bool controllerPressed = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
-
         return keyboardPressed || controllerPressed;
     }
 
@@ -146,6 +144,9 @@ void SwitchToInventoryItem(int slotIndex)
 
         heldObject = null;
         heldRb = null;
+
+        if (animator != null)
+            animator.SetBool("IsHolding", false);
     }
 
     void DropHeldObject()
@@ -164,10 +165,8 @@ void SwitchToInventoryItem(int slotIndex)
         {
             heldRb.isKinematic = false;
             heldRb.useGravity = true;
-
             heldRb.linearVelocity = Vector3.zero;
             heldRb.angularVelocity = Vector3.zero;
-
             heldRb.AddForce(playerCamera.transform.forward * dropForwardForce, ForceMode.Impulse);
         }
 
