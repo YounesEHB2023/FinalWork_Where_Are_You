@@ -9,8 +9,8 @@ public class InventorySystem : MonoBehaviour
     public Image[] itemIcons;
 
     [Header("Input UI")]
-    public GameObject[] keyboardKeys; // Key1, Key2, Key3
-    public GameObject[] controllerArrows; // ArrowLeft, ArrowRight
+    public GameObject[] keyboardKeys;
+    public GameObject[] controllerArrows;
 
     public Color selectedColor = Color.white;
     public Color normalColor = new Color(1f, 1f, 1f, 0.35f);
@@ -25,7 +25,8 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         items = new GameObject[maxSlots];
-SetInputUI(true);        UpdateUI();
+        SetInputUI(true);
+        UpdateUI();
     }
 
     void Update()
@@ -36,7 +37,6 @@ SetInputUI(true);        UpdateUI();
 
     void HandleSelection()
     {
-        // Keyboard selection
         if (Keyboard.current != null)
         {
             if (Keyboard.current.digit1Key.wasPressedThisFrame)
@@ -49,7 +49,6 @@ SetInputUI(true);        UpdateUI();
                 SelectSlot(2);
         }
 
-        // Controller navigation
         if (Gamepad.current != null)
         {
             if (Gamepad.current.dpad.right.wasPressedThisFrame)
@@ -72,19 +71,11 @@ SetInputUI(true);        UpdateUI();
                 SetInputUI(true);
         }
 
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.anyKey.wasPressedThisFrame)
-                SetInputUI(false);
-        }
+        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+            SetInputUI(false);
 
-    if (Mouse.current != null)
-{
-    if (Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
-    {
-        SetInputUI(false);
-    }
-}
+        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+            SetInputUI(false);
     }
 
     void SetInputUI(bool controller)
@@ -134,46 +125,52 @@ SetInputUI(true);        UpdateUI();
         UpdateUI();
     }
 
-    public bool AddItemToSelectedSlot(GameObject item, Sprite icon)
-    {
-        return AddItemToSlot(currentIndex, item, icon);
-    }
-
-    public bool AddItemToSlot(int slotIndex, GameObject item, Sprite icon)
-    {
-        if (slotIndex < 0 || slotIndex >= maxSlots) return false;
-        if (items[slotIndex] != null) return false;
-
-        items[slotIndex] = item;
-
-        if (itemIcons[slotIndex] != null)
-        {
-            itemIcons[slotIndex].sprite = icon;
-            itemIcons[slotIndex].enabled = true;
-        }
-
-        SelectSlot(slotIndex);
-        UpdateUI();
-
-        return true;
-    }
-
     public GameObject GetSelectedItem()
     {
         return items[currentIndex];
     }
 
-    public void RemoveSelectedItem()
+    public bool AddItemToFirstEmptySlot(GameObject item, Sprite icon)
     {
-        items[currentIndex] = null;
-
-        if (itemIcons[currentIndex] != null)
+        for (int i = 0; i < maxSlots; i++)
         {
-            itemIcons[currentIndex].sprite = null;
-            itemIcons[currentIndex].enabled = false;
+            if (items[i] == null)
+            {
+                items[i] = item;
+
+                if (itemIcons[i] != null)
+                {
+                    itemIcons[i].sprite = icon;
+                    itemIcons[i].enabled = true;
+                }
+
+                SelectSlot(i);
+                UpdateUI();
+                return true;
+            }
         }
 
-        UpdateUI();
+        return false;
+    }
+
+    public void RemoveItem(GameObject item)
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if (items[i] == item)
+            {
+                items[i] = null;
+
+                if (itemIcons[i] != null)
+                {
+                    itemIcons[i].sprite = null;
+                    itemIcons[i].enabled = false;
+                }
+
+                UpdateUI();
+                return;
+            }
+        }
     }
 
     void UpdateUI()
