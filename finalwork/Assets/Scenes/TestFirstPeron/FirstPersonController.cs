@@ -13,12 +13,14 @@ public class FirstPersonController : MonoBehaviour
     public float controllerLookSensitivity = 120f;
 
     private CharacterController controller;
+    private Animator animator;
     private Vector3 velocity;
     private float xRotation = 0f;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -55,6 +57,12 @@ public class FirstPersonController : MonoBehaviour
         }
 
         moveInput = Vector2.ClampMagnitude(moveInput, 1f);
+
+        if (animator != null)
+        {
+            float speed = moveInput.magnitude;
+            animator.SetFloat("Speed", speed);
+        }
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * moveSpeed * Time.deltaTime);
