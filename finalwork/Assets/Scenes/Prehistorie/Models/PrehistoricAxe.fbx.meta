@@ -5,30 +5,45 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Artifical plastic stem
+    second: {fileID: 2100000, guid: 005b63e55e8950c4f9f26a209cfdaf2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carved wood.001
+    second: {fileID: 2100000, guid: 2c3fa3094f653de43a53d38d70e47ae6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone.001
+    second: {fileID: 2100000, guid: 0af562b37c165bf479e68a40c02ff9f3, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Carved wood _BaseColor
-    second: {fileID: 2800000, guid: 3ca58c2ee16f8cb448de3333ed14e8f0, type: 3}
+    second: {fileID: 2800000, guid: 8f19b5527de2a7746823e72e34b5f6ce, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Carved wood _Normal
-    second: {fileID: 2800000, guid: adbaeb21d4e7d7340aa3b2dbe07f0438, type: 3}
+    second: {fileID: 2800000, guid: e908be711a1f8dc44a0d357da24c1e47, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Carved wood _Roughness
-    second: {fileID: 2800000, guid: 2a96c340e604f81478edb4458db7880a, type: 3}
+    second: {fileID: 2800000, guid: 91d21aeb6b754174f80381edd6085331, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: stone-9_diffuse
-    second: {fileID: 2800000, guid: 824015eee2cd08c48ae6aaa971ecbfae, type: 3}
+    second: {fileID: 2800000, guid: 5f5e8d0688f0085478a6d75896acdb03, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: stone-9_smooth
-    second: {fileID: 2800000, guid: 6bb3fe9a5357fb5458d50ac6bece5dd4, type: 3}
+    second: {fileID: 2800000, guid: 6a1287c47476f9e44a2f35fb6c9404c0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
