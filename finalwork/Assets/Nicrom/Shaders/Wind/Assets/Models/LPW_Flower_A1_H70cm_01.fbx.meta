@@ -35,7 +35,7 @@ ModelImporter:
       name: NHP_TextureAtlas_01
     second: {fileID: 2100000, guid: 6de86618255b12e4fb08a19417e83f11, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
