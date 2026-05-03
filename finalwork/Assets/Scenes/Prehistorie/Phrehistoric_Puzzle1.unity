@@ -119,6 +119,112 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &34260093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34260095}
+  - component: {fileID: 34260094}
+  m_Layer: 0
+  m_Name: Rock_Collider (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &34260094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34260093}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.7386923}
+  m_Center: {x: -0.0000000018201459, y: 6.9860837e-16, z: 0.36934158}
+--- !u!4 &34260095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34260093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000020364745, y: -0.2666502, z: 0.000000012386886, w: 0.9637934}
+  m_LocalPosition: {x: -32.679817, y: -0.32636, z: 2.362421}
+  m_LocalScale: {x: 4.5307393, y: 5.309782, z: 3.0459366}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -30.93, z: 0}
+--- !u!1 &40722246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 40722248}
+  - component: {fileID: 40722247}
+  m_Layer: 0
+  m_Name: Rock_Collider (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &40722247
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40722246}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2.8486073}
+  m_Center: {x: -0.0000000017085873, y: -3.8996052e-16, z: 0.92429787}
+--- !u!4 &40722248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40722246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023723235, y: 0.17824809, z: 0.0000000023166224, w: 0.9839856}
+  m_LocalPosition: {x: -34.887638, y: -0.32636, z: 14.92772}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 1.6567409}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 20.535, z: 0}
 --- !u!1001 &52629789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,6 +294,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2896a4832c1fe84f82ec5e46d3dd9ac, type: 3}
+--- !u!1 &57042330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57042332}
+  - component: {fileID: 57042331}
+  m_Layer: 0
+  m_Name: Rock_Collider (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &57042331
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57042330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &57042332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57042330}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023714682, y: 0.17463566, z: 0.0000000024037108, w: 0.98463315}
+  m_LocalPosition: {x: -4.4096403, y: -0.32636, z: 48.03072}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.6036202}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 20.115, z: 0}
 --- !u!1001 &67877762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -875,6 +1034,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2303019701552218797, guid: 0860427e5e2c9ff4eb5fb0df4532c4d1, type: 3}
   m_PrefabInstance: {fileID: 161503631}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &172272937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172272939}
+  - component: {fileID: 172272938}
+  m_Layer: 0
+  m_Name: Rock_Collider (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &172272938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172272937}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &172272939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172272937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000002337191, y: 0.456662, z: -0.000000004681533, w: 0.8896403}
+  m_LocalPosition: {x: -27.17164, y: -0.32636, z: 34.07872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.865934}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 54.344, z: 0}
 --- !u!1001 &196568904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1018,6 +1230,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1458940168546055097, guid: 967b6a4dedfb5424f8c3a056595dab0e, type: 3}
   m_PrefabInstance: {fileID: 204878655}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &210666222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210666224}
+  - component: {fileID: 210666223}
+  m_Layer: 0
+  m_Name: Rock_Collider (27)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &210666223
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210666222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 14.110068}
+  m_Center: {x: 0.0000016309277, y: -3.144443e-15, z: 6.5550694}
+--- !u!4 &210666224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210666222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000021149258, y: 0.68597525, z: -0.000000010994207, w: 0.7276249}
+  m_LocalPosition: {x: 2.03836, y: -0.32636, z: 55.51872}
+  m_LocalScale: {x: 4.5307407, y: 5.309782, z: 0.60362035}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 86.625, z: 0}
 --- !u!1001 &218388971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1166,6 +1431,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2432962793492408293, guid: 7cb1a6b5b01d08b449d57dfddf54dd44, type: 3}
   m_PrefabInstance: {fileID: 261121498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &234772734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234772736}
+  - component: {fileID: 234772735}
+  m_Layer: 0
+  m_Name: Rock_Collider (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &234772735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234772734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &234772736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234772734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000017622774, y: 0.8496245, z: -0.000000016049947, w: 0.52738816}
+  m_LocalPosition: {x: -16.99164, y: -0.32636, z: 44.03872}
+  m_LocalScale: {x: 4.530739, y: 5.309782, z: 0.7613838}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 116.342, z: 0}
 --- !u!1001 &236569534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1240,6 +1558,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2867666076394792830, guid: 6b03fd5ce97ca2449b3b9a92cfce1ec5, type: 3}
   m_PrefabInstance: {fileID: 236569534}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &239011620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239011622}
+  - component: {fileID: 239011621}
+  m_Layer: 0
+  m_Name: Rock_Collider (31)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &239011621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239011620}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 6.168331}
+  m_Center: {x: 0.0000033631952, y: -5.9389503e-16, z: 2.584191}
+--- !u!4 &239011622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239011620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000022363617, y: 0.5890617, z: -0.000000008248301, w: 0.8080881}
+  m_LocalPosition: {x: 23.66836, y: -0.32636, z: 41.96872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.6036202}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 72.181, z: 0}
 --- !u!1001 &250008205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1666,6 +2037,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2795996539215933563, guid: b2981534d2ac4244fafb153e0cb4c9c2, type: 3}
   m_PrefabInstance: {fileID: 281736957}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &298236062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 298236064}
+  - component: {fileID: 298236063}
+  m_Layer: 0
+  m_Name: Rock_Collider (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &298236063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298236062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &298236064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298236062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023792477, y: 0.330748, z: -0.0000000014423092, w: 0.9437192}
+  m_LocalPosition: {x: -31.88164, y: -0.32636, z: 26.568722}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.34190154}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 38.628, z: 0}
 --- !u!4 &317871122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7346818648503330275, guid: 0b7c39db641be5044ab85ba9f56a629a, type: 3}
@@ -1745,6 +2169,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8056542487826966525, guid: c65625e040ac42e46ba4222b69c41558, type: 3}
   m_PrefabInstance: {fileID: 321651832}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &333678417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333678419}
+  - component: {fileID: 333678418}
+  m_Layer: 0
+  m_Name: Rock_Collider (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &333678418
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333678417}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &333678419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333678417}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6800109, z: -0, w: 0.73320204}
+  m_LocalPosition: {x: -25.59164, y: -0.32636, z: -2.49428}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 3.0459366}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -85.689, z: 0}
 --- !u!1001 &350853672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1972,6 +2449,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2432962793492408293, guid: 7cb1a6b5b01d08b449d57dfddf54dd44, type: 3}
   m_PrefabInstance: {fileID: 374008963}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &381024612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381024614}
+  - component: {fileID: 381024613}
+  m_Layer: 0
+  m_Name: Rock_Collider (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &381024613
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381024612}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 5.9173126}
+  m_Center: {x: -0.000000010531298, y: 0, z: 2.6428645}
+--- !u!4 &381024614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381024612}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7729787, z: -0, w: 0.6344321}
+  m_LocalPosition: {x: -17.42164, y: -0.32636, z: -2.45128}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 1.0036913}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -101.244, z: 0}
 --- !u!1001 &383603837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2051,6 +2581,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2872b4d778e05e84eb8d278895499005, type: 3}
   m_PrefabInstance: {fileID: 1751303511}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &412764649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412764651}
+  - component: {fileID: 412764650}
+  m_Layer: 0
+  m_Name: Rock_Collider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &412764650
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412764649}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.5260166}
+  m_Center: {x: -5.825214e-14, y: 0, z: 0.26301533}
+--- !u!4 &412764651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412764649}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: -12.489639, y: -0.32636, z: -2.45128}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 5.1268897}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &416349899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2182,6 +2765,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 281377bfe8540f94abcdc1c3b71b1027, type: 3}
+--- !u!1 &424970266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 424970268}
+  - component: {fileID: 424970267}
+  m_Layer: 0
+  m_Name: Rock_Collider (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &424970267
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424970266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &424970268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424970266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023767416, y: 0.3452612, z: -0.0000000018090259, w: 0.9385067}
+  m_LocalPosition: {x: -29.261639, y: -0.32636, z: 31.718721}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.34190154}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 40.395, z: 0}
 --- !u!1001 &430774885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2384,6 +3020,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8330993167897965512, guid: f79bf6d7cd8d5164d867549a13646b2e, type: 3}
   m_PrefabInstance: {fileID: 916957419}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &453316310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453316312}
+  - component: {fileID: 453316311}
+  m_Layer: 0
+  m_Name: Rock_Collider (43)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &453316311
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453316310}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &453316312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453316310}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000014781244, y: 0.5853899, z: -0.00000001869989, w: -0.810752}
+  m_LocalPosition: {x: 28.93836, y: -1.02436, z: 13.40472}
+  m_LocalScale: {x: 3.1693568, y: 3.7143147, z: 0.16510554}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 288.339, z: 0}
 --- !u!1001 &459574517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2621,6 +3310,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6078717020997988488, guid: f4b79a7031b5c86419d3d72d1a125974, type: 3}
   m_PrefabInstance: {fileID: 911744352}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &524443419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524443420}
+  m_Layer: 0
+  m_Name: Wall_Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &524443420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524443419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.05164, y: 2.82636, z: 0.05128}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 558316944}
+  - {fileID: 1268655598}
+  - {fileID: 412764651}
+  - {fileID: 381024614}
+  - {fileID: 1959586838}
+  - {fileID: 333678419}
+  - {fileID: 1354482522}
+  - {fileID: 34260095}
+  - {fileID: 1482616448}
+  - {fileID: 631446359}
+  - {fileID: 1252694622}
+  - {fileID: 40722248}
+  - {fileID: 699304246}
+  - {fileID: 1044669036}
+  - {fileID: 298236064}
+  - {fileID: 1233675067}
+  - {fileID: 424970268}
+  - {fileID: 172272939}
+  - {fileID: 1589649002}
+  - {fileID: 1139784521}
+  - {fileID: 980763591}
+  - {fileID: 234772736}
+  - {fileID: 2114742239}
+  - {fileID: 1367674050}
+  - {fileID: 2122921636}
+  - {fileID: 57042332}
+  - {fileID: 873358266}
+  - {fileID: 210666224}
+  - {fileID: 1689235340}
+  - {fileID: 1262537547}
+  - {fileID: 2125525390}
+  - {fileID: 239011622}
+  - {fileID: 1996446336}
+  - {fileID: 1705108459}
+  - {fileID: 1529767868}
+  - {fileID: 1106476935}
+  - {fileID: 1759876293}
+  - {fileID: 2114115275}
+  - {fileID: 641556127}
+  - {fileID: 901257694}
+  - {fileID: 1680762144}
+  - {fileID: 1035778922}
+  - {fileID: 2128189692}
+  - {fileID: 453316312}
+  - {fileID: 2047474864}
+  - {fileID: 1471617665}
+  - {fileID: 1852843584}
+  - {fileID: 1607423306}
+  - {fileID: 1701975977}
+  - {fileID: 1714738025}
+  - {fileID: 1895549961}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &530380085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2769,6 +3540,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6302772272124599505, guid: 8b2f7789077f69f458e3919626d6ea22, type: 3}
   m_PrefabInstance: {fileID: 531651161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &558316942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558316944}
+  - component: {fileID: 558316943}
+  m_Layer: 0
+  m_Name: Rock_Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &558316943
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558316942}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &558316944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558316942}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: -2.56164, y: -0.32636, z: -4.72128}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 5.1268897}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &567297810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3153,6 +3977,112 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &631446357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 631446359}
+  - component: {fileID: 631446358}
+  m_Layer: 0
+  m_Name: Rock_Collider (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &631446358
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631446357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.7386923}
+  m_Center: {x: -0.0000000018201459, y: 6.9860837e-16, z: 0.36934158}
+--- !u!4 &631446359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631446357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000022993099, y: 0.009806888, z: 0.0000000062829497, w: 0.9999519}
+  m_LocalPosition: {x: -35.41464, y: -0.32636, z: 8.68972}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 1.6567409}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 1.124, z: 0}
+--- !u!1 &641556125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641556127}
+  - component: {fileID: 641556126}
+  m_Layer: 0
+  m_Name: Rock_Collider (38)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &641556126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641556125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &641556127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641556125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000006454252, y: 0.99999726, z: -0.000000022945873, w: -0.0023507485}
+  m_LocalPosition: {x: 42.95836, y: -0.32636, z: 27.058722}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.23602584}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.269, z: 0}
 --- !u!1001 &657670151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3289,6 +4219,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6746069374164437266, guid: 21440718d3f07344e841a649af5745d8, type: 3}
   m_PrefabInstance: {fileID: 686115327}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &699304244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 699304246}
+  - component: {fileID: 699304245}
+  m_Layer: 0
+  m_Name: Rock_Collider (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &699304245
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699304244}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &699304246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699304244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000002330573, y: 0.0651584, z: 0.000000005000214, w: 0.9978749}
+  m_LocalPosition: {x: -33.69764, y: -0.32636, z: 18.12672}
+  m_LocalScale: {x: 4.5307393, y: 5.309782, z: 0.899812}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 7.472, z: 0}
 --- !u!4 &704724010 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8456163508287764369, guid: daafbb87391e0b440aad7fe56d9ebe18, type: 3}
@@ -3929,6 +4912,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2432962793492408293, guid: 7cb1a6b5b01d08b449d57dfddf54dd44, type: 3}
   m_PrefabInstance: {fileID: 849125729}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &873358264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873358266}
+  - component: {fileID: 873358265}
+  m_Layer: 0
+  m_Name: Rock_Collider (26)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &873358265
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873358264}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &873358266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873358264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023294694, y: 0.47072226, z: -0.0000000050518234, w: 0.8822815}
+  m_LocalPosition: {x: -2.64164, y: -0.32636, z: 52.65872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.60362023}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 56.162, z: 0}
 --- !u!1001 &873665901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4003,6 +5039,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2944761154231371293, guid: f1490f935f799e74082ef3bbab506c4c, type: 3}
   m_PrefabInstance: {fileID: 2087819461}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &901257692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 901257694}
+  - component: {fileID: 901257693}
+  m_Layer: 0
+  m_Name: Rock_Collider (39)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &901257693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901257692}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &901257694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901257692}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000019143553, y: 0.93696815, z: -0.000000023759332, w: -0.34941494}
+  m_LocalPosition: {x: 43.71536, y: -0.32636, z: 21.19572}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.23602584}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 220.903, z: 0}
 --- !u!1001 &911744352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4475,6 +5564,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21a773186cca17b4792a72b556c124d5, type: 3}
+--- !u!1 &980763589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980763591}
+  - component: {fileID: 980763590}
+  m_Layer: 0
+  m_Name: Rock_Collider (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &980763590
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980763589}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &980763591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980763589}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000002253619, y: 0.57150275, z: -0.0000000077642035, w: 0.82060015}
+  m_LocalPosition: {x: -20.21164, y: -0.32636, z: 43.23872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.38250124}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 69.71, z: 0}
 --- !u!1001 &1015219731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4562,7 +5704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6302772272124599505, guid: 8b2f7789077f69f458e3919626d6ea22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.44
+      value: -12.64
       objectReference: {fileID: 0}
     - target: {fileID: 6302772272124599505, guid: 8b2f7789077f69f458e3919626d6ea22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4801,6 +5943,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2022053647068728890, guid: 87123ac33e4f0f04bacc28c3d2dcb0f6, type: 3}
   m_PrefabInstance: {fileID: 1026030010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1035778920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035778922}
+  - component: {fileID: 1035778921}
+  m_Layer: 0
+  m_Name: Rock_Collider (41)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1035778921
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035778920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1035778922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035778920}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000079058236, y: 0.8169915, z: -0.000000022487086, w: -0.5766497}
+  m_LocalPosition: {x: 36.56836, y: -0.32636, z: 14.90872}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.23602584}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 250.43, z: 0}
 --- !u!1001 &1039194817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4937,6 +6132,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8056542487826966525, guid: c65625e040ac42e46ba4222b69c41558, type: 3}
   m_PrefabInstance: {fileID: 1041726768}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1044669034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044669036}
+  - component: {fileID: 1044669035}
+  m_Layer: 0
+  m_Name: Rock_Collider (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1044669035
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044669034}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &1044669036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044669034}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023799283, y: 0.21915103, z: 0.0000000013247339, w: 0.97569096}
+  m_LocalPosition: {x: -32.96164, y: -0.32636, z: 23.91872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.34190154}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 25.318, z: 0}
 --- !u!1001 &1066755324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5368,6 +6616,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8056542487826966525, guid: c65625e040ac42e46ba4222b69c41558, type: 3}
   m_PrefabInstance: {fileID: 1105288312}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1106476933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106476935}
+  - component: {fileID: 1106476934}
+  m_Layer: 0
+  m_Name: Rock_Collider (35)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1106476934
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106476933}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1106476935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106476933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000128989806, y: 0.95672804, z: -0.00000002004458, w: 0.29098362}
+  m_LocalPosition: {x: 39.45536, y: -0.32636, z: 44.73272}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.42494255}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 146.166, z: 0}
 --- !u!1 &1106596921
 GameObject:
   m_ObjectHideFlags: 0
@@ -5404,6 +6705,59 @@ Transform:
   - {fileID: 1185635805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1139784519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139784521}
+  - component: {fileID: 1139784520}
+  m_Layer: 0
+  m_Name: Rock_Collider (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1139784520
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139784519}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &1139784521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139784519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023647269, y: 0.15000597, z: 0.000000002994839, w: 0.98868513}
+  m_LocalPosition: {x: -21.79164, y: -0.32636, z: 39.888718}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.38250124}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.255, z: 0}
 --- !u!1 &1155911717
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,6 +7353,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2432962793492408293, guid: 7cb1a6b5b01d08b449d57dfddf54dd44, type: 3}
   m_PrefabInstance: {fileID: 1224921866}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1233675065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233675067}
+  - component: {fileID: 1233675066}
+  m_Layer: 0
+  m_Name: Rock_Collider (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1233675066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233675065}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &1233675067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233675065}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023570514, y: 0.12677303, z: 0.000000003548708, w: 0.9919318}
+  m_LocalPosition: {x: -30.42164, y: -0.32636, z: 28.18872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.34190154}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 14.566, z: 0}
 --- !u!1001 &1243608218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6056,16 +7463,175 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8592ae1c51f03e4a8f78ce59a6433b9, type: 3}
+--- !u!1 &1252694620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252694622}
+  - component: {fileID: 1252694621}
+  m_Layer: 0
+  m_Name: Rock_Collider (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1252694621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252694620}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.7386923}
+  m_Center: {x: -0.0000000018201459, y: 6.9860837e-16, z: 0.36934158}
+--- !u!4 &1252694622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252694620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023334275, y: 0.070934206, z: 0.000000004865197, w: 0.99748105}
+  m_LocalPosition: {x: -35.51864, y: -0.32636, z: 12.07372}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 1.6567411}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 8.135, z: 0}
 --- !u!4 &1256879155 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6684772291652248340, guid: 2510962d06f613b43a444e7178ccd6ec, type: 3}
   m_PrefabInstance: {fileID: 2066078381}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1262537545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1262537547}
+  - component: {fileID: 1262537546}
+  m_Layer: 0
+  m_Name: Rock_Collider (29)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1262537546
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262537545}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 15.125275}
+  m_Center: {x: 0.000007061095, y: -5.2525095e-16, z: 7.0626755}
+--- !u!4 &1262537547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262537545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000011506914, y: 0.9742917, z: -0.000000020874772, w: 0.22529064}
+  m_LocalPosition: {x: 13.822983, y: -0.32636, z: 53.462727}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.60362023}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 153.96, z: 0}
 --- !u!4 &1268474093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6985333857372317176, guid: 1f761016c03a561418ff210aec563e01, type: 3}
   m_PrefabInstance: {fileID: 873665901}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1268655596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1268655598}
+  - component: {fileID: 1268655597}
+  m_Layer: 0
+  m_Name: Rock_Collider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1268655597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268655596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.1145518}
+  m_Center: {x: 2.1719343e-10, y: -8.9752e-18, z: 0.03280639}
+--- !u!4 &1268655598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268655596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000001433244, y: -0.6949807, z: 0.0000000014332507, w: 0.7190285}
+  m_LocalPosition: {x: -7.26164, y: -0.32636, z: -2.46128}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 5.1268907}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -88.051, z: 0}
 --- !u!4 &1277545728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8758888183437201531, guid: 2caeb99d3229fee4aa4f3bc8c1c8fc07, type: 3}
@@ -6150,6 +7716,112 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6302772272124599505, guid: 8b2f7789077f69f458e3919626d6ea22, type: 3}
   m_PrefabInstance: {fileID: 1325379353}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1354482520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354482522}
+  - component: {fileID: 1354482521}
+  m_Layer: 0
+  m_Name: Rock_Collider (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1354482521
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354482520}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.7386923}
+  m_Center: {x: -0.0000000018201459, y: 6.9860837e-16, z: 0.36934158}
+--- !u!4 &1354482522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354482520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000017436045, y: -0.4562079, z: 0.000000016252432, w: 0.8898732}
+  m_LocalPosition: {x: -29.09064, y: -0.32636, z: -1.19228}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 3.045937}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -54.285, z: 0}
+--- !u!1 &1367674048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367674050}
+  - component: {fileID: 1367674049}
+  m_Layer: 0
+  m_Name: Rock_Collider (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1367674049
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367674048}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &1367674050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367674048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000002381946, y: 0.23682496, z: 8.925429e-10, w: 0.9715524}
+  m_LocalPosition: {x: -6.94664, y: -0.32636, z: 38.80872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.6036201}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 27.398, z: 0}
 --- !u!4 &1375672427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2133605142156051597, guid: 7b4c5b02ac7505146a6aca6d77ac96f8, type: 3}
@@ -6234,6 +7906,112 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1193783450547537039, guid: db907286f5ae1d5498c4f2ab90c984f2, type: 3}
   m_PrefabInstance: {fileID: 1649901065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1471617663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1471617665}
+  - component: {fileID: 1471617664}
+  m_Layer: 0
+  m_Name: Rock_Collider (45)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1471617664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471617663}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.9415722, y: 1, z: 23.712072}
+  m_Center: {x: -0.97075975, y: -1.5622152e-15, z: 11.356037}
+--- !u!4 &1471617665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471617663}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000013361443, y: 0.64360535, z: -0.000000019739375, w: -0.7653576}
+  m_LocalPosition: {x: 25.844654, y: -0.90235996, z: 13.463326}
+  m_LocalScale: {x: 3.1693566, y: 3.7143147, z: 0.117461}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 279.878, z: 0}
+--- !u!1 &1482616446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482616448}
+  - component: {fileID: 1482616447}
+  m_Layer: 0
+  m_Name: Rock_Collider (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1482616447
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482616446}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1.7386923}
+  m_Center: {x: -0.0000000018201459, y: 6.9860837e-16, z: 0.36934158}
+--- !u!4 &1482616448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482616446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000021717852, y: -0.14767714, z: 0.000000009823071, w: 0.98903567}
+  m_LocalPosition: {x: -34.44164, y: -0.32636, z: 5.36072}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 2.3374217}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -16.985, z: 0}
 --- !u!4 &1483447750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6985333857372317176, guid: 1f761016c03a561418ff210aec563e01, type: 3}
@@ -6428,6 +8206,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7346818648503330275, guid: 0b7c39db641be5044ab85ba9f56a629a, type: 3}
   m_PrefabInstance: {fileID: 1529059564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1529767866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529767868}
+  - component: {fileID: 1529767867}
+  m_Layer: 0
+  m_Name: Rock_Collider (34)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1529767867
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529767866}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1529767868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529767866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000020486599, y: 0.72642803, z: -0.000000012184691, w: 0.6872426}
+  m_LocalPosition: {x: 34.598362, y: -0.32636, z: 43.23872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.42494252}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 93.176, z: 0}
 --- !u!1001 &1546478949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6665,6 +8496,112 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3133429536944118060, guid: 25cb56d59f80f614b9da0e9a36c48a05, type: 3}
   m_PrefabInstance: {fileID: 250059726}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1589649000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1589649002}
+  - component: {fileID: 1589649001}
+  m_Layer: 0
+  m_Name: Rock_Collider (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1589649001
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589649000}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &1589649002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589649000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023609408, y: 0.13806938, z: 0.000000003279859, w: 0.99042255}
+  m_LocalPosition: {x: -22.04164, y: -0.32636, z: 37.09872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.2760944}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 15.872, z: 0}
+--- !u!1 &1607423304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607423306}
+  - component: {fileID: 1607423305}
+  m_Layer: 0
+  m_Name: Rock_Collider (47)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1607423305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607423304}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.9415722, y: 1, z: 23.712072}
+  m_Center: {x: -0.97075975, y: -1.5622152e-15, z: 11.356037}
+--- !u!4 &1607423306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607423304}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.00000002072246, y: 0.23802917, z: -0.000000011779305, w: -0.971258}
+  m_LocalPosition: {x: 20.068361, y: -0.90235996, z: -1.58128}
+  m_LocalScale: {x: 1.3065356, y: 3.7143147, z: 0.11746101}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 332.45898, z: 0}
 --- !u!4 &1629543283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5256502316315743897, guid: 84ac3c1583057704ba2edd3e03ffa58d, type: 3}
@@ -6796,6 +8733,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed0b8e086b242614eb217cf1475dfbac, type: 3}
+--- !u!1 &1680762142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680762144}
+  - component: {fileID: 1680762143}
+  m_Layer: 0
+  m_Name: Rock_Collider (40)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1680762143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680762142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1680762144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680762142}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000047149005, y: 0.8889889, z: -0.00000002336537, w: -0.45792875}
+  m_LocalPosition: {x: 40.278362, y: -0.32636, z: 17.298721}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.23602584}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 234.507, z: 0}
 --- !u!1001 &1681936111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6932,6 +8922,218 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8056542487826966525, guid: c65625e040ac42e46ba4222b69c41558, type: 3}
   m_PrefabInstance: {fileID: 1688149121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1689235338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689235340}
+  - component: {fileID: 1689235339}
+  m_Layer: 0
+  m_Name: Rock_Collider (28)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1689235339
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689235338}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 14.110068}
+  m_Center: {x: 0.0000016309277, y: -3.144443e-15, z: 6.5550694}
+--- !u!4 &1689235340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689235338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000017784581, y: 0.8442354, z: -0.000000015870503, w: 0.53597265}
+  m_LocalPosition: {x: 7.8903604, y: -0.32636, z: 56.36472}
+  m_LocalScale: {x: 4.5307393, y: 5.309782, z: 0.60362005}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 115.18, z: 0}
+--- !u!1 &1701975975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701975977}
+  - component: {fileID: 1701975976}
+  m_Layer: 0
+  m_Name: Rock_Collider (48)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1701975976
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701975975}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.6828966, y: 1, z: 23.71207}
+  m_Center: {x: -3.341416, y: 1.9985889e-15, z: 11.356038}
+--- !u!4 &1701975977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701975975}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.00000002240425, y: 0.0717951, z: -0.0000000081377145, w: -0.9974194}
+  m_LocalPosition: {x: 17.153286, y: -0.90235996, z: -2.82128}
+  m_LocalScale: {x: 1.3065356, y: 3.7143147, z: 0.11746102}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 351.766, z: 0}
+--- !u!1 &1705108457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705108459}
+  - component: {fileID: 1705108458}
+  m_Layer: 0
+  m_Name: Rock_Collider (33)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1705108458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705108457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1705108459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705108457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000002151764, y: 0.66034544, z: -0.000000010254672, w: 0.750962}
+  m_LocalPosition: {x: 29.15836, y: -0.32636, z: 42.27872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.6036201}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 82.652, z: 0}
+--- !u!1 &1714738023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714738025}
+  - component: {fileID: 1714738024}
+  m_Layer: 0
+  m_Name: Rock_Collider (49)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1714738024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714738023}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.447879, y: 1, z: 23.71207}
+  m_Center: {x: -4.2239075, y: 2.2958434e-15, z: 11.356047}
+--- !u!4 &1714738025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714738023}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000023167633, y: -0.03910244, z: -0.0000000056065765, w: -0.9992352}
+  m_LocalPosition: {x: 11.458361, y: -0.90235996, z: -3.42128}
+  m_LocalScale: {x: 1.3065356, y: 3.7143147, z: 0.117461}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 364.482, z: 0}
 --- !u!1001 &1746771451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7063,6 +9265,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2872b4d778e05e84eb8d278895499005, type: 3}
+--- !u!1 &1759876291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1759876293}
+  - component: {fileID: 1759876292}
+  m_Layer: 0
+  m_Name: Rock_Collider (36)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1759876292
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759876291}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &1759876293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759876291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000069119954, y: 0.9998442, z: -0.000000022812143, w: 0.017655019}
+  m_LocalPosition: {x: 44.49936, y: -0.32636, z: 37.97072}
+  m_LocalScale: {x: 4.530739, y: 5.309782, z: 0.42494243}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 177.977, z: 0}
 --- !u!1001 &1760103163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7525,6 +9780,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7346818648503330275, guid: 0b7c39db641be5044ab85ba9f56a629a, type: 3}
   m_PrefabInstance: {fileID: 1848563100}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1852843582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852843584}
+  - component: {fileID: 1852843583}
+  m_Layer: 0
+  m_Name: Rock_Collider (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1852843583
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852843582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.9415722, y: 1, z: 23.712072}
+  m_Center: {x: -0.97075975, y: -1.5622152e-15, z: 11.356037}
+--- !u!4 &1852843584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852843582}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000015540142, y: 0.5514432, z: -0.000000018074168, w: -0.8342125}
+  m_LocalPosition: {x: 23.978361, y: -0.90235996, z: 5.35872}
+  m_LocalScale: {x: 3.1693568, y: 3.7143147, z: 0.11746101}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 293.068, z: 0}
 --- !u!1001 &1855024787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7678,6 +9986,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1a52dbade8bbf1428d9820358c8624e, type: 3}
   m_PrefabInstance: {fileID: 459574517}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895549960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1895549961}
+  - component: {fileID: 1895549962}
+  m_Layer: 0
+  m_Name: Rock_Collider (50)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1895549961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895549960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000023063595, y: -0.021215938, z: -0.000000006020237, w: -0.99977493}
+  m_LocalPosition: {x: 6.5446153, y: -0.90235996, z: -2.45628}
+  m_LocalScale: {x: 0.6995816, y: 3.7143147, z: 0.117461}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 362.431, z: 0}
+--- !u!65 &1895549962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895549960}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.447879, y: 1, z: 23.71207}
+  m_Center: {x: -4.2239075, y: 2.2958434e-15, z: 11.356047}
 --- !u!1001 &1909660905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7945,6 +10306,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6078717020997988488, guid: f4b79a7031b5c86419d3d72d1a125974, type: 3}
   m_PrefabInstance: {fileID: 1941515068}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1959586836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959586838}
+  - component: {fileID: 1959586837}
+  m_Layer: 0
+  m_Name: Rock_Collider (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1959586837
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959586836}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1959586838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959586836}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6321278, z: -0, w: 0.77486414}
+  m_LocalPosition: {x: -22.660639, y: -0.32636, z: -2.74828}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 3.045937}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: -78.415, z: 0}
 --- !u!1001 &1962530496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8390,6 +10804,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2022053647068728890, guid: 87123ac33e4f0f04bacc28c3d2dcb0f6, type: 3}
   m_PrefabInstance: {fileID: 1992359058}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1996446334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1996446336}
+  - component: {fileID: 1996446335}
+  m_Layer: 0
+  m_Name: Rock_Collider (32)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1996446335
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996446334}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 6.168331}
+  m_Center: {x: 0.0000033631952, y: -5.9389503e-16, z: 2.584191}
+--- !u!4 &1996446336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996446334}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000018241497, y: 0.8281859, z: -0.00000001534321, w: 0.56045353}
+  m_LocalPosition: {x: 27.15836, y: -0.32636, z: 43.35872}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.6036202}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 111.826, z: 0}
 --- !u!1001 &1997998672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8875,6 +11342,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9131533322299560756, guid: d461bde81a31c7546b8ca4bd4de3b937, type: 3}
   m_PrefabInstance: {fileID: 2049193885}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2047474862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047474864}
+  - component: {fileID: 2047474863}
+  m_Layer: 0
+  m_Name: Rock_Collider (44)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2047474863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047474862}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &2047474864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047474862}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000007558, y: 0.82578975, z: -0.00000002260635, w: -0.5639782}
+  m_LocalPosition: {x: 26.50736, y: -1.02436, z: 14.59372}
+  m_LocalScale: {x: 3.1693563, y: 3.7143147, z: 0.117461}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 248.663, z: 0}
 --- !u!1001 &2049193885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9362,6 +11882,271 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7346818648503330275, guid: 0b7c39db641be5044ab85ba9f56a629a, type: 3}
   m_PrefabInstance: {fileID: 2110756158}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2114115273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114115275}
+  - component: {fileID: 2114115274}
+  m_Layer: 0
+  m_Name: Rock_Collider (37)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2114115274
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114115273}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &2114115275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114115273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000035678365, y: 0.9920345, z: -0.000000023567791, w: -0.12596664}
+  m_LocalPosition: {x: 45.38836, y: -0.32636, z: 34.66872}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.42494255}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 194.473, z: 0}
+--- !u!1 &2114742237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114742239}
+  - component: {fileID: 2114742238}
+  m_Layer: 0
+  m_Name: Rock_Collider (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2114742238
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114742237}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &2114742239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114742237}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000001910713, y: 0.7940093, z: -0.000000014250644, w: 0.6079056}
+  m_LocalPosition: {x: -11.25164, y: -0.32636, z: 41.21872}
+  m_LocalScale: {x: 4.5307403, y: 5.309782, z: 0.60362023}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 105.124, z: 0}
+--- !u!1 &2122921634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2122921636}
+  - component: {fileID: 2122921635}
+  m_Layer: 0
+  m_Name: Rock_Collider (24)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2122921635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122921634}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.17886}
+  m_Center: {x: 0.0000016354812, y: 1.3603483e-15, z: 4.089467}
+--- !u!4 &2122921636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122921634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000023075678, y: 0.023263965, z: 0.0000000059729843, w: 0.9997294}
+  m_LocalPosition: {x: -4.43164, y: -0.32636, z: 43.888718}
+  m_LocalScale: {x: 4.5307393, y: 5.309782, z: 0.6036202}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 2.666, z: 0}
+--- !u!1 &2125525388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2125525390}
+  - component: {fileID: 2125525389}
+  m_Layer: 0
+  m_Name: Rock_Collider (30)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2125525389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125525388}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 15.125275}
+  m_Center: {x: 0.000007061095, y: -5.2525095e-16, z: 7.0626755}
+--- !u!4 &2125525390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125525388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000001741335, y: 0.85638756, z: -0.00000001627703, w: 0.51633364}
+  m_LocalPosition: {x: 17.249361, y: -0.32636, z: 45.89072}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.6036202}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 117.827, z: 0}
+--- !u!1 &2128189690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128189692}
+  - component: {fileID: 2128189691}
+  m_Layer: 0
+  m_Name: Rock_Collider (42)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2128189691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128189690}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 23.712072}
+  m_Center: {x: 0.0000033682309, y: 8.2328265e-15, z: 11.356059}
+--- !u!4 &2128189692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128189690}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000011597674, y: 0.70760816, z: -0.000000020824627, w: -0.7066051}
+  m_LocalPosition: {x: 32.263187, y: -0.32636, z: 13.13872}
+  m_LocalScale: {x: 4.53074, y: 5.309782, z: 0.23602584}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524443420}
+  m_LocalEulerAnglesHint: {x: 0, y: 269.919, z: 0}
 --- !u!4 &2136224071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 386447580751811603, guid: 9ada62ba54a89424590fefd04a1f15af, type: 3}
@@ -9381,3 +12166,4 @@ SceneRoots:
   - {fileID: 434979911}
   - {fileID: 1972508777}
   - {fileID: 1106596922}
+  - {fileID: 524443420}
