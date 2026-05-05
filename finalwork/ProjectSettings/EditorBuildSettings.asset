@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestServerJoin.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/UiElements/MainMenu.unity
     guid: 8852430f39c45e543ba451d38c945d3e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Prehistorie/Phrehistoric_Puzzle1.unity
     guid: e1cf26cf3dd2a6e4a9e748a7f1086549
   m_configObjects:
