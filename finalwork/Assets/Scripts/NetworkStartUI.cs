@@ -13,6 +13,6 @@ public class NetworkStartUI : MonoBehaviour
             if (GUI.Button(new Rect(x, y, w, h), "Host"))NetworkManager.Singleton.StartHost();
             if (GUI.Button(new Rect(x, y + h +10, w, h), "Client"))NetworkManager.Singleton.StartClient();
             if (GUI.Button(new Rect(x, y + 2*(h +10), w, h), "Server"))NetworkManager.Singleton.StartServer();
-        }
+        }   
     }  
 }
