@@ -2,8 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
 public class InventorySystem : MonoBehaviour
 {
+    
     [Header("UI")]
     public Image[] slotBackgrounds;
     public Image[] itemIcons;
@@ -177,4 +179,29 @@ public class InventorySystem : MonoBehaviour
                 itemIcons[i].enabled = items[i] != null;
         }
     }
+    // ===== CRAFTING HELPERS =====
+
+public bool HasItemByName(string itemName)
+{
+    for (int i = 0; i < maxSlots; i++)
+    {
+        if (items[i] != null && items[i].name.ToLower().Contains(itemName.ToLower()))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+public GameObject GetItemByName(string itemName)
+{
+    for (int i = 0; i < maxSlots; i++)
+    {
+        if (items[i] != null && items[i].name.ToLower().Contains(itemName.ToLower()))
+        {
+            return items[i];
+        }
+    }
+    return null;
+}
 }
