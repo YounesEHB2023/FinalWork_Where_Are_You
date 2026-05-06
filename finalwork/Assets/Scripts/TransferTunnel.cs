@@ -11,7 +11,7 @@ public class TransferTunnel : MonoBehaviour
 
     [Header("Controls")]
     public KeyCode keyboardTransferKey = KeyCode.E;
-    public KeyCode controllerTransferKey = KeyCode.JoystickButton0; // X PS5 souvent ici
+    public KeyCode controllerTransferKey = KeyCode.JoystickButton0;
 
     private GameObject currentObject;
     private bool playerInside;
