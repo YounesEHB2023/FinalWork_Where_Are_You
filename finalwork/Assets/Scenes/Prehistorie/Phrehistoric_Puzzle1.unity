@@ -6849,6 +6849,8 @@ MonoBehaviour:
   targetSpawnPoint: {fileID: 481592806}
   pressEUI: {fileID: 1881223177}
   pressXUI: {fileID: 2012830666}
+  keyboardTransferKey: 101
+  controllerTransferKey: 331
 --- !u!1001 &616222724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22437,6 +22439,8 @@ MonoBehaviour:
   targetSpawnPoint: {fileID: 765262873}
   pressEUI: {fileID: 1881223177}
   pressXUI: {fileID: 2012830666}
+  keyboardTransferKey: 101
+  controllerTransferKey: 331
 --- !u!1 &1959586836
 GameObject:
   m_ObjectHideFlags: 0
