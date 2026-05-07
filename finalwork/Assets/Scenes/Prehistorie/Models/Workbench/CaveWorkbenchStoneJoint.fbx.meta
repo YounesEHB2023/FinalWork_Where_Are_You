@@ -8,37 +8,37 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stylized Concrete.001
-    second: {fileID: 2100000, guid: 139e29bf4c155144580bbab469b7cac5, type: 2}
+    second: {fileID: 2100000, guid: 35fbdffb51af3a1479bf5bbc32b7eba6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wood
-    second: {fileID: 2100000, guid: c35304ec6437dcc498a89c4d7c89fe0a, type: 2}
+    second: {fileID: 2100000, guid: 35fbdffb51af3a1479bf5bbc32b7eba6, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Stylized_Concrete_basecolor
-    second: {fileID: 2800000, guid: bfbb7d1af73a1cc449e701e9833f4282, type: 3}
+    second: {fileID: 2800000, guid: e9983cf2a2f6b1745add4691b8aeb9c4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Stylized_Concrete_normal
-    second: {fileID: 2800000, guid: 27db8e9bb554da54e88d71e5c7379c88, type: 3}
+    second: {fileID: 2800000, guid: 652ffbe4bfb26ae49aadf992603be945, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Stylized_Concrete_roughness
-    second: {fileID: 2800000, guid: dffc8d88c8008ab4cbaf8827e19276b0, type: 3}
+    second: {fileID: 2800000, guid: 1effa6f66c6ae844691d8076b47b07ab, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: wood diffuse
-    second: {fileID: 2800000, guid: 505489b9f79260d4eb077d8f0565215b, type: 3}
+    second: {fileID: 2800000, guid: eb57cbae531cfe74db5d3c7cd2345575, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: wood spec
-    second: {fileID: 2800000, guid: f1afde7c3fb50c247aa943b954449deb, type: 3}
+    second: {fileID: 2800000, guid: a33c02579f8a0e940ac35c7f82b387d5, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

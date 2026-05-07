@@ -10,7 +10,8 @@ public class PickupSystem : MonoBehaviour
     public InventorySystem inventory;
 
     [Header("Pickup Settings")]
-    public float pickupDistance = 3f;
+    public float pickupDistance = 4f;
+    public float pickupRadius = 0.6f;
     public float dropForwardForce = 1f;
 
     private GameObject heldObject;
@@ -76,6 +77,7 @@ public class PickupSystem : MonoBehaviour
     {
         bool keyboardPressed = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
         bool controllerPressed = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
+
         return keyboardPressed || controllerPressed;
     }
 
@@ -83,7 +85,7 @@ public class PickupSystem : MonoBehaviour
     {
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance))
         {
             if (hit.collider.CompareTag("Pickup"))
             {
@@ -128,8 +130,21 @@ public class PickupSystem : MonoBehaviour
         }
 
         heldObject.transform.SetParent(holdPoint);
-        heldObject.transform.localPosition = Vector3.zero;
-        heldObject.transform.localRotation = Quaternion.identity;
+
+        HeldItemSettings heldSettings = heldObject.GetComponent<HeldItemSettings>();
+
+        if (heldSettings != null)
+        {
+            heldObject.transform.localPosition = heldSettings.holdPosition;
+            heldObject.transform.localRotation = Quaternion.Euler(heldSettings.holdRotation);
+            heldObject.transform.localScale = heldSettings.holdScale;
+        }
+        else
+        {
+            heldObject.transform.localPosition = Vector3.zero;
+            heldObject.transform.localRotation = Quaternion.identity;
+            heldObject.transform.localScale = Vector3.one;
+        }
 
         if (animator != null)
             animator.SetBool("IsHolding", true);
