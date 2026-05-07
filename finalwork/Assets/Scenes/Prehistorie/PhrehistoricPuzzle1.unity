@@ -4303,11 +4303,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8992670776311467924, guid: c8592ae1c51f03e4a8f78ce59a6433b9, type: 3}
   m_PrefabInstance: {fileID: 954350003}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &363460435 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8991880835045353649, guid: 422363a5a01462447a326d908671910c, type: 3}
-  m_PrefabInstance: {fileID: 434979911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &365278425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5402,16 +5397,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3033097917161626757, guid: 422363a5a01462447a326d908671910c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4419601822198444878, guid: 422363a5a01462447a326d908671910c, type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4419601822198444878, guid: 422363a5a01462447a326d908671910c, type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5723703216581866177, guid: 422363a5a01462447a326d908671910c, type: 3}
@@ -5454,25 +5441,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7791197476294570299, guid: 422363a5a01462447a326d908671910c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791197476294570299, guid: 422363a5a01462447a326d908671910c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 8990389513052352085, guid: 422363a5a01462447a326d908671910c, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4419601822198444878, guid: 422363a5a01462447a326d908671910c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1681226484}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 422363a5a01462447a326d908671910c, type: 3}
 --- !u!114 &434979912 stripped
 MonoBehaviour:
@@ -15961,6 +15933,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1198266003}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1198266011}
   m_SourcePrefab: {fileID: 100100000, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
 --- !u!1 &1198266002 stripped
 GameObject:
@@ -16060,6 +16035,21 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &1198266011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198266002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c162b5139a5c345ba0ac1cfc54a99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
+  holdPosition: {x: 0, y: 0, z: 0}
+  holdRotation: {x: 0, y: 0, z: 0}
+  holdScale: {x: -5.293681, y: -5.283445, z: -26.24205}
 --- !u!1001 &1204208791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20922,25 +20912,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 524443420}
   m_LocalEulerAnglesHint: {x: 0, y: 234.507, z: 0}
---- !u!1 &1681226474 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4419601822198444878, guid: 422363a5a01462447a326d908671910c, type: 3}
-  m_PrefabInstance: {fileID: 434979911}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1681226484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681226474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e9241373feffe74fa4cfb9e760a1735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  range: 5
-  playerCamera: {fileID: 363460435}
 --- !u!1001 &1681936111
 PrefabInstance:
   m_ObjectHideFlags: 0
