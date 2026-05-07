@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class FirstPersonController : MonoBehaviour
+public class FirstPersonController : NetworkBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -18,16 +19,25 @@ public class FirstPersonController : MonoBehaviour
     private float xRotation = 0f;
 
     void Start()
+{
+    if (!IsOwner)
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        playerCamera.gameObject.SetActive(false);
+        enabled = false;
+        return;
     }
+
+    controller = GetComponent<CharacterController>();
+    animator = GetComponentInChildren<Animator>();
+
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+}
 
     void Update()
     {
+        if (!IsOwner) return;
+
         LookAround();
         MovePlayer();
     }
@@ -52,25 +62,18 @@ public class FirstPersonController : MonoBehaviour
         }
 
         if (Gamepad.current != null)
-        {
             moveInput += Gamepad.current.leftStick.ReadValue();
-        }
 
         moveInput = Vector2.ClampMagnitude(moveInput, 1f);
 
         if (animator != null)
-        {
-            float speed = moveInput.magnitude;
-            animator.SetFloat("Speed", speed);
-        }
+            animator.SetFloat("Speed", moveInput.magnitude);
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * moveSpeed * Time.deltaTime);
 
         if (controller.isGrounded && velocity.y < 0)
-        {
             velocity.y = -2f;
-        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -81,14 +84,10 @@ public class FirstPersonController : MonoBehaviour
         Vector2 lookInput = Vector2.zero;
 
         if (Mouse.current != null)
-        {
             lookInput += Mouse.current.delta.ReadValue() * mouseSensitivity;
-        }
 
         if (Gamepad.current != null)
-        {
             lookInput += Gamepad.current.rightStick.ReadValue() * controllerLookSensitivity * Time.deltaTime;
-        }
 
         float mouseX = lookInput.x;
         float mouseY = lookInput.y;

@@ -1,18 +1,64 @@
-using UnityEngine;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
+using UnityEngine;
+using TMPro;
+
 public class NetworkStartUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void OnGUI()
-    {
-        float w = 200f, h=40f;
-        float x = 10f, y=10f;
+    [Header("UI")]
+    public GameObject menuUI;
+    public TMP_InputField ipInputField;
 
-        if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
+    [Header("Spawn Points")]
+    public Transform hostSpawnPoint;
+    public Transform clientSpawnPoint;
+
+    public void StartHost()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
+        NetworkManager.Singleton.StartHost();
+
+        HideMenu();
+    }
+
+    public void StartClient()
+    {
+        string ip = ipInputField.text;
+
+        if (string.IsNullOrWhiteSpace(ip))
+            ip = "127.0.0.1";
+
+        UnityTransport transport =
+            NetworkManager.Singleton.GetComponent<UnityTransport>();
+
+        transport.SetConnectionData(ip, 7777);
+
+        NetworkManager.Singleton.StartClient();
+
+        HideMenu();
+    }
+
+    void OnClientConnected(ulong clientId)
+    {
+        GameObject player =
+            NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(clientId).gameObject;
+
+        if (clientId == NetworkManager.Singleton.LocalClientId)
         {
-            if (GUI.Button(new Rect(x, y, w, h), "Host"))NetworkManager.Singleton.StartHost();
-            if (GUI.Button(new Rect(x, y + h +10, w, h), "Client"))NetworkManager.Singleton.StartClient();
-            if (GUI.Button(new Rect(x, y + 2*(h +10), w, h), "Server"))NetworkManager.Singleton.StartServer();
-        }   
-    }  
+            player.transform.position = hostSpawnPoint.position;
+            player.transform.rotation = hostSpawnPoint.rotation;
+        }
+        else
+        {
+            player.transform.position = clientSpawnPoint.position;
+            player.transform.rotation = clientSpawnPoint.rotation;
+        }
+    }
+
+    void HideMenu()
+    {
+        if (menuUI != null)
+            menuUI.SetActive(false);
+    }
 }

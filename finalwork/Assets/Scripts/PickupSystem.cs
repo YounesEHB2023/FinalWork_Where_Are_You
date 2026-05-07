@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class PickupSystem : MonoBehaviour
+public class PickupSystem : NetworkBehaviour
 {
     [Header("References")]
     public Camera playerCamera;
@@ -19,6 +20,8 @@ public class PickupSystem : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         if (PressedInteract())
         {
             if (heldObject == null)
