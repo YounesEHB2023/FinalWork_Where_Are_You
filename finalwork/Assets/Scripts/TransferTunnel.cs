@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TransferTunnel : MonoBehaviour
 {
@@ -11,79 +12,89 @@ public class TransferTunnel : MonoBehaviour
 
     [Header("Controls")]
     public KeyCode keyboardTransferKey = KeyCode.E;
-    public KeyCode controllerTransferKey = KeyCode.JoystickButton0;
 
     private GameObject currentObject;
     private bool playerInside;
     private bool isTransferring;
     private bool usingController;
 
+    private static TransferTunnel activeTunnel;
+
     void Start()
     {
-        if (pressEUI != null) pressEUI.SetActive(false);
-        if (pressXUI != null) pressXUI.SetActive(false);
+        HideUI();
     }
 
     void Update()
     {
-        DetectLastInput();
+        DetectInputDevice();
 
-        bool keyboardTransfer = Input.GetKeyDown(keyboardTransferKey);
-        bool controllerTransfer = Input.GetKeyDown(controllerTransferKey);
-
-        if (playerInside && currentObject != null && !isTransferring && (keyboardTransfer || controllerTransfer))
+        if (activeTunnel == this)
         {
-            StartCoroutine(TransferObject());
+            UpdateUI();
+
+            bool keyboardTransfer =
+                Keyboard.current != null &&
+                Keyboard.current.eKey.wasPressedThisFrame;
+
+            bool controllerTransfer =
+                Gamepad.current != null &&
+                Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+            if (playerInside && currentObject != null && !isTransferring && (keyboardTransfer || controllerTransfer))
+            {
+                StartCoroutine(TransferObject());
+            }
+        }
+    }
+
+    void DetectInputDevice()
+    {
+        if (Gamepad.current != null)
+        {
+            Vector2 dpad = Gamepad.current.dpad.ReadValue();
+            Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
+            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+
+            if (
+                dpad != Vector2.zero ||
+                leftStick.magnitude > 0.1f ||
+                rightStick.magnitude > 0.1f ||
+                Gamepad.current.buttonSouth.wasPressedThisFrame ||
+                Gamepad.current.buttonNorth.wasPressedThisFrame ||
+                Gamepad.current.buttonEast.wasPressedThisFrame ||
+                Gamepad.current.buttonWest.wasPressedThisFrame
+            )
+            {
+                usingController = true;
+            }
         }
 
-        UpdateUI();
-    }
+        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        {
+            usingController = false;
+        }
 
-    void DetectLastInput()
-{
-    if (
-        Input.GetKeyDown(KeyCode.E) ||
-        Input.GetKeyDown(KeyCode.W) ||
-        Input.GetKeyDown(KeyCode.A) ||
-        Input.GetKeyDown(KeyCode.S) ||
-        Input.GetKeyDown(KeyCode.D) ||
-        Input.GetKeyDown(KeyCode.Z) ||
-        Input.GetKeyDown(KeyCode.Q) ||
-        Input.GetMouseButtonDown(0) ||
-        Input.GetMouseButtonDown(1) ||
-        Mathf.Abs(Input.GetAxis("Mouse X")) > 0.1f ||
-        Mathf.Abs(Input.GetAxis("Mouse Y")) > 0.1f
-    )
-    {
-        usingController = false;
+        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        {
+            usingController = false;
+        }
     }
-
-    if (
-        Input.GetKeyDown(KeyCode.JoystickButton0) ||
-        Input.GetKeyDown(KeyCode.JoystickButton1) ||
-        Input.GetKeyDown(KeyCode.JoystickButton2) ||
-        Input.GetKeyDown(KeyCode.JoystickButton3) ||
-            Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2f ||
-            Mathf.Abs(Input.GetAxis("Vertical")) > 0.2f
-    )
-    {
-        usingController = true;
-    }
-}
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInside = true;
-            UpdateUI();
+            activeTunnel = this;
         }
 
         if (other.CompareTag("Pickup"))
         {
             currentObject = other.gameObject;
-            UpdateUI();
         }
+
+        UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
@@ -91,18 +102,27 @@ public class TransferTunnel : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInside = false;
-            UpdateUI();
+
+            if (activeTunnel == this)
+            {
+                activeTunnel = null;
+                HideUI();
+            }
         }
 
         if (other.gameObject == currentObject)
         {
             currentObject = null;
-            UpdateUI();
         }
+
+        UpdateUI();
     }
 
     void UpdateUI()
     {
+        if (activeTunnel != this)
+            return;
+
         bool showUI = playerInside && currentObject != null && !isTransferring;
 
         if (pressEUI != null)
@@ -112,10 +132,19 @@ public class TransferTunnel : MonoBehaviour
             pressXUI.SetActive(showUI && usingController);
     }
 
+    void HideUI()
+    {
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
+
+        if (pressXUI != null)
+            pressXUI.SetActive(false);
+    }
+
     IEnumerator TransferObject()
     {
         isTransferring = true;
-        UpdateUI();
+        HideUI();
 
         GameObject objectToTransfer = currentObject;
 
@@ -139,8 +168,11 @@ public class TransferTunnel : MonoBehaviour
             t += Time.deltaTime;
             float progress = t / duration;
 
-            objectToTransfer.transform.position = Vector3.Lerp(startPos, inPoint.position, progress);
-            objectToTransfer.transform.rotation = Quaternion.Lerp(startRot, inPoint.rotation, progress);
+            objectToTransfer.transform.position =
+                Vector3.Lerp(startPos, inPoint.position, progress);
+
+            objectToTransfer.transform.rotation =
+                Quaternion.Lerp(startRot, inPoint.rotation, progress);
 
             yield return null;
         }
@@ -155,6 +187,7 @@ public class TransferTunnel : MonoBehaviour
 
         currentObject = null;
         isTransferring = false;
+
         UpdateUI();
     }
 }
