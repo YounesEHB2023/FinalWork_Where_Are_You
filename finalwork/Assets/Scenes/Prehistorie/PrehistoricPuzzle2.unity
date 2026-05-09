@@ -1391,6 +1391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 330390777}
   - component: {fileID: 330390776}
+  - component: {fileID: 330390778}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1478,6 +1479,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &330390778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330390775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &354379167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3133429536943949068, guid: 25cb56d59f80f614b9da0e9a36c48a05, type: 3}
@@ -8193,6 +8223,63 @@ CapsuleCollider:
   m_Height: 15.277819
   m_Direction: 1
   m_Center: {x: 0.04048372, y: 6.6332755, z: 0.079025514}
+--- !u!1001 &6407797550611514647
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 121.83541
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2575510163363055259, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951507528163892257, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
+      propertyPath: m_Name
+      value: Mushroom_003 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46e03b7ff44a86f4b837fca8946a57f2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8206,3 +8293,4 @@ SceneRoots:
   - {fileID: 1052092303}
   - {fileID: 180698542}
   - {fileID: 1594667717}
+  - {fileID: 6407797550611514647}
