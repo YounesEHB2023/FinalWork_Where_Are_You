@@ -97,3 +97,16 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+```gitignore
+# =========================
+# PARRELSYNC
+# =========================
+
+*_clone_*/
+*_Clone_*/
+
+finalwork_clone_0/
+ParrelSync/
+Clone/
+Clones/
+```

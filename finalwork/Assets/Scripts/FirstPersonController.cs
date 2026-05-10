@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Unity.Netcode;
 public class FirstPersonController : MonoBehaviour
 {
     [Header("Movement")]
@@ -28,8 +28,10 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        
         LookAround();
         MovePlayer();
+        
     }
 
     void MovePlayer()
