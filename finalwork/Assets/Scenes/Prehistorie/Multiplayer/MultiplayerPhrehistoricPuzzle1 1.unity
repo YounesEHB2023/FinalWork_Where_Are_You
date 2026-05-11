@@ -16248,7 +16248,7 @@ MonoBehaviour:
   - {fileID: 1132032649}
   craftCenter: {fileID: 1441540274}
   axeSpawnPoint: {fileID: 840629296}
-  axePrefab: {fileID: 5359483012646944499, guid: d99e771e986b9314ea3c8833fcf84c59, type: 3}
+  axePrefab: {fileID: 6413965683757793667, guid: 0361a2ae530e61040af82ae765f015a0, type: 3}
   axeFinalScale: {x: 12, y: 12, z: 12}
   pressEUI: {fileID: 1490996738}
   pressXUI: {fileID: 1463924459}
@@ -26596,7 +26596,7 @@ MonoBehaviour:
   shakeDuration: 0.25
   shakeStrength: 0.08
   axeSwingDuration: 0.25
-  axeSwingRotation: {x: 55, y: -20, z: 25}
+  axeSwingRotation: {x: -3.7, y: 30.5, z: -18.4}
 --- !u!82 &2118690613
 AudioSource:
   m_ObjectHideFlags: 0
