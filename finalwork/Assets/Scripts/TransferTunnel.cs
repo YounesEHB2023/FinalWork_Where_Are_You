@@ -5,9 +5,12 @@ using Unity.Netcode;
 
 public class TransferTunnel : NetworkBehaviour
 {
+    [Header("Points")]
+    public Transform visualStartPoint;
     public Transform inPoint;
     public Transform targetSpawnPoint;
 
+    [Header("UI")]
     public GameObject pressEUI;
     public GameObject pressXUI;
 
@@ -134,8 +137,7 @@ public class TransferTunnel : NetworkBehaviour
 
     void UpdateUI()
     {
-        if (activeTunnel != this)
-            return;
+        if (activeTunnel != this) return;
 
         bool hasSelectedItem =
             playerInventory != null &&
@@ -195,11 +197,10 @@ public class TransferTunnel : NetworkBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        Vector3 startPos = inPoint.position;
-        Quaternion startRot = inPoint.rotation;
+        Transform startPoint = visualStartPoint != null ? visualStartPoint : inPoint;
 
-        Vector3 endPos = targetSpawnPoint.position;
-        Quaternion endRot = targetSpawnPoint.rotation;
+        Vector3 startPos = startPoint.position;
+        Quaternion startRot = startPoint.rotation;
 
         objectToTransfer.transform.position = startPos;
         objectToTransfer.transform.rotation = startRot;
@@ -210,19 +211,25 @@ public class TransferTunnel : NetworkBehaviour
         while (t < duration)
         {
             t += Time.deltaTime;
-            float progress = Mathf.SmoothStep(0f, 1f, t / duration);
+            float progress = t / duration;
 
             objectToTransfer.transform.position =
-                Vector3.Lerp(startPos, endPos, progress);
+                Vector3.Lerp(startPos, inPoint.position, progress);
 
-            objectToTransfer.transform.rotation =
-                Quaternion.Lerp(startRot, endRot, progress);
+            Quaternion smoothRotation =
+    Quaternion.Lerp(startRot, inPoint.rotation, progress);
+
+Quaternion spinRotation =
+    Quaternion.Euler(0f, progress * 180f, 0f);
+
+objectToTransfer.transform.rotation =
+    smoothRotation * spinRotation;
 
             yield return null;
         }
 
-        objectToTransfer.transform.position = endPos;
-        objectToTransfer.transform.rotation = endRot;
+        objectToTransfer.transform.position = targetSpawnPoint.position;
+        objectToTransfer.transform.rotation = targetSpawnPoint.rotation;
 
         if (rb != null)
         {
@@ -231,6 +238,7 @@ public class TransferTunnel : NetworkBehaviour
         }
 
         isTransferring = false;
+
         UpdateUI();
     }
 }
