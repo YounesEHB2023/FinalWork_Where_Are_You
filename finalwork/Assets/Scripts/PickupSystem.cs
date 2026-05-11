@@ -25,6 +25,24 @@ public class PickupSystem : NetworkBehaviour
     return heldVisual;
 }
 
+public void ClearHandAfterTransfer()
+{
+    if (heldVisual != null)
+    {
+        Destroy(heldVisual);
+        heldVisual = null;
+    }
+
+    heldObject = null;
+    heldRb = null;
+
+    if (animator != null)
+        animator.SetBool("IsHolding", false);
+
+    UpdateHoldingStateServerRpc(false);
+    RequestHideHeldVisualServerRpc();
+}
+
    void Update()
 {
     if (!IsOwner) return;
