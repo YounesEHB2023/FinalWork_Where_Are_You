@@ -14,9 +14,11 @@ public class PickupSystem : NetworkBehaviour
     public float pickupDistance = 4f;
     public float pickupRadius = 0.6f;
     public float dropForwardForce = 1f;
+    public float dropDistanceFromPlayer = 1.5f;
 
     private GameObject heldObject;
     private Rigidbody heldRb;
+    private GameObject heldVisual;
 
     void Update()
     {
@@ -115,6 +117,7 @@ public class PickupSystem : NetworkBehaviour
 
             PickObjectToHand(obj);
 
+            RequestShowHeldVisualServerRpc(netObj.NetworkObjectId);
             RequestHidePickupServerRpc(netObj.NetworkObjectId);
         }
     }
@@ -132,7 +135,6 @@ public class PickupSystem : NetworkBehaviour
             return;
 
         GameObject obj = netObj.gameObject;
-
         obj.SetActive(false);
     }
 
@@ -147,43 +149,27 @@ public class PickupSystem : NetworkBehaviour
     }
 
     void PickObjectToHand(GameObject obj)
-    {
-        heldObject = obj;
-        heldRb = heldObject.GetComponent<Rigidbody>();
+{
+    heldObject = obj;
+    heldRb = heldObject.GetComponent<Rigidbody>();
 
-        heldObject.SetActive(true);
+    heldObject.SetActive(false);
 
-        if (heldRb != null)
-        {
-            heldRb.linearVelocity = Vector3.zero;
-            heldRb.angularVelocity = Vector3.zero;
-            heldRb.useGravity = false;
-            heldRb.isKinematic = true;
-        }
+   if (animator != null)
+    animator.SetBool("IsHolding", true);
 
-        heldObject.transform.SetParent(holdPoint);
-
-        HeldItemSettings heldSettings = heldObject.GetComponent<HeldItemSettings>();
-
-        if (heldSettings != null)
-        {
-            heldObject.transform.localPosition = heldSettings.holdPosition;
-            heldObject.transform.localRotation = Quaternion.Euler(heldSettings.holdRotation);
-            heldObject.transform.localScale = heldSettings.holdScale;
-        }
-        else
-        {
-            heldObject.transform.localPosition = Vector3.zero;
-            heldObject.transform.localRotation = Quaternion.identity;
-            heldObject.transform.localScale = Vector3.one;
-        }
-
-        if (animator != null)
-            animator.SetBool("IsHolding", true);
-    }
+UpdateHoldingStateServerRpc(true);
+}
 
     void HideHeldObject()
     {
+
+        if (heldVisual != null)
+{
+    Destroy(heldVisual);
+    heldVisual = null;
+}
+
         if (heldObject == null) return;
 
         heldObject.transform.SetParent(null);
@@ -193,7 +179,9 @@ public class PickupSystem : NetworkBehaviour
         heldRb = null;
 
         if (animator != null)
-            animator.SetBool("IsHolding", false);
+    animator.SetBool("IsHolding", false);
+
+UpdateHoldingStateServerRpc(false);
     }
 
     void DropHeldObject()
@@ -201,26 +189,142 @@ public class PickupSystem : NetworkBehaviour
         if (heldObject == null) return;
 
         GameObject objectToDrop = heldObject;
+        if (heldVisual != null)
+{
+    Destroy(heldVisual);
+    heldVisual = null;
+}
+        NetworkObject netObj = objectToDrop.GetComponent<NetworkObject>();
+
+        if (netObj == null)
+        {
+            Debug.LogWarning("Dropped object needs NetworkObject: " + objectToDrop.name);
+            return;
+        }
+
+        Vector3 dropPosition = playerCamera.transform.position + playerCamera.transform.forward * dropDistanceFromPlayer;
+        Quaternion dropRotation = Quaternion.identity;
+        Vector3 forceDirection = playerCamera.transform.forward;
 
         if (inventory != null)
             inventory.RemoveItem(objectToDrop);
-
-        objectToDrop.transform.SetParent(null);
-        objectToDrop.SetActive(true);
-
-        if (heldRb != null)
-        {
-            heldRb.isKinematic = false;
-            heldRb.useGravity = true;
-            heldRb.linearVelocity = Vector3.zero;
-            heldRb.angularVelocity = Vector3.zero;
-            heldRb.AddForce(playerCamera.transform.forward * dropForwardForce, ForceMode.Impulse);
-        }
 
         heldObject = null;
         heldRb = null;
 
         if (animator != null)
-            animator.SetBool("IsHolding", false);
+    animator.SetBool("IsHolding", false);
+
+UpdateHoldingStateServerRpc(false);
+
+RequestHideHeldVisualServerRpc();
+        RequestDropPickupServerRpc(netObj.NetworkObjectId, dropPosition, dropRotation, forceDirection);
     }
+
+    [ServerRpc]
+void RequestShowHeldVisualServerRpc(ulong networkObjectId)
+{
+    ShowHeldVisualClientRpc(networkObjectId);
+}
+
+[ClientRpc]
+void ShowHeldVisualClientRpc(ulong networkObjectId)
+{
+    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+        return;
+
+    GameObject originalObj = netObj.gameObject;
+
+    if (heldVisual != null)
+        Destroy(heldVisual);
+
+    heldVisual = Instantiate(originalObj, holdPoint);
+
+    NetworkObject visualNetObj = heldVisual.GetComponent<NetworkObject>();
+    if (visualNetObj != null)
+        Destroy(visualNetObj);
+
+    Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
+    if (visualRb != null)
+        Destroy(visualRb);
+
+    Collider[] colliders = heldVisual.GetComponentsInChildren<Collider>();
+    foreach (Collider col in colliders)
+        col.enabled = false;
+
+    HeldItemSettings heldSettings = originalObj.GetComponent<HeldItemSettings>();
+
+    if (heldSettings != null)
+    {
+        heldVisual.transform.localPosition = heldSettings.holdPosition;
+        heldVisual.transform.localRotation = Quaternion.Euler(heldSettings.holdRotation);
+        heldVisual.transform.localScale = heldSettings.holdScale;
+    }
+    else
+    {
+        heldVisual.transform.localPosition = Vector3.zero;
+        heldVisual.transform.localRotation = Quaternion.identity;
+        heldVisual.transform.localScale = Vector3.one;
+    }
+
+    heldVisual.SetActive(true);
+}
+
+[ServerRpc]
+void RequestHideHeldVisualServerRpc()
+{
+    HideHeldVisualClientRpc();
+}
+
+[ClientRpc]
+void HideHeldVisualClientRpc()
+{
+    if (heldVisual != null)
+    {
+        Destroy(heldVisual);
+        heldVisual = null;
+    }
+}
+[ServerRpc]
+void RequestDropPickupServerRpc(ulong networkObjectId, Vector3 dropPosition, Quaternion dropRotation, Vector3 forceDirection)
+{
+    DropPickupClientRpc(networkObjectId, dropPosition, dropRotation, forceDirection);
+}
+
+[ClientRpc]
+void DropPickupClientRpc(ulong networkObjectId, Vector3 dropPosition, Quaternion dropRotation, Vector3 forceDirection)
+{
+    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+        return;
+
+    GameObject obj = netObj.gameObject;
+
+    obj.transform.SetParent(null);
+    obj.transform.position = dropPosition;
+    obj.transform.rotation = dropRotation;
+    obj.SetActive(true);
+
+    Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+    if (rb != null)
+    {
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(forceDirection * dropForwardForce, ForceMode.Impulse);
+    }
+}
+[ServerRpc]
+void UpdateHoldingStateServerRpc(bool isHolding)
+{
+    UpdateHoldingStateClientRpc(isHolding);
+}
+
+[ClientRpc]
+void UpdateHoldingStateClientRpc(bool isHolding)
+{
+    if (animator != null)
+        animator.SetBool("IsHolding", isHolding);
+}
 }

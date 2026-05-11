@@ -12,11 +12,13 @@ public class PlayerSpawnManager : NetworkBehaviour
         NetworkManager.Singleton.OnClientConnectedCallback += MovePlayerToSpawn;
     }
 
-    private void OnDestroy()
-    {
-        if (NetworkManager.Singleton != null)
-            NetworkManager.Singleton.OnClientConnectedCallback -= MovePlayerToSpawn;
-    }
+    public override void OnDestroy()
+{
+    base.OnDestroy();
+
+    if (NetworkManager.Singleton != null)
+        NetworkManager.Singleton.OnClientConnectedCallback -= MovePlayerToSpawn;
+}
 
     void MovePlayerToSpawn(ulong clientId)
     {

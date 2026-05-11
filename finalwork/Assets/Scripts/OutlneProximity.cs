@@ -2,21 +2,49 @@ using UnityEngine;
 
 public class OutlineProximity : MonoBehaviour
 {
-    public Transform player;
     public float activationDistance = 3f;
 
     private Outline outline;
+    private Transform localPlayerCamera;
 
     void Start()
     {
         outline = GetComponent<Outline>();
-        outline.enabled = false;
+
+        if (outline != null)
+            outline.enabled = false;
+
+        FindLocalPlayerCamera();
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(player.position, transform.position);
+        if (outline == null) return;
 
+        if (localPlayerCamera == null)
+            FindLocalPlayerCamera();
+
+        if (localPlayerCamera == null)
+        {
+            outline.enabled = false;
+            return;
+        }
+
+        float distance = Vector3.Distance(localPlayerCamera.position, transform.position);
         outline.enabled = distance <= activationDistance;
+    }
+
+    void FindLocalPlayerCamera()
+    {
+        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+
+        foreach (Camera cam in cameras)
+        {
+            if (cam.enabled)
+            {
+                localPlayerCamera = cam.transform;
+                return;
+            }
+        }
     }
 }

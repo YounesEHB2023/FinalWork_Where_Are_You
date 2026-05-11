@@ -88,8 +88,12 @@ public class FirstPersonController : NetworkBehaviour
 
         moveInput = Vector2.ClampMagnitude(moveInput, 1f);
 
-        if (animator != null)
-            animator.SetFloat("Speed", moveInput.magnitude);
+        float speedValue = moveInput.magnitude;
+
+if (animator != null)
+    animator.SetFloat("Speed", speedValue);
+
+UpdateSpeedServerRpc(speedValue);
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * moveSpeed * Time.deltaTime);
@@ -99,6 +103,8 @@ public class FirstPersonController : NetworkBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        
+        
     }
 
     void LookAround()
@@ -120,4 +126,10 @@ public class FirstPersonController : NetworkBehaviour
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
+    [ServerRpc]
+void UpdateSpeedServerRpc(float speedValue)
+{
+    if (animator != null)
+        animator.SetFloat("Speed", speedValue);
+}
 }
