@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class PickupSystem : MonoBehaviour
+public class PickupSystem : NetworkBehaviour
 {
     [Header("References")]
     public Camera playerCamera;
@@ -19,6 +20,8 @@ public class PickupSystem : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         if (PressedInteract())
         {
             if (heldObject == null)
@@ -87,21 +90,50 @@ public class PickupSystem : MonoBehaviour
 
         if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance))
         {
-            if (hit.collider.CompareTag("Pickup"))
+            if (!hit.collider.CompareTag("Pickup")) return;
+
+            GameObject obj = hit.collider.gameObject;
+
+            NetworkObject netObj = obj.GetComponent<NetworkObject>();
+
+            if (netObj == null)
             {
-                GameObject obj = hit.collider.gameObject;
-
-                ItemData itemData = obj.GetComponent<ItemData>();
-                Sprite icon = itemData != null ? itemData.icon : null;
-
-                bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
-
-                if (added)
-                    PickObjectToHand(obj);
-                else
-                    Debug.Log("Inventory is full.");
+                Debug.LogWarning("Pickup object needs NetworkObject: " + obj.name);
+                return;
             }
+
+            ItemData itemData = obj.GetComponent<ItemData>();
+            Sprite icon = itemData != null ? itemData.icon : null;
+
+            bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
+
+            if (!added)
+            {
+                Debug.Log("Inventory is full.");
+                return;
+            }
+
+            PickObjectToHand(obj);
+
+            RequestHidePickupServerRpc(netObj.NetworkObjectId);
         }
+    }
+
+    [ServerRpc]
+    void RequestHidePickupServerRpc(ulong networkObjectId)
+    {
+        HidePickupClientRpc(networkObjectId);
+    }
+
+    [ClientRpc]
+    void HidePickupClientRpc(ulong networkObjectId)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        GameObject obj = netObj.gameObject;
+
+        obj.SetActive(false);
     }
 
     void HoldInventoryItem(GameObject obj)
