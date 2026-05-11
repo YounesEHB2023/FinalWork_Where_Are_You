@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class TransferTunnel : MonoBehaviour
+public class TransferTunnel : NetworkBehaviour
 {
     public Transform inPoint;
     public Transform targetSpawnPoint;
@@ -27,6 +28,8 @@ public class TransferTunnel : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
+
         DetectInputDevice();
 
         if (activeTunnel == this)
@@ -43,7 +46,15 @@ public class TransferTunnel : MonoBehaviour
 
             if (playerInside && currentObject != null && !isTransferring && (keyboardTransfer || controllerTransfer))
             {
-                StartCoroutine(TransferObject());
+                NetworkObject netObj = currentObject.GetComponent<NetworkObject>();
+
+                if (netObj == null)
+                {
+                    Debug.LogWarning("Transfer object needs NetworkObject: " + currentObject.name);
+                    return;
+                }
+
+                RequestTransferServerRpc(netObj.NetworkObjectId);
             }
         }
     }
@@ -71,36 +82,43 @@ public class TransferTunnel : MonoBehaviour
         }
 
         if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
-        {
             usingController = false;
-        }
 
         if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
-        {
             usingController = false;
-        }
     }
 
     void OnTriggerEnter(Collider other)
+{
+    Debug.Log("ENTER TUNNEL: " + other.name + " | tag: " + other.tag);
+
+    if (other.CompareTag("Player"))
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = true;
-            activeTunnel = this;
-        }
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        Debug.Log("Player detected. IsOwner: " + (playerNetObj != null && playerNetObj.IsOwner));
 
-        if (other.CompareTag("Pickup"))
-        {
-            currentObject = other.gameObject;
-        }
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
 
-        UpdateUI();
+        playerInside = true;
+        activeTunnel = this;
     }
+
+    if (other.CompareTag("Pickup"))
+    {
+        Debug.Log("Pickup detected in tunnel: " + other.name);
+        currentObject = other.gameObject;
+    }
+
+    UpdateUI();
+}
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+            if (playerNetObj != null && !playerNetObj.IsOwner) return;
+
             playerInside = false;
 
             if (activeTunnel == this)
@@ -141,12 +159,25 @@ public class TransferTunnel : MonoBehaviour
             pressXUI.SetActive(false);
     }
 
-    IEnumerator TransferObject()
+    [ServerRpc(RequireOwnership = false)]
+    void RequestTransferServerRpc(ulong networkObjectId)
+    {
+        TransferObjectClientRpc(networkObjectId);
+    }
+
+    [ClientRpc]
+    void TransferObjectClientRpc(ulong networkObjectId)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        StartCoroutine(TransferObject(netObj.gameObject));
+    }
+
+    IEnumerator TransferObject(GameObject objectToTransfer)
     {
         isTransferring = true;
         HideUI();
-
-        GameObject objectToTransfer = currentObject;
 
         Rigidbody rb = objectToTransfer.GetComponent<Rigidbody>();
 
@@ -183,6 +214,7 @@ public class TransferTunnel : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
+            rb.useGravity = true;
         }
 
         currentObject = null;

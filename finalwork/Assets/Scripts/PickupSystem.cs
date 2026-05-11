@@ -144,15 +144,21 @@ public class PickupSystem : NetworkBehaviour
         obj.SetActive(false);
     }
 
-    void HoldInventoryItem(GameObject obj)
-    {
-        if (heldObject == obj) return;
+   void HoldInventoryItem(GameObject obj)
+{
+    if (heldObject == obj && heldVisual != null)
+        return;
 
-        if (heldObject != null)
-            HideHeldObject();
+    if (heldObject != null && heldObject != obj)
+        HideHeldObject();
 
-        PickObjectToHand(obj);
-    }
+    PickObjectToHand(obj);
+
+    NetworkObject netObj = obj.GetComponent<NetworkObject>();
+
+    if (netObj != null)
+        RequestShowHeldVisualServerRpc(netObj.NetworkObjectId);
+}
 
     void PickObjectToHand(GameObject obj)
 {
@@ -168,27 +174,22 @@ UpdateHoldingStateServerRpc(true);
 }
 
     void HideHeldObject()
-    {
-
-        if (heldVisual != null)
 {
-    Destroy(heldVisual);
-    heldVisual = null;
-}
-
-        if (heldObject == null) return;
-
-        heldObject.transform.SetParent(null);
-        heldObject.SetActive(false);
-
-        heldObject = null;
-        heldRb = null;
-
-        if (animator != null)
-    animator.SetBool("IsHolding", false);
-
-UpdateHoldingStateServerRpc(false);
+    if (heldVisual != null)
+    {
+        Destroy(heldVisual);
+        heldVisual = null;
     }
+
+    heldObject = null;
+    heldRb = null;
+
+    if (animator != null)
+        animator.SetBool("IsHolding", false);
+
+    UpdateHoldingStateServerRpc(false);
+    RequestHideHeldVisualServerRpc();
+}
 
     void DropHeldObject()
     {
