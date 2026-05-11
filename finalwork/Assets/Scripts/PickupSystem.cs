@@ -20,20 +20,26 @@ public class PickupSystem : NetworkBehaviour
     private Rigidbody heldRb;
     private GameObject heldVisual;
 
-    void Update()
+    public GameObject GetHeldVisual()
+{
+    return heldVisual;
+}
+
+   void Update()
+{
+    if (!IsOwner) return;
+    if (!Application.isFocused) return;
+
+    if (PressedInteract())
     {
-        if (!IsOwner) return;
-
-        if (PressedInteract())
-        {
-            if (heldObject == null)
-                TryPickup();
-            else
-                DropHeldObject();
-        }
-
-        HandleInventorySelection();
+        if (heldObject == null)
+            TryPickup();
+        else
+            DropHeldObject();
     }
+
+    HandleInventorySelection();
+}
 
     void HandleInventorySelection()
     {
@@ -238,15 +244,11 @@ void ShowHeldVisualClientRpc(ulong networkObjectId)
     if (heldVisual != null)
         Destroy(heldVisual);
 
-    heldVisual = Instantiate(originalObj, holdPoint);
+   heldVisual = Instantiate(originalObj, holdPoint);
 
-    NetworkObject visualNetObj = heldVisual.GetComponent<NetworkObject>();
-    if (visualNetObj != null)
-        Destroy(visualNetObj);
-
-    Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
-    if (visualRb != null)
-        Destroy(visualRb);
+Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
+if (visualRb != null)
+    Destroy(visualRb);
 
     Collider[] colliders = heldVisual.GetComponentsInChildren<Collider>();
     foreach (Collider col in colliders)

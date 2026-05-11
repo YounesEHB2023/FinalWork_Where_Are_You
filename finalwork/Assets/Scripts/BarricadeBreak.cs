@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class BarricadeBreak : MonoBehaviour
+public class BarricadeBreak : NetworkBehaviour
 {
     [Header("References")]
     public InventorySystem inventorySystem;
@@ -26,13 +27,15 @@ public class BarricadeBreak : MonoBehaviour
 
     [Header("Axe Animation")]
     public float axeSwingDuration = 0.25f;
-    public float axeSwingAngle = 45f;
+    public Vector3 axeSwingRotation = new Vector3(55f, -20f, 25f);
 
     private int currentHits = 0;
     private bool playerInside = false;
     private bool usingController = false;
     private bool isAnimating = false;
     private bool broken = false;
+
+    private PickupSystem playerPickupSystem;
 
     void Start()
     {
@@ -41,6 +44,8 @@ public class BarricadeBreak : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
+
         DetectInputDevice();
         UpdateUI();
 
@@ -97,23 +102,39 @@ public class BarricadeBreak : MonoBehaviour
 
     GameObject GetSelectedAxe()
     {
-        if (inventorySystem == null) return null;
-        return inventorySystem.GetSelectedItem();
+        if (playerPickupSystem == null) return null;
+
+        return playerPickupSystem.GetHeldVisual();
     }
 
     void HitBarricade()
     {
-        currentHits++;
-
         if (audioSource != null && hitSound != null)
             audioSource.PlayOneShot(hitSound);
 
         StartCoroutine(HitAnimation());
 
+        RequestHitBarricadeServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void RequestHitBarricadeServerRpc()
+    {
+        if (broken) return;
+
+        currentHits++;
+
         if (currentHits >= hitsNeeded)
         {
-            StartCoroutine(BreakBarricade());
+            broken = true;
+            BreakBarricadeClientRpc();
         }
+    }
+
+    [ClientRpc]
+    void BreakBarricadeClientRpc()
+    {
+        StartCoroutine(BreakBarricade());
     }
 
     IEnumerator HitAnimation()
@@ -139,7 +160,7 @@ public class BarricadeBreak : MonoBehaviour
         Transform axeTransform = axe.transform;
 
         Quaternion startRot = axeTransform.localRotation;
-        Quaternion hitRot = startRot * Quaternion.Euler(axeSwingAngle, 0f, 0f);
+        Quaternion hitRot = startRot * Quaternion.Euler(axeSwingRotation);
 
         float halfDuration = axeSwingDuration / 2f;
         float t = 0f;
@@ -147,9 +168,11 @@ public class BarricadeBreak : MonoBehaviour
         while (t < halfDuration)
         {
             t += Time.deltaTime;
+
             float progress = Mathf.SmoothStep(0f, 1f, t / halfDuration);
 
-            axeTransform.localRotation = Quaternion.Lerp(startRot, hitRot, progress);
+            axeTransform.localRotation =
+                Quaternion.Lerp(startRot, hitRot, progress);
 
             yield return null;
         }
@@ -159,9 +182,11 @@ public class BarricadeBreak : MonoBehaviour
         while (t < halfDuration)
         {
             t += Time.deltaTime;
+
             float progress = Mathf.SmoothStep(0f, 1f, t / halfDuration);
 
-            axeTransform.localRotation = Quaternion.Lerp(hitRot, startRot, progress);
+            axeTransform.localRotation =
+                Quaternion.Lerp(hitRot, startRot, progress);
 
             yield return null;
         }
@@ -172,6 +197,7 @@ public class BarricadeBreak : MonoBehaviour
     IEnumerator ShakeBarricade()
     {
         Transform target = barricadeVisual != null ? barricadeVisual.transform : transform;
+
         Vector3 startPos = target.localPosition;
 
         float t = 0f;
@@ -194,6 +220,7 @@ public class BarricadeBreak : MonoBehaviour
     IEnumerator BreakBarricade()
     {
         broken = true;
+
         HideUI();
 
         if (hitSound != null)
@@ -207,7 +234,11 @@ public class BarricadeBreak : MonoBehaviour
 
     void UpdateUI()
     {
-        bool showUI = playerInside && HasAxeSelected() && !broken && !isAnimating;
+        bool showUI =
+            playerInside &&
+            HasAxeSelected() &&
+            !broken &&
+            !isAnimating;
 
         if (pressEUI != null)
             pressEUI.SetActive(showUI && !usingController);
@@ -227,19 +258,37 @@ public class BarricadeBreak : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = true;
-            UpdateUI();
-        }
+        if (!other.CompareTag("Player")) return;
+
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+
+        inventorySystem =
+            other.GetComponentInChildren<InventorySystem>(true);
+
+        playerPickupSystem =
+            other.GetComponentInChildren<PickupSystem>(true);
+
+        if (inventorySystem == null) return;
+
+        playerInside = true;
+
+        UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = false;
-            HideUI();
-        }
+        if (!other.CompareTag("Player")) return;
+
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+
+        playerInside = false;
+
+        playerPickupSystem = null;
+
+        HideUI();
     }
 }

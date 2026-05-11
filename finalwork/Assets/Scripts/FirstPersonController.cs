@@ -55,13 +55,13 @@ public class FirstPersonController : NetworkBehaviour
     }
 
     void Update()
-    {
-        if (!IsOwner) return;
+{
+    if (!IsOwner) return;
+    if (!Application.isFocused) return;
 
-        LookAround();
-        MovePlayer();
-    }
-
+    LookAround();
+    MovePlayer();
+}
     void MovePlayer()
     {
         Vector2 moveInput = Vector2.zero;
