@@ -3371,6 +3371,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cb1a6b5b01d08b449d57dfddf54dd44, type: 3}
+--- !u!1 &263030822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263030823}
+  m_Layer: 0
+  m_Name: WorkbenchVisualStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263030823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263030822}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0329, y: -0.0151, z: 0.0239}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1275072768}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &268216899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8508,7 +8539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c68af90323cff498648d8c289ae3aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.997
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15c68af90323cff498648d8c289ae3aa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8671,8 +8702,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01127746, y: 0.0036881692, z: 0.0004000016}
-  m_Center: {x: 0.0011248781, y: 0.0014987247, z: -0.0011605803}
+  m_Size: {x: 0.01127746, y: 0.0050160596, z: 0.0018479956}
+  m_Center: {x: 0.001124878, y: 0.0014987242, z: -0.0011605803}
 --- !u!114 &710297281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15478,6 +15509,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
       insertIndex: -1
       addedObject: {fileID: 840629296}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 263030823}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
       insertIndex: -1
@@ -15494,6 +15528,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1275072780}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1275072783}
   m_SourcePrefab: {fileID: 100100000, guid: 8909b476efb96964aa86911ba1ab9590, type: 3}
 --- !u!1001 &1222251746
 PrefabInstance:
@@ -16335,21 +16372,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af68bb4266b8e042bab77d2bcad812b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkbenchCraft
+  ShowTopMostFoldoutHeaderGroup: 1
   slots:
   - {fileID: 1844942670}
   - {fileID: 149547516}
   - {fileID: 1132032649}
   craftCenter: {fileID: 1441540274}
   axeSpawnPoint: {fileID: 840629296}
+  visualStartPoint: {fileID: 0}
   axePrefab: {fileID: 6413965683757793667, guid: 0361a2ae530e61040af82ae765f015a0, type: 3}
   axeFinalScale: {x: 12, y: 12, z: 12}
   pressEUI: {fileID: 1490996738}
   pressXUI: {fileID: 1463924459}
-  placeDuration: 0.4
+  placeDuration: 0.8
   fusionDuration: 0.6
   axeAppearDuration: 0.5
   wrongThrowForce: 4
   wrongUpForce: 2
+--- !u!114 &1275072783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275072767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 3146064467
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!4 &1277545728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8758888183437201531, guid: 2caeb99d3229fee4aa4f3bc8c1c8fc07, type: 3}
@@ -18417,7 +18481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
-  holdScale: {x: 10, y: 10, z: 80}
+  holdScale: {x: 8, y: 8, z: 60}
 --- !u!114 &1492990949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22215,15 +22279,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 80
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22231,7 +22295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.51124
+      value: 0.508
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf213c392288d1040a2f9c2b1a79aad6, type: 3}
       propertyPath: m_LocalPosition.z

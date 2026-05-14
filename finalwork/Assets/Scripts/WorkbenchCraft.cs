@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class WorkbenchCraft : MonoBehaviour
+public class WorkbenchCraft : NetworkBehaviour
 {
     [Header("Slots")]
     public Transform[] slots;
     public Transform craftCenter;
     public Transform axeSpawnPoint;
+    public Transform visualStartPoint;
 
     [Header("Craft Result")]
     public GameObject axePrefab;
@@ -33,7 +35,8 @@ public class WorkbenchCraft : MonoBehaviour
     private bool isPlacing = false;
     private bool isCrafting = false;
 
-    private GameObject currentObject;
+    private InventorySystem playerInventory;
+    private PickupSystem playerPickupSystem;
 
     void Start()
     {
@@ -42,18 +45,54 @@ public class WorkbenchCraft : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
+
         DetectInputDevice();
         UpdateUI();
 
-        bool keyboardPlace = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
-        bool controllerPlace = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
+        bool keyboardPlace =
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
 
-        if (playerInside && currentObject != null && !crafted && !isPlacing && !isCrafting && (keyboardPlace || controllerPlace))
+        bool controllerPlace =
+            Gamepad.current != null &&
+            Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+        if (
+            playerInside &&
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null &&
+            !crafted &&
+            !isPlacing &&
+            !isCrafting &&
+            placedObjects.Count < slots.Length &&
+            (keyboardPlace || controllerPlace)
+        )
         {
-            if (!placedObjects.Contains(currentObject) && placedObjects.Count < slots.Length)
+            GameObject selectedItem = playerInventory.GetSelectedItem();
+            NetworkObject itemNetObj = selectedItem.GetComponent<NetworkObject>();
+
+            if (itemNetObj == null)
             {
-                StartCoroutine(PlaceObjectAnimated(currentObject));
+                Debug.LogWarning("Workbench item needs NetworkObject: " + selectedItem.name);
+                return;
             }
+
+            Vector3 startPos = selectedItem.transform.position;
+Quaternion startRot = selectedItem.transform.rotation;
+
+if (playerPickupSystem != null && playerPickupSystem.GetHeldVisual() != null)
+{
+    startPos = playerPickupSystem.GetHeldVisual().transform.position;
+    startRot = playerPickupSystem.GetHeldVisual().transform.rotation;
+}
+
+RequestPlaceObjectServerRpc(itemNetObj.NetworkObjectId, startPos, startRot);
+
+playerInventory.RemoveItem(selectedItem);
+
+if (playerPickupSystem != null)
+    playerPickupSystem.ClearHandAfterTransfer();
         }
     }
 
@@ -65,7 +104,12 @@ public class WorkbenchCraft : MonoBehaviour
             Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
             Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
 
-            if (dpad != Vector2.zero || leftStick.magnitude > 0.1f || rightStick.magnitude > 0.1f || Gamepad.current.buttonSouth.wasPressedThisFrame)
+            if (
+                dpad != Vector2.zero ||
+                leftStick.magnitude > 0.1f ||
+                rightStick.magnitude > 0.1f ||
+                Gamepad.current.buttonSouth.wasPressedThisFrame
+            )
                 usingController = true;
         }
 
@@ -78,75 +122,139 @@ public class WorkbenchCraft : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-            playerInside = true;
+        if (!other.CompareTag("Player")) return;
 
-        if (other.CompareTag("Pickup"))
-            currentObject = other.gameObject;
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
 
+        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
+        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+
+        playerInside = true;
         UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = false;
-            HideUI();
-        }
+        if (!other.CompareTag("Player")) return;
 
-        if (other.gameObject == currentObject)
-            currentObject = null;
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
 
-        UpdateUI();
-    }
+        playerInside = false;
+        playerInventory = null;
+        playerPickupSystem = null;
 
-    IEnumerator PlaceObjectAnimated(GameObject obj)
-    {
-        isPlacing = true;
         HideUI();
-
-        placedObjects.Add(obj);
-
-        int slotIndex = placedObjects.Count - 1;
-        Transform targetSlot = slots[slotIndex];
-
-        obj.tag = "Untagged";
-
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.useGravity = false;
-            rb.isKinematic = true;
-        }
-
-        Vector3 startPos = obj.transform.position;
-        Quaternion startRot = obj.transform.rotation;
-
-        float t = 0f;
-
-        while (t < placeDuration)
-        {
-            t += Time.deltaTime;
-            float progress = t / placeDuration;
-
-            obj.transform.position = Vector3.Lerp(startPos, targetSlot.position, progress);
-            obj.transform.rotation = Quaternion.Lerp(startRot, targetSlot.rotation, progress);
-
-            yield return null;
-        }
-
-        obj.transform.position = targetSlot.position;
-        obj.transform.rotation = targetSlot.rotation;
-
-        currentObject = null;
-        isPlacing = false;
-
-        CheckRecipe();
     }
+
+    void UpdateUI()
+    {
+        bool hasSelectedItem =
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null;
+
+        bool showUI =
+            playerInside &&
+            hasSelectedItem &&
+            !crafted &&
+            !isPlacing &&
+            !isCrafting &&
+            placedObjects.Count < slots.Length;
+
+        if (pressEUI != null)
+            pressEUI.SetActive(showUI && !usingController);
+
+        if (pressXUI != null)
+            pressXUI.SetActive(showUI && usingController);
+    }
+
+    void HideUI()
+    {
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
+
+        if (pressXUI != null)
+            pressXUI.SetActive(false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+void RequestPlaceObjectServerRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
+{
+    PlaceObjectClientRpc(networkObjectId, startPos, startRot);
+}
+
+[ClientRpc]
+void PlaceObjectClientRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
+{
+    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+        return;
+
+    if (placedObjects.Contains(netObj.gameObject)) return;
+    if (placedObjects.Count >= slots.Length) return;
+
+    StartCoroutine(PlaceObjectAnimated(netObj.gameObject, startPos, startRot));
+}
+
+IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion startRot)
+{
+    isPlacing = true;
+    HideUI();
+
+    placedObjects.Add(obj);
+
+    int slotIndex = placedObjects.Count - 1;
+    Transform targetSlot = slots[slotIndex];
+
+    obj.SetActive(true);
+    obj.transform.SetParent(null);
+    obj.tag = "Untagged";
+
+    Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+    if (rb != null)
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+
+    obj.transform.position = startPos;
+    obj.transform.rotation = startRot;
+
+    float t = 0f;
+
+    while (t < placeDuration)
+{
+    t += Time.deltaTime;
+
+    float progress = t / placeDuration;
+
+    float smoothProgress =
+        Mathf.SmoothStep(0f, 1f, progress);
+
+    Vector3 arcOffset =
+        Vector3.up * Mathf.Sin(smoothProgress * Mathf.PI) * 0.25f;
+
+    obj.transform.position =
+        Vector3.Lerp(startPos, targetSlot.position, smoothProgress)
+        + arcOffset;
+
+    obj.transform.rotation =
+        Quaternion.Lerp(startRot, targetSlot.rotation, smoothProgress);
+
+    yield return null;
+}
+
+    obj.transform.position = targetSlot.position;
+    obj.transform.rotation = targetSlot.rotation;
+
+    isPlacing = false;
+
+    CheckRecipe();
+    UpdateUI();
+}
 
     void CheckRecipe()
     {
@@ -164,13 +272,9 @@ public class WorkbenchCraft : MonoBehaviour
         }
 
         if (hasStone && hasStick && hasVine)
-        {
             StartCoroutine(CorrectCraftAnimation());
-        }
         else
-        {
             StartCoroutine(WrongCraftAnimation());
-        }
     }
 
     IEnumerator CorrectCraftAnimation()
@@ -198,49 +302,116 @@ public class WorkbenchCraft : MonoBehaviour
             {
                 Vector3 shake = Random.insideUnitSphere * 0.03f;
                 shake.y = 0f;
-                placedObjects[i].transform.position = Vector3.Lerp(startPositions[i], craftCenter.position, progress) + shake;
-                placedObjects[i].transform.localScale = Vector3.Lerp(startScales[i], Vector3.zero, progress);
+
+                placedObjects[i].transform.position =
+                    Vector3.Lerp(startPositions[i], craftCenter.position, progress) + shake;
+
+                placedObjects[i].transform.localScale =
+                    Vector3.Lerp(startScales[i], Vector3.zero, progress);
             }
 
             yield return null;
         }
 
-        foreach (GameObject obj in placedObjects)
+        for (int i = 0; i < placedObjects.Count; i++)
+{
+    placedObjects[i].transform.position = craftCenter.position;
+    placedObjects[i].transform.localScale = Vector3.zero;
+}
+
+        if (IsServer)
         {
-            Destroy(obj);
+            foreach (GameObject obj in placedObjects)
+            {
+                NetworkObject netObj = obj.GetComponent<NetworkObject>();
+
+                if (netObj != null && netObj.IsSpawned)
+                    netObj.Despawn(true);
+                else
+                    Destroy(obj);
+            }
+
+            GameObject axe = Instantiate(axePrefab, axeSpawnPoint.position, axeSpawnPoint.rotation);
+            axe.transform.localScale = Vector3.zero;
+
+            NetworkObject axeNetObj = axe.GetComponent<NetworkObject>();
+
+            if (axeNetObj != null)
+                axeNetObj.Spawn();
+
+            ShowCraftedAxeClientRpc(axeNetObj.NetworkObjectId);
         }
 
         placedObjects.Clear();
 
-        GameObject axe = Instantiate(axePrefab, axeSpawnPoint.position, axeSpawnPoint.rotation);
-        axe.transform.localScale = Vector3.zero;
+        crafted = true;
+        isCrafting = false;
 
-        t = 0f;
+        Debug.Log("AXE CREATED");
+    }
+
+    [ClientRpc]
+    void ShowCraftedAxeClientRpc(ulong axeNetworkObjectId)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(axeNetworkObjectId, out NetworkObject axeNetObj))
+            return;
+
+        StartCoroutine(ShowAxeAnimation(axeNetObj.gameObject));
+    }
+
+    IEnumerator ShowAxeAnimation(GameObject axe)
+    {
+        axe.transform.position = axeSpawnPoint.position;
+        axe.transform.rotation = axeSpawnPoint.rotation;
+        axe.transform.localScale = Vector3.zero;
+        axe.tag = "Pickup";
+
+        Rigidbody axeRb = axe.GetComponent<Rigidbody>();
+
+        if (axeRb != null)
+        {
+            axeRb.useGravity = false;
+            axeRb.isKinematic = true;
+        }
+
+        float t = 0f;
 
         while (t < axeAppearDuration)
         {
             t += Time.deltaTime;
             float progress = Mathf.SmoothStep(0f, 1f, t / axeAppearDuration);
 
-            axe.transform.localScale = Vector3.Lerp(Vector3.zero, axeFinalScale, progress);
+            axe.transform.localScale =
+                Vector3.Lerp(Vector3.zero, axeFinalScale, progress);
 
             yield return null;
         }
 
         axe.transform.localScale = axeFinalScale;
-        axe.tag = "Pickup";
 
-        Rigidbody axeRb = axe.GetComponent<Rigidbody>();
         if (axeRb != null)
         {
             axeRb.useGravity = true;
             axeRb.isKinematic = false;
         }
 
-        crafted = true;
-        isCrafting = false;
+       axe.tag = "Pickup";
+axe.SetActive(true);
 
-        Debug.Log("AXE CREATED");
+Collider[] colliders = axe.GetComponentsInChildren<Collider>();
+foreach (Collider col in colliders)
+    col.enabled = true;
+
+Outline outline = axe.GetComponent<Outline>();
+if (outline != null)
+    outline.enabled = false;
+
+OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
+if (outlineProximity != null)
+{
+    outlineProximity.enabled = false;
+    outlineProximity.enabled = true;
+}
     }
 
     IEnumerator WrongCraftAnimation()
@@ -272,35 +443,10 @@ public class WorkbenchCraft : MonoBehaviour
         }
 
         placedObjects.Clear();
-
         isCrafting = false;
 
         Debug.Log("WRONG RECIPE - OBJECTS EJECTED");
-    }
 
-    void UpdateUI()
-    {
-        bool showUI =
-            playerInside &&
-            currentObject != null &&
-            !crafted &&
-            !isPlacing &&
-            !isCrafting &&
-            placedObjects.Count < slots.Length;
-
-        if (pressEUI != null)
-            pressEUI.SetActive(showUI && !usingController);
-
-        if (pressXUI != null)
-            pressXUI.SetActive(showUI && usingController);
-    }
-
-    void HideUI()
-    {
-        if (pressEUI != null)
-            pressEUI.SetActive(false);
-
-        if (pressXUI != null)
-            pressXUI.SetActive(false);
+        
     }
 }
