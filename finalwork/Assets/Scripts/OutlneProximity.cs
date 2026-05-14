@@ -6,32 +6,38 @@ public class OutlineProximity : MonoBehaviour
 
     private Outline outline;
     private Transform localPlayerCamera;
+    private bool initialized = false;
 
     void Start()
     {
         outline = GetComponent<Outline>();
+        FindLocalPlayerCamera();
 
         if (outline != null)
-            outline.enabled = false;
+        {
+            outline.enabled = true;
+            outline.OutlineWidth = 0f;
+        }
 
-        FindLocalPlayerCamera();
+        initialized = true;
     }
 
     void Update()
     {
-        if (outline == null) return;
+        if (!initialized || outline == null) return;
 
         if (localPlayerCamera == null)
             FindLocalPlayerCamera();
 
         if (localPlayerCamera == null)
         {
-            outline.enabled = false;
+            outline.OutlineWidth = 0f;
             return;
         }
 
         float distance = Vector3.Distance(localPlayerCamera.position, transform.position);
-        outline.enabled = distance <= activationDistance;
+
+        outline.OutlineWidth = distance <= activationDistance ? 5f : 0f;
     }
 
     void FindLocalPlayerCamera()

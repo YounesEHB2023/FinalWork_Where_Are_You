@@ -114,7 +114,7 @@ public void ClearHandAfterTransfer()
     {
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance))
+        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
         {
             if (!hit.collider.CompareTag("Pickup")) return;
 
