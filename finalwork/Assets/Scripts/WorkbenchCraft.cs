@@ -21,7 +21,7 @@ public class WorkbenchCraft : NetworkBehaviour
     public GameObject pressXUI;
 
     [Header("Animation")]
-    public float placeDuration = 0.4f;
+    public float placeDuration = 0.8f;
     public float fusionDuration = 0.6f;
     public float axeAppearDuration = 0.5f;
     public float wrongThrowForce = 4f;
@@ -50,13 +50,8 @@ public class WorkbenchCraft : NetworkBehaviour
         DetectInputDevice();
         UpdateUI();
 
-        bool keyboardPlace =
-            Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame;
-
-        bool controllerPlace =
-            Gamepad.current != null &&
-            Gamepad.current.buttonSouth.wasPressedThisFrame;
+        bool keyboardPlace = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
+        bool controllerPlace = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
 
         if (
             playerInside &&
@@ -79,20 +74,20 @@ public class WorkbenchCraft : NetworkBehaviour
             }
 
             Vector3 startPos = selectedItem.transform.position;
-Quaternion startRot = selectedItem.transform.rotation;
+            Quaternion startRot = selectedItem.transform.rotation;
 
-if (playerPickupSystem != null && playerPickupSystem.GetHeldVisual() != null)
-{
-    startPos = playerPickupSystem.GetHeldVisual().transform.position;
-    startRot = playerPickupSystem.GetHeldVisual().transform.rotation;
-}
+            if (playerPickupSystem != null && playerPickupSystem.GetHeldVisual() != null)
+            {
+                startPos = playerPickupSystem.GetHeldVisual().transform.position;
+                startRot = playerPickupSystem.GetHeldVisual().transform.rotation;
+            }
 
-RequestPlaceObjectServerRpc(itemNetObj.NetworkObjectId, startPos, startRot);
+            RequestPlaceObjectServerRpc(itemNetObj.NetworkObjectId, startPos, startRot);
 
-playerInventory.RemoveItem(selectedItem);
+            playerInventory.RemoveItem(selectedItem);
 
-if (playerPickupSystem != null)
-    playerPickupSystem.ClearHandAfterTransfer();
+            if (playerPickupSystem != null)
+                playerPickupSystem.ClearHandAfterTransfer();
         }
     }
 
@@ -150,9 +145,7 @@ if (playerPickupSystem != null)
 
     void UpdateUI()
     {
-        bool hasSelectedItem =
-            playerInventory != null &&
-            playerInventory.GetSelectedItem() != null;
+        bool hasSelectedItem = playerInventory != null && playerInventory.GetSelectedItem() != null;
 
         bool showUI =
             playerInside &&
@@ -179,82 +172,78 @@ if (playerPickupSystem != null)
     }
 
     [ServerRpc(RequireOwnership = false)]
-void RequestPlaceObjectServerRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
-{
-    PlaceObjectClientRpc(networkObjectId, startPos, startRot);
-}
-
-[ClientRpc]
-void PlaceObjectClientRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
-{
-    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
-        return;
-
-    if (placedObjects.Contains(netObj.gameObject)) return;
-    if (placedObjects.Count >= slots.Length) return;
-
-    StartCoroutine(PlaceObjectAnimated(netObj.gameObject, startPos, startRot));
-}
-
-IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion startRot)
-{
-    isPlacing = true;
-    HideUI();
-
-    placedObjects.Add(obj);
-
-    int slotIndex = placedObjects.Count - 1;
-    Transform targetSlot = slots[slotIndex];
-
-    obj.SetActive(true);
-    obj.transform.SetParent(null);
-    obj.tag = "Untagged";
-
-    Rigidbody rb = obj.GetComponent<Rigidbody>();
-
-    if (rb != null)
+    void RequestPlaceObjectServerRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
     {
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.useGravity = false;
-        rb.isKinematic = true;
+        PlaceObjectClientRpc(networkObjectId, startPos, startRot);
     }
 
-    obj.transform.position = startPos;
-    obj.transform.rotation = startRot;
+    [ClientRpc]
+    void PlaceObjectClientRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
 
-    float t = 0f;
+        if (placedObjects.Contains(netObj.gameObject)) return;
+        if (placedObjects.Count >= slots.Length) return;
 
-    while (t < placeDuration)
-{
-    t += Time.deltaTime;
+        StartCoroutine(PlaceObjectAnimated(netObj.gameObject, startPos, startRot));
+    }
 
-    float progress = t / placeDuration;
+    IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion startRot)
+    {
+        isPlacing = true;
+        HideUI();
 
-    float smoothProgress =
-        Mathf.SmoothStep(0f, 1f, progress);
+        placedObjects.Add(obj);
 
-    Vector3 arcOffset =
-        Vector3.up * Mathf.Sin(smoothProgress * Mathf.PI) * 0.25f;
+        int slotIndex = placedObjects.Count - 1;
+        Transform targetSlot = slots[slotIndex];
 
-    obj.transform.position =
-        Vector3.Lerp(startPos, targetSlot.position, smoothProgress)
-        + arcOffset;
+        obj.SetActive(true);
+        obj.transform.SetParent(null);
+        obj.tag = "Untagged";
 
-    obj.transform.rotation =
-        Quaternion.Lerp(startRot, targetSlot.rotation, smoothProgress);
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
 
-    yield return null;
-}
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
 
-    obj.transform.position = targetSlot.position;
-    obj.transform.rotation = targetSlot.rotation;
+        obj.transform.position = startPos;
+        obj.transform.rotation = startRot;
 
-    isPlacing = false;
+        float t = 0f;
 
-    CheckRecipe();
-    UpdateUI();
-}
+        while (t < placeDuration)
+        {
+            t += Time.deltaTime;
+
+            float progress = t / placeDuration;
+            float smoothProgress = Mathf.SmoothStep(0f, 1f, progress);
+
+            Vector3 arcOffset = Vector3.up * Mathf.Sin(smoothProgress * Mathf.PI) * 0.25f;
+
+            obj.transform.position =
+                Vector3.Lerp(startPos, targetSlot.position, smoothProgress) + arcOffset;
+
+            obj.transform.rotation =
+                Quaternion.Lerp(startRot, targetSlot.rotation, smoothProgress);
+
+            yield return null;
+        }
+
+        obj.transform.position = targetSlot.position;
+        obj.transform.rotation = targetSlot.rotation;
+
+        isPlacing = false;
+
+        CheckRecipe();
+        UpdateUI();
+    }
 
     void CheckRecipe()
     {
@@ -314,10 +303,10 @@ IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion sta
         }
 
         for (int i = 0; i < placedObjects.Count; i++)
-{
-    placedObjects[i].transform.position = craftCenter.position;
-    placedObjects[i].transform.localScale = Vector3.zero;
-}
+        {
+            placedObjects[i].transform.position = craftCenter.position;
+            placedObjects[i].transform.localScale = Vector3.zero;
+        }
 
         if (IsServer)
         {
@@ -332,14 +321,14 @@ IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion sta
             }
 
             GameObject axe = Instantiate(axePrefab, axeSpawnPoint.position, axeSpawnPoint.rotation);
-            axe.transform.localScale = Vector3.zero;
 
             NetworkObject axeNetObj = axe.GetComponent<NetworkObject>();
 
             if (axeNetObj != null)
                 axeNetObj.Spawn();
 
-            ShowCraftedAxeClientRpc(axeNetObj.NetworkObjectId);
+            if (axeNetObj != null)
+                ShowCraftedAxeClientRpc(axeNetObj.NetworkObjectId);
         }
 
         placedObjects.Clear();
@@ -361,10 +350,15 @@ IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion sta
 
     IEnumerator ShowAxeAnimation(GameObject axe)
     {
+        axe.SetActive(true);
+        axe.tag = "Pickup";
         axe.transform.position = axeSpawnPoint.position;
         axe.transform.rotation = axeSpawnPoint.rotation;
-        axe.transform.localScale = Vector3.zero;
-        axe.tag = "Pickup";
+
+        Vector3 finalScale = axeFinalScale;
+        Vector3 startScale = axeFinalScale * 0.05f;
+
+        axe.transform.localScale = startScale;
 
         Rigidbody axeRb = axe.GetComponent<Rigidbody>();
 
@@ -372,7 +366,15 @@ IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion sta
         {
             axeRb.useGravity = false;
             axeRb.isKinematic = true;
+            axeRb.linearVelocity = Vector3.zero;
+            axeRb.angularVelocity = Vector3.zero;
         }
+
+        Collider[] colliders = axe.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+            col.enabled = true;
+
+        DisableAxeOutline(axe);
 
         float t = 0f;
 
@@ -382,36 +384,56 @@ IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion sta
             float progress = Mathf.SmoothStep(0f, 1f, t / axeAppearDuration);
 
             axe.transform.localScale =
-                Vector3.Lerp(Vector3.zero, axeFinalScale, progress);
+                Vector3.Lerp(startScale, finalScale, progress);
 
             yield return null;
         }
 
-        axe.transform.localScale = axeFinalScale;
+        axe.transform.localScale = finalScale;
+
+        yield return null;
+        yield return null;
+
+        ForceRefreshAxeOutline(axe);
 
         if (axeRb != null)
         {
             axeRb.useGravity = true;
             axeRb.isKinematic = false;
         }
+    }
 
-       axe.tag = "Pickup";
-axe.SetActive(true);
+    void DisableAxeOutline(GameObject axe)
+    {
+        OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
+        if (outlineProximity != null)
+            outlineProximity.enabled = false;
 
-Collider[] colliders = axe.GetComponentsInChildren<Collider>();
-foreach (Collider col in colliders)
-    col.enabled = true;
+        Outline outline = axe.GetComponent<Outline>();
+        if (outline != null)
+            outline.enabled = false;
+    }
 
-Outline outline = axe.GetComponent<Outline>();
-if (outline != null)
-    outline.enabled = false;
+    void ForceRefreshAxeOutline(GameObject axe)
+    {
+        Outline outline = axe.GetComponent<Outline>();
 
-OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
-if (outlineProximity != null)
-{
-    outlineProximity.enabled = false;
-    outlineProximity.enabled = true;
-}
+        if (outline != null)
+        {
+            outline.enabled = false;
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineWidth = 5f;
+            outline.enabled = true;
+        }
+
+        OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
+
+        if (outlineProximity != null)
+        {
+            outlineProximity.enabled = false;
+            outlineProximity.activationDistance = 4f;
+            outlineProximity.enabled = true;
+        }
     }
 
     IEnumerator WrongCraftAnimation()
@@ -446,7 +468,5 @@ if (outlineProximity != null)
         isCrafting = false;
 
         Debug.Log("WRONG RECIPE - OBJECTS EJECTED");
-
-        
     }
 }

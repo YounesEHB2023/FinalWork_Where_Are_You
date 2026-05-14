@@ -2178,8 +2178,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.8139603, y: 6.2393045, z: 3.6588757}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.27929, y: 6.2393045, z: 4.5375}
+  m_Center: {x: 0, y: 0, z: 0.43931216}
 --- !u!114 &164463337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16385,7 +16385,7 @@ MonoBehaviour:
   pressEUI: {fileID: 1490996738}
   pressXUI: {fileID: 1463924459}
   placeDuration: 0.8
-  fusionDuration: 0.6
+  fusionDuration: 0.8
   axeAppearDuration: 0.5
   wrongThrowForce: 4
   wrongUpForce: 2

@@ -10,7 +10,7 @@ public class OutlineProximity : MonoBehaviour
 
     void Start()
     {
-        outline = GetComponent<Outline>();
+outline = GetComponentInChildren<Outline>();
         FindLocalPlayerCamera();
 
         if (outline != null)

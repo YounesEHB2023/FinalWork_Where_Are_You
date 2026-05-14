@@ -265,6 +265,14 @@ void ShowHeldVisualClientRpc(ulong networkObjectId)
 
    heldVisual = Instantiate(originalObj, holdPoint);
 
+   Outline heldOutline = heldVisual.GetComponent<Outline>();
+if (heldOutline != null)
+    heldOutline.enabled = false;
+
+OutlineProximity heldOutlineProximity = heldVisual.GetComponent<OutlineProximity>();
+if (heldOutlineProximity != null)
+    heldOutlineProximity.enabled = false;
+
 Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
 if (visualRb != null)
     Destroy(visualRb);
