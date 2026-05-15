@@ -11,11 +11,25 @@ public class LevelExitPortal : NetworkBehaviour
 
     [Header("Portal")]
     public Transform portalCenter;
-    public float pullDuration = 1.5f;
     public int requiredPlayers = 1;
+
+    [Header("Camera Animation")]
+    public float animationDuration = 2f;
+    public float moveStrength = 0.65f;
+    public float spinSpeed = 220f;
+    public float maxFov = 120f;
+
+    [Header("Fade")]
+    public CanvasGroup blackFadeCanvasGroup;
 
     private HashSet<ulong> playersInside = new HashSet<ulong>();
     private bool transitionStarted = false;
+
+    void Start()
+    {
+        if (blackFadeCanvasGroup != null)
+            blackFadeCanvasGroup.alpha = 0f;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -31,72 +45,80 @@ public class LevelExitPortal : NetworkBehaviour
         {
             transitionStarted = true;
 
-            StartTransitionClientRpc(new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new ulong[] { playerNetObj.OwnerClientId }
-                }
-            });
+            StartTransitionClientRpc();
 
             StartCoroutine(LoadNextSceneAfterDelay());
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-        if (!IsServer) return;
-
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj == null) return;
-
-        playersInside.Remove(playerNetObj.OwnerClientId);
-    }
-
     [ClientRpc]
-    void StartTransitionClientRpc(ClientRpcParams clientRpcParams = default)
+    void StartTransitionClientRpc()
     {
-        StartCoroutine(PullLocalPlayer());
+        StartCoroutine(TransitionAnimation());
     }
 
-    IEnumerator PullLocalPlayer()
+    IEnumerator TransitionAnimation()
+{
+    Camera cam = FindPlayerCamera();
+
+    if (cam == null)
+        yield break;
+
+    Transform camTransform = cam.transform;
+
+    Quaternion startRot = camTransform.localRotation;
+    float startFov = cam.fieldOfView;
+
+    float t = 0f;
+
+    while (t < animationDuration)
     {
-        if (NetworkManager.Singleton.LocalClient.PlayerObject == null)
-            yield break;
+        t += Time.deltaTime;
+        float progress = Mathf.SmoothStep(0f, 1f, t / animationDuration);
 
-        Transform localPlayer = NetworkManager.Singleton.LocalClient.PlayerObject.transform;
+        cam.fieldOfView = Mathf.Lerp(startFov, maxFov, progress);
 
-        if (portalCenter == null)
-            yield break;
+        float spin = Mathf.Sin(progress * Mathf.PI) * 12f;
+        camTransform.localRotation = startRot * Quaternion.Euler(0f, 0f, spin);
 
-        CharacterController controller = localPlayer.GetComponent<CharacterController>();
-        if (controller != null)
-            controller.enabled = false;
-
-        Vector3 startPos = localPlayer.position;
-        Vector3 endPos = portalCenter.position;
-
-        float t = 0f;
-
-        while (t < pullDuration)
+        if (blackFadeCanvasGroup != null)
         {
-            t += Time.deltaTime;
-            float progress = Mathf.SmoothStep(0f, 1f, t / pullDuration);
-
-            localPlayer.position = Vector3.Lerp(startPos, endPos, progress);
-            localPlayer.Rotate(Vector3.up, 180f * Time.deltaTime);
-
-            yield return null;
+            float fadeProgress = Mathf.InverseLerp(0.55f, 1f, progress);
+            blackFadeCanvasGroup.alpha = fadeProgress;
         }
 
-        if (controller != null)
-            controller.enabled = true;
+        yield return null;
+    }
+
+    if (blackFadeCanvasGroup != null)
+        blackFadeCanvasGroup.alpha = 1f;
+
+    cam.fieldOfView = startFov;
+    camTransform.localRotation = startRot;
+}
+
+    Camera FindPlayerCamera()
+    {
+        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+
+        foreach (Camera cam in cameras)
+        {
+            if (cam.enabled && cam.name.Contains("PlayerCamera"))
+                return cam;
+        }
+
+        foreach (Camera cam in cameras)
+        {
+            if (cam.enabled)
+                return cam;
+        }
+
+        return null;
     }
 
     IEnumerator LoadNextSceneAfterDelay()
     {
-        yield return new WaitForSeconds(pullDuration + 0.3f);
+        yield return new WaitForSeconds(animationDuration + 0.2f);
 
         NetworkManager.Singleton.SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
     }
