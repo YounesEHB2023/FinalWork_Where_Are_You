@@ -8,21 +8,21 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/UiElements/MainMenu.unity
     guid: 8852430f39c45e543ba451d38c945d3e
+  - enabled: 1
+    path: Assets/Scenes/Prehistorie/Multiplayer/MultiplayerPhrehistoricPuzzle1.unity
+    guid: 66812d0df31a92d4eaf9903b68f373c1
+  - enabled: 1
+    path: Assets/Scenes/Prehistorie/PrehistoricPuzzle2.unity
+    guid: 9ac7a1edc2718914599d3c0db7932c87
   - enabled: 0
     path: Assets/Scenes/Prehistorie/PhrehistoricPuzzle1.unity
     guid: e1cf26cf3dd2a6e4a9e748a7f1086549
   - enabled: 0
-    path: Assets/Scenes/Prehistorie/PrehistoricPuzzle2.unity
-    guid: 9ac7a1edc2718914599d3c0db7932c87
-  - enabled: 1
     path: Assets/Scenes/TestServerJoin.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Scenes/Prehistorie/Test/Prehistoric1.unity
     guid: 69edc6ecc7bab124782fd3b922af588d
-  - enabled: 1
-    path: Assets/Scenes/Prehistorie/Multiplayer/MultiplayerPhrehistoricPuzzle1 1.unity
-    guid: 66812d0df31a92d4eaf9903b68f373c1
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
   m_UseUCBPForAssetBundles: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -10,15 +11,27 @@ public class PlayerSpawnManager : NetworkBehaviour
         if (!IsServer) return;
 
         NetworkManager.Singleton.OnClientConnectedCallback += MovePlayerToSpawn;
+
+        StartCoroutine(MoveAllPlayersAfterSceneLoad());
     }
 
     public override void OnDestroy()
-{
-    base.OnDestroy();
+    {
+        base.OnDestroy();
 
-    if (NetworkManager.Singleton != null)
-        NetworkManager.Singleton.OnClientConnectedCallback -= MovePlayerToSpawn;
-}
+        if (NetworkManager.Singleton != null)
+            NetworkManager.Singleton.OnClientConnectedCallback -= MovePlayerToSpawn;
+    }
+
+    IEnumerator MoveAllPlayersAfterSceneLoad()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        {
+            MovePlayerToSpawn(clientId);
+        }
+    }
 
     void MovePlayerToSpawn(ulong clientId)
     {
