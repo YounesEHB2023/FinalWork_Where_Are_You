@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnManager
   ShowTopMostFoldoutHeaderGroup: 1
+  playerPrefab: {fileID: 4419601822198444878, guid: 91f131ea59f5277499d446c4669d97eb, type: 3}
   spawnPoints:
   - {fileID: 831467980}
   - {fileID: 2035293131}

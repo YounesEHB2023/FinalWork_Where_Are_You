@@ -7085,7 +7085,7 @@ RectTransform:
   m_GameObject: {fileID: 543230505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12.8, y: 8, z: 8}
+  m_LocalScale: {x: 19.2, y: 10.8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 582067037}
@@ -7141,7 +7141,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543230505}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -11510,6 +11510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnManager
   ShowTopMostFoldoutHeaderGroup: 1
+  playerPrefab: {fileID: 4419601822198444878, guid: 91f131ea59f5277499d446c4669d97eb, type: 3}
   spawnPoints:
   - {fileID: 2097445916}
   - {fileID: 1366665554}

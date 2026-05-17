@@ -4,14 +4,19 @@ using Unity.Netcode;
 
 public class PlayerSpawnManager : NetworkBehaviour
 {
+    [Header("Player")]
+    public GameObject playerPrefab;
+
+    [Header("Spawn Points")]
     public Transform[] spawnPoints;
 
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
 
-        NetworkManager.Singleton.OnClientConnectedCallback += MovePlayerToSpawn;
-        StartCoroutine(MoveAllPlayersAfterSceneLoad());
+        NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
+
+        StartCoroutine(SpawnAllPlayersAfterSceneLoad());
     }
 
     public override void OnDestroy()
@@ -19,85 +24,57 @@ public class PlayerSpawnManager : NetworkBehaviour
         base.OnDestroy();
 
         if (NetworkManager.Singleton != null)
-            NetworkManager.Singleton.OnClientConnectedCallback -= MovePlayerToSpawn;
+            NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
     }
 
-    IEnumerator MoveAllPlayersAfterSceneLoad()
+    IEnumerator SpawnAllPlayersAfterSceneLoad()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            MovePlayerToSpawn(clientId);
+            SpawnPlayer(clientId);
         }
     }
 
-    void MovePlayerToSpawn(ulong clientId)
+    void SpawnPlayer(ulong clientId)
     {
-        if (spawnPoints == null || spawnPoints.Length == 0) return;
-        if (!NetworkManager.Singleton.ConnectedClients.TryGetValue(clientId, out NetworkClient client)) return;
-        if (client.PlayerObject == null) return;
+        if (playerPrefab == null)
+        {
+            Debug.LogError("Player prefab is missing on SpawnManager.");
+            return;
+        }
+
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("Spawn points are missing.");
+            return;
+        }
+
+        if (!NetworkManager.Singleton.ConnectedClients.TryGetValue(clientId, out NetworkClient client))
+            return;
+
+        if (client.PlayerObject != null && client.PlayerObject.IsSpawned)
+        {
+            client.PlayerObject.Despawn(true);
+        }
 
         int spawnIndex = (int)(clientId % (ulong)spawnPoints.Length);
 
         Vector3 spawnPosition = spawnPoints[spawnIndex].position;
         Quaternion spawnRotation = spawnPoints[spawnIndex].rotation;
 
-        GameObject player = client.PlayerObject.gameObject;
+        GameObject player = Instantiate(playerPrefab, spawnPosition, spawnRotation);
 
-        CharacterController controller = player.GetComponent<CharacterController>();
-        if (controller != null)
-            controller.enabled = false;
+        NetworkObject netObj = player.GetComponent<NetworkObject>();
 
-        player.transform.position = spawnPosition;
-        player.transform.rotation = spawnRotation;
-
-        if (controller != null)
-            controller.enabled = true;
-
-        MovePlayerClientRpc(spawnPosition, spawnRotation, new ClientRpcParams
+        if (netObj == null)
         {
-            Send = new ClientRpcSendParams
-            {
-                TargetClientIds = new ulong[] { clientId }
-            }
-        });
-    }
-
-    [ClientRpc]
-    void MovePlayerClientRpc(Vector3 position, Quaternion rotation, ClientRpcParams clientRpcParams = default)
-    {
-        if (NetworkManager.Singleton.LocalClient.PlayerObject == null) return;
-
-        GameObject player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
-
-        CharacterController controller = player.GetComponent<CharacterController>();
-        if (controller != null)
-            controller.enabled = false;
-
-        player.transform.position = position;
-        player.transform.rotation = rotation;
-
-        if (controller != null)
-            controller.enabled = true;
-
-        EnableGameplayUI();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    void EnableGameplayUI()
-    {
-        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-
-        foreach (GameObject obj in allObjects)
-        {
-            if (obj.name.Contains("InventoryCanvas"))
-                obj.SetActive(true);
-
-            if (obj.name.Contains("InventoryUI"))
-                obj.SetActive(true);
+            Debug.LogError("Player prefab needs NetworkObject.");
+            Destroy(player);
+            return;
         }
+
+        netObj.SpawnAsPlayerObject(clientId, true);
     }
 }
