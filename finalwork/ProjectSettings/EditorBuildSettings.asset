@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/UiElements/MainMenu.unity
     guid: 8852430f39c45e543ba451d38c945d3e
+  - enabled: 1
+    path: Assets/Scenes/UiElements/Lobby/Lobby.unity
+    guid: e9ef90bf09dacd743bd928de0005a2c5
   - enabled: 1
     path: Assets/Scenes/Prehistorie/Multiplayer/MultiplayerPhrehistoricPuzzle1.unity
     guid: 66812d0df31a92d4eaf9903b68f373c1
