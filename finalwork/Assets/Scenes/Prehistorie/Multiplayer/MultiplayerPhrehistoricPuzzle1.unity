@@ -4045,7 +4045,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Left Click to break
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6281,7 +6281,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press Square to break
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7147,7 +7147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &575929366
@@ -7787,7 +7787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 65f09ad375089a2449bfc94ba4903c70, type: 3}
+  icon: {fileID: 21300000, guid: ff755ea4ad731ca45a0370ab04565cce, type: 3}
 --- !u!54 &627437575
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11407,7 +11407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 468ea22459f56d14baf16935e8dc0932, type: 3}
+  icon: {fileID: 21300000, guid: dd73c26e27dc8c44b898819a85fedd88, type: 3}
 --- !u!1001 &892497676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11730,7 +11730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c162b5139a5c345ba0ac1cfc54a99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
-  holdPosition: {x: 0.2, y: 0, z: 0}
+  holdPosition: {x: 0.2, y: -0.5, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 13.16, y: 13.16, z: 13.16}
 --- !u!1001 &913493739
@@ -15109,7 +15109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 468ea22459f56d14baf16935e8dc0932, type: 3}
+  icon: {fileID: 21300000, guid: dc324b45daff55f4b8ea24abad9275c6, type: 3}
 --- !u!114 &1162209028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17081,7 +17081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 65f09ad375089a2449bfc94ba4903c70, type: 3}
+  icon: {fileID: 21300000, guid: 5a7cbf12b9bd0544aa699bccdb2de146, type: 3}
 --- !u!54 &1267201286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17142,7 +17142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c162b5139a5c345ba0ac1cfc54a99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
-  holdPosition: {x: 0.2, y: 0, z: 0}
+  holdPosition: {x: 0.2, y: -0.4, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 13, y: 13, z: 13}
 --- !u!4 &1268474093 stripped
@@ -17900,7 +17900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 65f09ad375089a2449bfc94ba4903c70, type: 3}
+  icon: {fileID: 21300000, guid: 035055f96fbfa54459eedb9da924fccd, type: 3}
 --- !u!54 &1338891060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17986,7 +17986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c162b5139a5c345ba0ac1cfc54a99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
-  holdPosition: {x: 0.2, y: 0, z: 0}
+  holdPosition: {x: 0.2, y: -0.4, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 7.966405, y: 7.979674, z: 5.636691}
 --- !u!1 &1354482520
@@ -19301,7 +19301,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press X to place
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -19628,7 +19628,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E to place
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -21302,15 +21302,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.12
+      value: 34.617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 0.194
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.18
+      value: 3.549
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21489,7 +21489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 468ea22459f56d14baf16935e8dc0932, type: 3}
+  icon: {fileID: 21300000, guid: ef2127b4d16ced8479f5b4503df5f6a3, type: 3}
 --- !u!114 &1680757872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24746,7 +24746,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E to transfer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -26761,7 +26761,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press X to transfer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36f659f0976e8f64f8e4bd0e9385b834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -27672,6 +27672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Correct_Stone
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d4cfed8def98e14690d05e18e7d80b3, type: 3}
+      propertyPath: m_TagString
+      value: Pickup
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27715,7 +27719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: 468ea22459f56d14baf16935e8dc0932, type: 3}
+  icon: {fileID: 21300000, guid: dcbd4fa963cf095469ea3eff545f28f6, type: 3}
 --- !u!54 &2058878705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27777,7 +27781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
   holdPosition: {x: 0.2, y: 0, z: 0}
-  holdRotation: {x: -176.049, y: 0.8659973, z: -3.575012}
+  holdRotation: {x: -280, y: 220, z: 50}
   holdScale: {x: 15, y: 15, z: 17.66463}
 --- !u!114 &2058878708
 MonoBehaviour:

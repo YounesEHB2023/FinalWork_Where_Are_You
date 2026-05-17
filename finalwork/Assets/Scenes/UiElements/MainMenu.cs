@@ -40,6 +40,7 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
         if (isBusy) return;
 
         HandleKeyboardInput();

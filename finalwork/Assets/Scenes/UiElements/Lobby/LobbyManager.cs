@@ -4,6 +4,8 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class LobbyManager : MonoBehaviour
     public Button startButton;
     public Button backButton;
 
+    [Header("Controller Selectors")]
+public GameObject backSelector;
+public GameObject startSelector;
+
     [Header("Fade")]
     public CanvasGroup fadePanel;
 
@@ -27,10 +33,16 @@ public class LobbyManager : MonoBehaviour
     private Color waitingColor = new Color32(218, 126, 25, 255);
 
     private bool isStarting = false;
+    private int selectedButtonIndex = 0; // 0 = Back, 1 = Start
+    private bool joystickReady = true;
+
+    private InputSystemUIInputModule uiInputModule;
 
     void Start()
     {
         ForceLobbyMode();
+
+        uiInputModule = FindFirstObjectByType<InputSystemUIInputModule>();
 
         if (startButton != null)
             startButton.onClick.AddListener(StartGame);
@@ -38,13 +50,26 @@ public class LobbyManager : MonoBehaviour
         if (backButton != null)
             backButton.onClick.AddListener(BackToMenu);
 
+        selectedButtonIndex = 0;
+        UpdateSelectorVisual();
+
         StartCoroutine(IntroFade());
     }
 
     void Update()
     {
+        bool focused = Application.isFocused;
+
+        if (uiInputModule != null)
+            uiInputModule.enabled = focused;
+
+        if (!focused)
+            return;
+
         ForceLobbyMode();
         UpdateLobbyUI();
+        HandleControllerSelection();
+        UpdateSelectorVisual();
     }
 
     void UpdateLobbyUI()
@@ -82,24 +107,89 @@ public class LobbyManager : MonoBehaviour
             bool canStart = isHost && playerCount >= 2 && !isStarting;
             startButton.interactable = canStart;
         }
+
+        if (selectedButtonIndex == 1 && startButton != null && !startButton.interactable)
+            selectedButtonIndex = 0;
     }
 
-void ForceLobbyMode()
-{
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
-
-    GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-
-    foreach (GameObject obj in allObjects)
+    void HandleControllerSelection()
     {
-        if (obj.name.Contains("InventoryCanvas"))
-            obj.SetActive(false);
+        if (isStarting) return;
+        if (Gamepad.current == null) return;
 
-        if (obj.name.Contains("InventoryUI"))
-            obj.SetActive(false);
+        Vector2 dpad = Gamepad.current.dpad.ReadValue();
+        Vector2 stick = Gamepad.current.leftStick.ReadValue();
+
+        if (joystickReady)
+        {
+            if (dpad.x > 0.5f || stick.x > 0.5f)
+            {
+                if (startButton != null && startButton.interactable)
+                    selectedButtonIndex = 1;
+
+                joystickReady = false;
+            }
+
+            if (dpad.x < -0.5f || stick.x < -0.5f)
+            {
+                selectedButtonIndex = 0;
+                joystickReady = false;
+            }
+        }
+
+        if (Mathf.Abs(dpad.x) < 0.2f && Mathf.Abs(stick.x) < 0.2f)
+            joystickReady = true;
+
+        if (Gamepad.current.buttonSouth.wasPressedThisFrame)
+        {
+            if (selectedButtonIndex == 0)
+                BackToMenu();
+
+            if (selectedButtonIndex == 1 && startButton != null && startButton.interactable)
+                StartGame();
+        }
     }
+
+    public void HoverBackButton()
+{
+    selectedButtonIndex = 0;
+    UpdateSelectorVisual();
 }
+
+public void HoverStartButton()
+{
+    if (startButton != null && startButton.interactable)
+        selectedButtonIndex = 1;
+
+    UpdateSelectorVisual();
+}
+
+    void UpdateSelectorVisual()
+{
+    if (backSelector != null)
+        backSelector.SetActive(selectedButtonIndex == 0);
+
+    if (startSelector != null)
+        startSelector.SetActive(selectedButtonIndex == 1);
+}
+
+    void ForceLobbyMode()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        GameObject[] allObjects =
+            FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name.Contains("InventoryCanvas"))
+                obj.SetActive(false);
+
+            if (obj.name.Contains("InventoryUI"))
+                obj.SetActive(false);
+        }
+    }
 
     void StartGame()
     {
@@ -126,6 +216,7 @@ void ForceLobbyMode()
     void BackToMenu()
     {
         if (isStarting) return;
+
         StartCoroutine(BackToMenuRoutine());
     }
 
