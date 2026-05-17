@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3446567248551104116}
   - component: {fileID: 6553100805633230937}
   - component: {fileID: 834084325957873070}
+  - component: {fileID: 6827265966547814471}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -104,3 +105,15 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
+--- !u!114 &6827265966547814471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793639637234514906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3781c3ddf2fc4f94abe34417a50d022d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroyNetworkManager

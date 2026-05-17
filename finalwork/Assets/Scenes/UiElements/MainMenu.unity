@@ -650,7 +650,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 917182151}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ClickStart
+        m_MethodName: ClickCreate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -717,7 +717,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 917182151}
           m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-          m_MethodName: SelectStart
+          m_MethodName: SelectCreate
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -727,6 +727,63 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1001 &795158636
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1793639637234514906, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_Name
+      value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 918.52356
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16569.865
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446567248551104116, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9ec9b2cc1a193046b3cca572b629437, type: 3}
 --- !u!1 &797131398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,11 +1061,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156afcb2a198c274688381b4f9cd33d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  startButton: {fileID: 619249862}
+  createButton: {fileID: 619249862}
+  joinButton: {fileID: 979096472}
   exitButton: {fileID: 1232181383}
   selectorPattern: {fileID: 1081088623}
   selectorGroup: {fileID: 1081088626}
   fadePanel: {fileID: 1951045395}
+  lobbySceneName: Lobby
   startFadeDuration: 1.5
   selectFadeDuration: 0.15
   sceneFadeDuration: 0.8
@@ -1085,7 +1144,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 917182151}
           m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-          m_MethodName: SelectStart
+          m_MethodName: SelectJoin
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1141,7 +1200,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 917182151}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ClickStart
+        m_MethodName: ClickJoin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1967,3 +2026,4 @@ SceneRoots:
   - {fileID: 546831620}
   - {fileID: 93778960}
   - {fileID: 1985295069}
+  - {fileID: 795158636}

@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
-    public RectTransform startButton;
+    public RectTransform createButton;
+    public RectTransform joinButton;
     public RectTransform exitButton;
 
     [Header("Selection Pattern")]
@@ -17,6 +19,7 @@ public class MainMenu : MonoBehaviour
     public CanvasGroup fadePanel;
 
     [Header("Settings")]
+    public string lobbySceneName = "Lobby";
     public float startFadeDuration = 1.5f;
     public float selectFadeDuration = 0.15f;
     public float sceneFadeDuration = 0.8f;
@@ -48,10 +51,10 @@ public class MainMenu : MonoBehaviour
         if (Keyboard.current == null) return;
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame)
-            SelectOption(0, false);
+            SelectPreviousOption();
 
         if (Keyboard.current.downArrowKey.wasPressedThisFrame || Keyboard.current.sKey.wasPressedThisFrame)
-            SelectOption(1, false);
+            SelectNextOption();
 
         if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.spaceKey.wasPressedThisFrame)
             ConfirmSelection();
@@ -68,13 +71,13 @@ public class MainMenu : MonoBehaviour
         {
             if (stick.y > 0.5f || dpad.y > 0.5f)
             {
-                SelectOption(0, false);
+                SelectPreviousOption();
                 joystickReady = false;
             }
 
             if (stick.y < -0.5f || dpad.y < -0.5f)
             {
-                SelectOption(1, false);
+                SelectNextOption();
                 joystickReady = false;
             }
         }
@@ -86,25 +89,56 @@ public class MainMenu : MonoBehaviour
             ConfirmSelection();
     }
 
-    public void SelectStart()
+    void SelectPreviousOption()
+    {
+        int newIndex = selectedIndex - 1;
+
+        if (newIndex < 0)
+            newIndex = 2;
+
+        SelectOption(newIndex, false);
+    }
+
+    void SelectNextOption()
+    {
+        int newIndex = selectedIndex + 1;
+
+        if (newIndex > 2)
+            newIndex = 0;
+
+        SelectOption(newIndex, false);
+    }
+
+    public void SelectCreate()
     {
         SelectOption(0, false);
     }
 
-    public void SelectExit()
+    public void SelectJoin()
     {
         SelectOption(1, false);
     }
 
-    public void ClickStart()
+    public void SelectExit()
+    {
+        SelectOption(2, false);
+    }
+
+    public void ClickCreate()
     {
         SelectOption(0, true);
         ConfirmSelection();
     }
 
-    public void ClickExit()
+    public void ClickJoin()
     {
         SelectOption(1, true);
+        ConfirmSelection();
+    }
+
+    public void ClickExit()
+    {
+        SelectOption(2, true);
         ConfirmSelection();
     }
 
@@ -114,7 +148,9 @@ public class MainMenu : MonoBehaviour
 
         selectedIndex = index;
 
-        RectTransform target = selectedIndex == 0 ? startButton : exitButton;
+        RectTransform target = GetSelectedButton();
+
+        if (target == null) return;
 
         if (instant)
         {
@@ -129,6 +165,13 @@ public class MainMenu : MonoBehaviour
             StopCoroutine(nameof(AnimateSelector));
             StartCoroutine(AnimateSelector(target));
         }
+    }
+
+    RectTransform GetSelectedButton()
+    {
+        if (selectedIndex == 0) return createButton;
+        if (selectedIndex == 1) return joinButton;
+        return exitButton;
     }
 
     IEnumerator AnimateSelector(RectTransform target)
@@ -170,30 +213,44 @@ public class MainMenu : MonoBehaviour
         if (isBusy) return;
 
         if (selectedIndex == 0)
-            StartCoroutine(ClickFeedbackThenPlay());
+            StartCoroutine(ClickFeedbackThenCreate());
+        else if (selectedIndex == 1)
+            StartCoroutine(ClickFeedbackThenJoin());
         else
             StartCoroutine(ClickFeedbackThenQuit());
     }
 
-    IEnumerator ClickFeedbackThenPlay()
+    IEnumerator ClickFeedbackThenCreate()
     {
         isBusy = true;
 
-        RectTransform target = selectedIndex == 0 ? startButton : exitButton;
-        yield return StartCoroutine(ClickPulse(target));
-
+        yield return StartCoroutine(ClickPulse(GetSelectedButton()));
         yield return StartCoroutine(FadeToBlack());
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (NetworkManager.Singleton != null)
+            NetworkManager.Singleton.StartHost();
+
+        SceneManager.LoadScene(lobbySceneName);
+    }
+
+    IEnumerator ClickFeedbackThenJoin()
+    {
+        isBusy = true;
+
+        yield return StartCoroutine(ClickPulse(GetSelectedButton()));
+        yield return StartCoroutine(FadeToBlack());
+
+        if (NetworkManager.Singleton != null)
+            NetworkManager.Singleton.StartClient();
+
+        SceneManager.LoadScene(lobbySceneName);
     }
 
     IEnumerator ClickFeedbackThenQuit()
     {
         isBusy = true;
 
-        RectTransform target = selectedIndex == 0 ? startButton : exitButton;
-        yield return StartCoroutine(ClickPulse(target));
-
+        yield return StartCoroutine(ClickPulse(GetSelectedButton()));
         yield return StartCoroutine(FadeToBlack());
 
         Application.Quit();
