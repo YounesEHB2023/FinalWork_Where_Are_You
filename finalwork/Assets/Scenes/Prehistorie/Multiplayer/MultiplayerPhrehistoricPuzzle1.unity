@@ -7788,6 +7788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: ff755ea4ad731ca45a0370ab04565cce, type: 3}
+  greekWeaponType: 0
 --- !u!54 &627437575
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8757,6 +8758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: e4b78e50c23fb144b932e75a9157a3a2, type: 3}
+  greekWeaponType: 0
 --- !u!54 &710297279
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11408,6 +11410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: dd73c26e27dc8c44b898819a85fedd88, type: 3}
+  greekWeaponType: 0
 --- !u!1001 &892497676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15110,6 +15113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: dc324b45daff55f4b8ea24abad9275c6, type: 3}
+  greekWeaponType: 0
 --- !u!114 &1162209028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17082,6 +17086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: 5a7cbf12b9bd0544aa699bccdb2de146, type: 3}
+  greekWeaponType: 0
 --- !u!54 &1267201286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17901,6 +17906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: 035055f96fbfa54459eedb9da924fccd, type: 3}
+  greekWeaponType: 0
 --- !u!54 &1338891060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18456,7 +18462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelExitPortal
   ShowTopMostFoldoutHeaderGroup: 1
-  nextSceneName: PrehistoricPuzzle2
+  nextSceneName: MultiplayerOudheidPuzzle1
   portalCenter: {fileID: 1056452111}
   requiredPlayers: 1
   animationDuration: 2
@@ -19803,6 +19809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: 12d98d2105db14b41bc552d53dcc1c8e, type: 3}
+  greekWeaponType: 0
 --- !u!114 &1492990948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21490,6 +21497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: ef2127b4d16ced8479f5b4503df5f6a3, type: 3}
+  greekWeaponType: 0
 --- !u!114 &1680757872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27720,6 +27728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: dcbd4fa963cf095469ea3eff545f28f6, type: 3}
+  greekWeaponType: 0
 --- !u!54 &2058878705
 Rigidbody:
   m_ObjectHideFlags: 0
