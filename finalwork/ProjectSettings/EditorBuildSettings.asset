@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Prehistorie/Multiplayer/MultiplayerPhrehistoricPuzzle1.unity
     guid: 66812d0df31a92d4eaf9903b68f373c1
   - enabled: 1
+    path: Assets/Scenes/Oudheid/MultiplayerOudheidPuzzle1.unity
+    guid: 9042c8885b433044888807214012b18b
+  - enabled: 0
     path: Assets/Scenes/Prehistorie/PrehistoricPuzzle2.unity
     guid: 9ac7a1edc2718914599d3c0db7932c87
   - enabled: 0
