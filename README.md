@@ -1,11 +1,13 @@
-![Banner](https://res.cloudinary.com/dvldobi1m/image/upload/v1778088303/MainMenuImage_gn7ctz.png)
+![Banner](https://res.cloudinary.com/dvldobi1m/image/upload/v1779445889/MainMenu_zjy44j.png)
 # 🎮 Final Work – Co-op Escape Game
 ## 👨‍💻 Authors
-This project was developed by **Younes** and **Hamza** as part of our Bachelor's Final Work for the program **Multimedia & Creative Technologies** at **Erasmushogeschool Brussel** (Campus Kaai).
+This project was developed by **Younes** and **Hamza** as part of our Bachelor's Final Work for the program Multimedia & Creative Technologies at Erasmushogeschool Brussel (Campus Kaai).
+
 ---
 ## 📌 Project Overview
 Our project is a **3D cooperative escape game** in which two players must work together to solve puzzles and progress through different historical time periods.
 The game is designed not only for entertainment, but also as an **educational tool**. Players learn about history in an interactive way while also improving their communication and teamwork skills.
+
 ---
 ## ❓ Problem Statement
 Traditional history education is often taught in a theoretical and passive way, which can reduce student engagement and motivation. Many students struggle to stay interested when learning only through textbooks and lectures.
