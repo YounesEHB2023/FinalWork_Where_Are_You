@@ -20,44 +20,53 @@ public class PickupSystem : NetworkBehaviour
     private Rigidbody heldRb;
     private GameObject heldVisual;
 
+    private bool blockPickupInput = false;
+
     public GameObject GetHeldVisual()
-{
-    return heldVisual;
-}
-
-public void ClearHandAfterTransfer()
-{
-    if (heldVisual != null)
     {
-        Destroy(heldVisual);
-        heldVisual = null;
+        return heldVisual;
     }
 
-    heldObject = null;
-    heldRb = null;
-
-    if (animator != null)
-        animator.SetBool("IsHolding", false);
-
-    UpdateHoldingStateServerRpc(false);
-    RequestHideHeldVisualServerRpc();
-}
-
-   void Update()
-{
-    if (!IsOwner) return;
-    if (!Application.isFocused) return;
-
-    if (PressedInteract())
+    public void SetPickupInputBlocked(bool blocked)
     {
-        if (heldObject == null)
-            TryPickup();
-        else
-            DropHeldObject();
+        blockPickupInput = blocked;
     }
 
-    HandleInventorySelection();
-}
+    public void ClearHandAfterTransfer()
+    {
+        if (heldVisual != null)
+        {
+            Destroy(heldVisual);
+            heldVisual = null;
+        }
+
+        heldObject = null;
+        heldRb = null;
+
+        if (animator != null)
+            animator.SetBool("IsHolding", false);
+
+        UpdateHoldingStateServerRpc(false);
+        RequestHideHeldVisualServerRpc();
+
+        blockPickupInput = false;
+    }
+
+    void Update()
+    {
+        if (!IsOwner) return;
+        if (!Application.isFocused) return;
+
+        if (!blockPickupInput && PressedInteract())
+        {
+            if (heldObject == null)
+                TryPickup();
+            else
+                DropHeldObject();
+        }
+
+        HandleInventorySelection();
+    }
 
     void HandleInventorySelection()
     {
@@ -92,7 +101,7 @@ public void ClearHandAfterTransfer()
         SyncHandWithSelectedSlot();
     }
 
-    void SyncHandWithSelectedSlot()
+    public void SyncHandWithSelectedSlot()
     {
         GameObject selectedItem = inventory.GetSelectedItem();
 
@@ -146,79 +155,65 @@ public void ClearHandAfterTransfer()
         }
     }
 
-    [ServerRpc]
-    void RequestHidePickupServerRpc(ulong networkObjectId)
+    void HoldInventoryItem(GameObject obj)
     {
-        HidePickupClientRpc(networkObjectId);
-    }
-
-    [ClientRpc]
-    void HidePickupClientRpc(ulong networkObjectId)
-    {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+        if (heldObject == obj && heldVisual != null)
             return;
 
-        GameObject obj = netObj.gameObject;
-        obj.SetActive(false);
+        if (heldObject != null && heldObject != obj)
+            HideHeldObject();
+
+        PickObjectToHand(obj);
+
+        NetworkObject netObj = obj.GetComponent<NetworkObject>();
+
+        if (netObj != null)
+            RequestShowHeldVisualServerRpc(netObj.NetworkObjectId);
     }
-
-   void HoldInventoryItem(GameObject obj)
-{
-    if (heldObject == obj && heldVisual != null)
-        return;
-
-    if (heldObject != null && heldObject != obj)
-        HideHeldObject();
-
-    PickObjectToHand(obj);
-
-    NetworkObject netObj = obj.GetComponent<NetworkObject>();
-
-    if (netObj != null)
-        RequestShowHeldVisualServerRpc(netObj.NetworkObjectId);
-}
 
     void PickObjectToHand(GameObject obj)
-{
-    heldObject = obj;
-    heldRb = heldObject.GetComponent<Rigidbody>();
-
-    heldObject.SetActive(false);
-
-   if (animator != null)
-    animator.SetBool("IsHolding", true);
-
-UpdateHoldingStateServerRpc(true);
-}
-
-    void HideHeldObject()
-{
-    if (heldVisual != null)
     {
-        Destroy(heldVisual);
-        heldVisual = null;
+        heldObject = obj;
+        heldRb = heldObject.GetComponent<Rigidbody>();
+
+        heldObject.SetActive(false);
+
+        if (animator != null)
+            animator.SetBool("IsHolding", true);
+
+        UpdateHoldingStateServerRpc(true);
     }
 
-    heldObject = null;
-    heldRb = null;
+    void HideHeldObject()
+    {
+        if (heldVisual != null)
+        {
+            Destroy(heldVisual);
+            heldVisual = null;
+        }
 
-    if (animator != null)
-        animator.SetBool("IsHolding", false);
+        heldObject = null;
+        heldRb = null;
 
-    UpdateHoldingStateServerRpc(false);
-    RequestHideHeldVisualServerRpc();
-}
+        if (animator != null)
+            animator.SetBool("IsHolding", false);
+
+        UpdateHoldingStateServerRpc(false);
+        RequestHideHeldVisualServerRpc();
+    }
 
     void DropHeldObject()
     {
         if (heldObject == null) return;
 
         GameObject objectToDrop = heldObject;
+
         if (heldVisual != null)
-{
-    Destroy(heldVisual);
-    heldVisual = null;
-}
+        {
+            Destroy(heldVisual);
+            heldVisual = null;
+        }
+
         NetworkObject netObj = objectToDrop.GetComponent<NetworkObject>();
 
         if (netObj == null)
@@ -238,122 +233,153 @@ UpdateHoldingStateServerRpc(true);
         heldRb = null;
 
         if (animator != null)
-    animator.SetBool("IsHolding", false);
+            animator.SetBool("IsHolding", false);
 
-UpdateHoldingStateServerRpc(false);
+        UpdateHoldingStateServerRpc(false);
+        RequestHideHeldVisualServerRpc();
 
-RequestHideHeldVisualServerRpc();
-        RequestDropPickupServerRpc(netObj.NetworkObjectId, dropPosition, dropRotation, forceDirection);
+        RequestDropObjectServerRpc(netObj.NetworkObjectId, dropPosition, dropRotation, forceDirection);
     }
 
     [ServerRpc]
-void RequestShowHeldVisualServerRpc(ulong networkObjectId)
-{
-    ShowHeldVisualClientRpc(networkObjectId);
-}
-
-[ClientRpc]
-void ShowHeldVisualClientRpc(ulong networkObjectId)
-{
-    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
-        return;
-
-    GameObject originalObj = netObj.gameObject;
-
-    if (heldVisual != null)
-        Destroy(heldVisual);
-
-   heldVisual = Instantiate(originalObj, holdPoint);
-
-   Outline heldOutline = heldVisual.GetComponent<Outline>();
-if (heldOutline != null)
-    heldOutline.enabled = false;
-
-OutlineProximity heldOutlineProximity = heldVisual.GetComponent<OutlineProximity>();
-if (heldOutlineProximity != null)
-    heldOutlineProximity.enabled = false;
-
-Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
-if (visualRb != null)
-    Destroy(visualRb);
-
-    Collider[] colliders = heldVisual.GetComponentsInChildren<Collider>();
-    foreach (Collider col in colliders)
-        col.enabled = false;
-
-    HeldItemSettings heldSettings = originalObj.GetComponent<HeldItemSettings>();
-
-    if (heldSettings != null)
+    void RequestHidePickupServerRpc(ulong networkObjectId)
     {
-        heldVisual.transform.localPosition = heldSettings.holdPosition;
-        heldVisual.transform.localRotation = Quaternion.Euler(heldSettings.holdRotation);
-        heldVisual.transform.localScale = heldSettings.holdScale;
-    }
-    else
-    {
-        heldVisual.transform.localPosition = Vector3.zero;
-        heldVisual.transform.localRotation = Quaternion.identity;
-        heldVisual.transform.localScale = Vector3.one;
+        HidePickupClientRpc(networkObjectId);
     }
 
-    heldVisual.SetActive(true);
-}
-
-[ServerRpc]
-void RequestHideHeldVisualServerRpc()
-{
-    HideHeldVisualClientRpc();
-}
-
-[ClientRpc]
-void HideHeldVisualClientRpc()
-{
-    if (heldVisual != null)
+    [ClientRpc]
+    void HidePickupClientRpc(ulong networkObjectId)
     {
-        Destroy(heldVisual);
-        heldVisual = null;
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        netObj.gameObject.SetActive(false);
     }
-}
-[ServerRpc]
-void RequestDropPickupServerRpc(ulong networkObjectId, Vector3 dropPosition, Quaternion dropRotation, Vector3 forceDirection)
-{
-    DropPickupClientRpc(networkObjectId, dropPosition, dropRotation, forceDirection);
-}
 
-[ClientRpc]
-void DropPickupClientRpc(ulong networkObjectId, Vector3 dropPosition, Quaternion dropRotation, Vector3 forceDirection)
-{
-    if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
-        return;
-
-    GameObject obj = netObj.gameObject;
-
-    obj.transform.SetParent(null);
-    obj.transform.position = dropPosition;
-    obj.transform.rotation = dropRotation;
-    obj.SetActive(true);
-
-    Rigidbody rb = obj.GetComponent<Rigidbody>();
-
-    if (rb != null)
+    [ServerRpc]
+    void RequestDropObjectServerRpc(ulong networkObjectId, Vector3 position, Quaternion rotation, Vector3 forceDirection)
     {
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.AddForce(forceDirection * dropForwardForce, ForceMode.Impulse);
+        DropObjectClientRpc(networkObjectId, position, rotation, forceDirection);
     }
-}
-[ServerRpc]
-void UpdateHoldingStateServerRpc(bool isHolding)
-{
-    UpdateHoldingStateClientRpc(isHolding);
-}
 
-[ClientRpc]
-void UpdateHoldingStateClientRpc(bool isHolding)
-{
-    if (animator != null)
-        animator.SetBool("IsHolding", isHolding);
-}
+    [ClientRpc]
+    void DropObjectClientRpc(ulong networkObjectId, Vector3 position, Quaternion rotation, Vector3 forceDirection)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        GameObject obj = netObj.gameObject;
+
+        obj.SetActive(true);
+        obj.tag = "Pickup";
+        obj.transform.position = position;
+        obj.transform.rotation = rotation;
+
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(forceDirection * dropForwardForce, ForceMode.Impulse);
+        }
+
+        Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+            col.enabled = true;
+
+        OutlineProximity outlineProximity = obj.GetComponent<OutlineProximity>();
+        if (outlineProximity != null)
+            outlineProximity.enabled = true;
+    }
+
+    [ServerRpc]
+    void RequestShowHeldVisualServerRpc(ulong networkObjectId)
+    {
+        ShowHeldVisualClientRpc(networkObjectId);
+    }
+
+    [ClientRpc]
+    void ShowHeldVisualClientRpc(ulong networkObjectId)
+    {
+        if (!IsOwner) return;
+
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        if (heldVisual != null)
+            Destroy(heldVisual);
+
+        GameObject original = netObj.gameObject;
+        heldVisual = Instantiate(original, holdPoint);
+
+        heldVisual.SetActive(true);
+
+        HeldItemSettings settings = original.GetComponent<HeldItemSettings>();
+
+        if (settings != null)
+        {
+            heldVisual.transform.localPosition = settings.holdPosition;
+            heldVisual.transform.localRotation = Quaternion.Euler(settings.holdRotation);
+            heldVisual.transform.localScale = settings.holdScale;
+        }
+        else
+        {
+            heldVisual.transform.localPosition = Vector3.zero;
+            heldVisual.transform.localRotation = Quaternion.identity;
+        }
+
+        NetworkObject visualNetObj = heldVisual.GetComponent<NetworkObject>();
+        if (visualNetObj != null)
+            Destroy(visualNetObj);
+
+        Rigidbody visualRb = heldVisual.GetComponent<Rigidbody>();
+        if (visualRb != null)
+            Destroy(visualRb);
+
+        Collider[] visualColliders = heldVisual.GetComponentsInChildren<Collider>();
+        foreach (Collider col in visualColliders)
+            Destroy(col);
+
+        Outline outline = heldVisual.GetComponent<Outline>();
+        if (outline != null)
+            outline.enabled = false;
+
+        OutlineProximity outlineProximity = heldVisual.GetComponent<OutlineProximity>();
+        if (outlineProximity != null)
+            outlineProximity.enabled = false;
+    }
+
+    [ServerRpc]
+    void RequestHideHeldVisualServerRpc()
+    {
+        HideHeldVisualClientRpc();
+    }
+
+    [ClientRpc]
+    void HideHeldVisualClientRpc()
+    {
+        if (!IsOwner) return;
+
+        if (heldVisual != null)
+        {
+            Destroy(heldVisual);
+            heldVisual = null;
+        }
+    }
+
+    [ServerRpc]
+    void UpdateHoldingStateServerRpc(bool holding)
+    {
+        UpdateHoldingStateClientRpc(holding);
+    }
+
+    [ClientRpc]
+    void UpdateHoldingStateClientRpc(bool holding)
+    {
+        if (animator != null)
+            animator.SetBool("IsHolding", holding);
+    }
 }
