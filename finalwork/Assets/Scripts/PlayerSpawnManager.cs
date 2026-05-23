@@ -76,5 +76,47 @@ public class PlayerSpawnManager : NetworkBehaviour
         }
 
         netObj.SpawnAsPlayerObject(clientId, true);
+
+        ResetPlayerUIClientRpc(new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { clientId }
+            }
+        });
+    }
+
+    [ClientRpc]
+    void ResetPlayerUIClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        ResetFadeUI();
+    }
+
+    void ResetFadeUI()
+    {
+        CanvasGroup[] groups =
+            FindObjectsByType<CanvasGroup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (CanvasGroup group in groups)
+        {
+            if (group.name.Contains("Fade") || group.name.Contains("Black"))
+            {
+                group.alpha = 0f;
+                group.blocksRaycasts = false;
+                group.gameObject.SetActive(false);
+            }
+        }
+
+        GameObject[] objects =
+            FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (GameObject obj in objects)
+        {
+            if (obj.name.Contains("InventoryCanvas") || obj.name.Contains("InventoryUI"))
+                obj.SetActive(true);
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
