@@ -49,7 +49,6 @@ public class PickupSystem : NetworkBehaviour
         UpdateHoldingStateServerRpc(false);
         RequestHideHeldVisualServerRpc();
 
-        blockPickupInput = false;
     }
 
     void Update()

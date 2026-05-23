@@ -5,9 +5,12 @@ using Unity.Netcode;
 
 public class WeaponPedestalSocket : MonoBehaviour
 {
+    [Header("Puzzle")]
+    public OudheidWeaponPuzzleManager puzzleManager;
+    public string expectedWeaponName;
+
     [Header("Placement")]
     public Transform placePoint;
-    public Vector3 placedRotationOffset;
     public float placeAnimationDuration = 0.35f;
 
     [Header("Floating")]
@@ -23,6 +26,7 @@ public class WeaponPedestalSocket : MonoBehaviour
     private bool playerInside;
     private bool usingController;
     private bool isPlacing;
+    private bool isLocked;
 
     private Transform currentPlayer;
     private InventorySystem playerInventory;
@@ -48,13 +52,11 @@ public class WeaponPedestalSocket : MonoBehaviour
         bool isActive = activeSocket == this;
 
         if (!isActive)
-{
-    return;
-}
+            return;
 
         UpdateUI();
 
-        if (isPlacing) return;
+        if (isPlacing || isLocked) return;
         if (playerInventory == null) return;
 
         bool pressed =
@@ -65,14 +67,13 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         GameObject selectedItem = playerInventory.GetSelectedItem();
 
-        if (placedWeapon != null && selectedItem == null)
-        {
-            TakeBackPlacedWeapon();
-            return;
-        }
+        if (placedWeapon != null)
+{
+    TakeBackPlacedWeapon();
+    return;
+}
 
         if (selectedItem == null) return;
-
         if (placedWeapon != null) return;
 
         Vector3 startPos = selectedItem.transform.position;
@@ -92,17 +93,29 @@ public class WeaponPedestalSocket : MonoBehaviour
         StartCoroutine(PlaceWeaponAnimation(selectedItem, startPos, startRot));
     }
 
+    public bool HasWeaponPlaced()
+    {
+        return placedWeapon != null;
+    }
+
+    public bool IsCorrectWeaponPlaced()
+    {
+        if (placedWeapon == null) return false;
+
+        return placedWeapon.name.ToLower().Contains(expectedWeaponName.ToLower());
+    }
+
+    public void LockPlacedWeapon()
+    {
+        isLocked = true;
+        HideUI();
+    }
+
     void UpdateActiveSocket()
     {
         if (currentPlayer == null) return;
 
-        if (activeSocket == null)
-        {
-            activeSocket = this;
-            return;
-        }
-
-        if (!activeSocket.playerInside)
+        if (activeSocket == null || !activeSocket.playerInside)
         {
             activeSocket = this;
             return;
@@ -128,6 +141,9 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         playerInside = true;
         activeSocket = this;
+
+        if (playerPickupSystem != null)
+    playerPickupSystem.SetPickupInputBlocked(true);
     }
 
     void OnTriggerExit(Collider other)
@@ -141,6 +157,9 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         if (activeSocket == this)
             activeSocket = null;
+
+        if (playerPickupSystem != null)
+        playerPickupSystem.SetPickupInputBlocked(false);
 
         currentPlayer = null;
         playerInventory = null;
@@ -158,6 +177,7 @@ public class WeaponPedestalSocket : MonoBehaviour
         bool canShow =
             playerInside &&
             !isPlacing &&
+            !isLocked &&
             (
                 hasSelectedWeapon ||
                 placedWeapon != null
@@ -176,102 +196,101 @@ public class WeaponPedestalSocket : MonoBehaviour
         if (pressXUI != null) pressXUI.SetActive(false);
     }
 
-   IEnumerator PlaceWeaponAnimation(GameObject weapon, Vector3 startPos, Quaternion startRot)
-{
-    isPlacing = true;
-    placedWeapon = weapon;
-    HideUI();
-
-    weapon.SetActive(true);
-    weapon.transform.SetParent(null);
-    weapon.tag = "Untagged";
-
-    Rigidbody rb = weapon.GetComponent<Rigidbody>();
-
-    if (rb != null)
+    IEnumerator PlaceWeaponAnimation(GameObject weapon, Vector3 startPos, Quaternion startRot)
     {
-        rb.useGravity = false;
-        rb.isKinematic = true;
-    }
+        isPlacing = true;
+        placedWeapon = weapon;
+        HideUI();
 
-    Collider[] colliders = weapon.GetComponentsInChildren<Collider>();
-    foreach (Collider col in colliders)
-        col.enabled = false;
+        weapon.SetActive(true);
+        weapon.transform.SetParent(null);
+        weapon.tag = "Untagged";
 
-    Outline outline = weapon.GetComponent<Outline>();
-    if (outline != null)
-        outline.enabled = false;
+        Rigidbody rb = weapon.GetComponent<Rigidbody>();
 
-    OutlineProximity outlineProximity = weapon.GetComponent<OutlineProximity>();
-    if (outlineProximity != null)
-        outlineProximity.enabled = false;
+        if (rb != null)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
 
-    HeldItemSettings settings = weapon.GetComponent<HeldItemSettings>();
+        Collider[] colliders = weapon.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+            col.enabled = false;
 
-    Vector3 positionOffset = Vector3.zero;
-    Vector3 rotationOffset = Vector3.zero;
-    Vector3 finalScale = weapon.transform.localScale;
+        Outline outline = weapon.GetComponent<Outline>();
+        if (outline != null)
+            outline.enabled = false;
 
-    if (settings != null)
-    {
-        positionOffset = settings.pedestalPositionOffset;
-        rotationOffset = settings.pedestalRotationOffset;
-        finalScale = settings.pedestalScale;
-    }
+        OutlineProximity outlineProximity = weapon.GetComponent<OutlineProximity>();
+        if (outlineProximity != null)
+            outlineProximity.enabled = false;
 
-    Vector3 endPos = placePoint.position + placePoint.TransformDirection(positionOffset);
-    Quaternion endRot = placePoint.rotation * Quaternion.Euler(rotationOffset);
-
-    float t = 0f;
-
-    while (t < placeAnimationDuration)
-    {
-        t += Time.deltaTime;
-        float p = Mathf.SmoothStep(0f, 1f, t / placeAnimationDuration);
-
-        weapon.transform.position = Vector3.Lerp(startPos, endPos, p);
-        weapon.transform.rotation = Quaternion.Lerp(startRot, endRot, p);
-        weapon.transform.localScale = Vector3.Lerp(weapon.transform.localScale, finalScale, p);
-
-        yield return null;
-    }
-
-    weapon.transform.position = endPos;
-    weapon.transform.rotation = endRot;
-    weapon.transform.localScale = finalScale;
-
-    isPlacing = false;
-    floatingRoutine = StartCoroutine(FloatingLoop(weapon));
-}
-
-    IEnumerator FloatingLoop(GameObject weapon)
-{
-    while (weapon != null)
-    {
         HeldItemSettings settings = weapon.GetComponent<HeldItemSettings>();
 
         Vector3 positionOffset = settings != null ? settings.pedestalPositionOffset : Vector3.zero;
         Vector3 rotationOffset = settings != null ? settings.pedestalRotationOffset : Vector3.zero;
+        Vector3 finalScale = settings != null ? settings.pedestalScale : weapon.transform.localScale;
 
-        Vector3 finalPosition =
-            placePoint.position + placePoint.TransformDirection(positionOffset);
+        Vector3 endPos = placePoint.position + placePoint.TransformDirection(positionOffset);
+        Quaternion endRot = placePoint.rotation * Quaternion.Euler(rotationOffset);
 
-        Quaternion finalRotation =
-            placePoint.rotation * Quaternion.Euler(rotationOffset);
+        float t = 0f;
 
-        float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+        while (t < placeAnimationDuration)
+        {
+            t += Time.deltaTime;
+            float p = Mathf.SmoothStep(0f, 1f, t / placeAnimationDuration);
 
-        weapon.transform.position = finalPosition + Vector3.up * yOffset;
-        weapon.transform.rotation = finalRotation;
+            weapon.transform.position = Vector3.Lerp(startPos, endPos, p);
+            weapon.transform.rotation = Quaternion.Lerp(startRot, endRot, p);
+            weapon.transform.localScale = Vector3.Lerp(weapon.transform.localScale, finalScale, p);
 
-        yield return null;
+            yield return null;
+        }
+
+        weapon.transform.position = endPos;
+        weapon.transform.rotation = endRot;
+        weapon.transform.localScale = finalScale;
+
+        isPlacing = false;
+        floatingRoutine = StartCoroutine(FloatingLoop(weapon));
+
+        if (puzzleManager != null)
+            puzzleManager.CheckPuzzle();
     }
-}
+
+    IEnumerator FloatingLoop(GameObject weapon)
+    {
+        while (weapon != null)
+        {
+            HeldItemSettings settings = weapon.GetComponent<HeldItemSettings>();
+
+            Vector3 positionOffset = settings != null ? settings.pedestalPositionOffset : Vector3.zero;
+            Vector3 rotationOffset = settings != null ? settings.pedestalRotationOffset : Vector3.zero;
+
+            Vector3 finalPosition =
+                placePoint.position + placePoint.TransformDirection(positionOffset);
+
+            Quaternion finalRotation =
+                placePoint.rotation * Quaternion.Euler(rotationOffset);
+
+            float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+
+            weapon.transform.position = finalPosition + Vector3.up * yOffset;
+            weapon.transform.rotation = finalRotation;
+
+            yield return null;
+        }
+    }
 
     void TakeBackPlacedWeapon()
     {
         if (placedWeapon == null) return;
         if (playerInventory == null) return;
+        if (isLocked) return;
 
         ItemData itemData = placedWeapon.GetComponent<ItemData>();
         Sprite icon = itemData != null ? itemData.icon : null;
@@ -294,12 +313,18 @@ public class WeaponPedestalSocket : MonoBehaviour
             col.enabled = true;
 
         placedWeapon.SetActive(false);
-        placedWeapon = null;
+placedWeapon = null;
 
 if (playerPickupSystem != null)
+{
+    playerPickupSystem.SetPickupInputBlocked(true);
     playerPickupSystem.SyncHandWithSelectedSlot();
+}
 
-        UpdateUI();
+UpdateUI();
+
+        if (puzzleManager != null)
+            puzzleManager.CheckPuzzle();
     }
 
     void DetectInputDevice()
