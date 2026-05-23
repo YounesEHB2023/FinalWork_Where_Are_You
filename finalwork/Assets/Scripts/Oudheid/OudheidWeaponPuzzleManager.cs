@@ -6,7 +6,16 @@ public class OudheidWeaponPuzzleManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip correctSound;
 
+    [Header("Final Puzzle")]
+    public OudheidFinalPuzzleManager finalPuzzleManager;
+    public bool isPlayer1Puzzle = true;
+
     private bool puzzleSolved = false;
+
+    public bool IsSolved()
+    {
+        return puzzleSolved;
+    }
 
     public void CheckPuzzle()
     {
@@ -30,10 +39,11 @@ public class OudheidWeaponPuzzleManager : MonoBehaviour
             audioSource.PlayOneShot(correctSound);
 
         foreach (WeaponPedestalSocket socket in sockets)
-        {
             socket.LockPlacedWeapon();
-        }
 
-        Debug.Log("OUDHEID WEAPON PUZZLE CORRECT");
+        if (finalPuzzleManager != null)
+            finalPuzzleManager.ReportPuzzleSolved(isPlayer1Puzzle);
+
+        Debug.Log(gameObject.name + " CORRECT");
     }
 }
