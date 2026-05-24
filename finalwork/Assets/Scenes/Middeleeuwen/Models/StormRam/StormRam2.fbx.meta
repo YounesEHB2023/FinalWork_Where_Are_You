@@ -1,39 +1,9 @@
 fileFormatVersion: 2
-guid: 45823c3373f4e6747a17e83caa9ea623
+guid: 1671daeb7c998954098a199afe9953bd
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cartoon Stylized Wood
-    second: {fileID: 2100000, guid: a0d518a28a4b3a44c8fbaf17c4081c02, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Metal
-    second: {fileID: 2100000, guid: 7cb870f53ecaa5b438d71f4a6c3dff9a, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Cartoon Wood_BaseColor
-    second: {fileID: 2800000, guid: 588f2f14e799d764a8ad733b960ab16d, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Cartoon Wood_Normal
-    second: {fileID: 2800000, guid: 2c656b07f22744d4d838670c555adcdf, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Cartoon Wood_Roughness
-    second: {fileID: 2800000, guid: 4333edadcbf7f374eb09afade339cfbf, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: DefaultMaterial_Normal
-    second: {fileID: 2800000, guid: 2d58e1de563ea974195c1c2f2d99c8f3, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
