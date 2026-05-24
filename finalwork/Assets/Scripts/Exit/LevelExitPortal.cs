@@ -59,6 +59,14 @@ public class LevelExitPortal : NetworkBehaviour
 
     IEnumerator TransitionAnimation()
 {
+    if (blackFadeCanvasGroup != null)
+{
+    blackFadeCanvasGroup.gameObject.SetActive(true);
+    blackFadeCanvasGroup.transform.SetAsLastSibling();
+    blackFadeCanvasGroup.blocksRaycasts = true;
+    blackFadeCanvasGroup.alpha = 0f;
+}
+
     Camera cam = FindPlayerCamera();
 
     if (cam == null)
