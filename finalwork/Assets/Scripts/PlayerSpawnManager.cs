@@ -15,7 +15,6 @@ public class PlayerSpawnManager : NetworkBehaviour
         if (!IsServer) return;
 
         NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
-
         StartCoroutine(SpawnAllPlayersAfterSceneLoad());
     }
 
@@ -32,52 +31,39 @@ public class PlayerSpawnManager : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
 
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
-        {
             SpawnPlayer(clientId);
-        }
     }
 
     void SpawnPlayer(ulong clientId)
     {
-        if (playerPrefab == null)
-        {
-            Debug.LogError("Player prefab is missing on SpawnManager.");
-            return;
-        }
-
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("Spawn points are missing.");
-            return;
-        }
+        if (playerPrefab == null || spawnPoints == null || spawnPoints.Length == 0) return;
 
         if (!NetworkManager.Singleton.ConnectedClients.TryGetValue(clientId, out NetworkClient client))
             return;
 
         if (client.PlayerObject != null && client.PlayerObject.IsSpawned)
-        {
             client.PlayerObject.Despawn(true);
-        }
 
-        int spawnIndex = (int)(clientId % (ulong)spawnPoints.Length);
+        int spawnIndex = clientId == 0 ? 0 : 1;
+
+        if (spawnIndex >= spawnPoints.Length)
+            spawnIndex = 0;
 
         Vector3 spawnPosition = spawnPoints[spawnIndex].position;
         Quaternion spawnRotation = spawnPoints[spawnIndex].rotation;
 
         GameObject player = Instantiate(playerPrefab, spawnPosition, spawnRotation);
-
         NetworkObject netObj = player.GetComponent<NetworkObject>();
 
         if (netObj == null)
         {
-            Debug.LogError("Player prefab needs NetworkObject.");
             Destroy(player);
             return;
         }
 
         netObj.SpawnAsPlayerObject(clientId, true);
 
-        ResetPlayerUIClientRpc(new ClientRpcParams
+        ForceSpawnPositionClientRpc(spawnPosition, spawnRotation, new ClientRpcParams
         {
             Send = new ClientRpcSendParams
             {
@@ -87,15 +73,37 @@ public class PlayerSpawnManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    void ResetPlayerUIClientRpc(ClientRpcParams clientRpcParams = default)
+    void ForceSpawnPositionClientRpc(Vector3 position, Quaternion rotation, ClientRpcParams clientRpcParams = default)
     {
+        StartCoroutine(ForceSpawnRoutine(position, rotation));
+    }
+
+    IEnumerator ForceSpawnRoutine(Vector3 position, Quaternion rotation)
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        if (NetworkManager.Singleton.LocalClient.PlayerObject == null)
+            yield break;
+
+        GameObject player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
+
+        CharacterController controller = player.GetComponent<CharacterController>();
+
+        if (controller != null)
+            controller.enabled = false;
+
+        player.transform.position = position;
+        player.transform.rotation = rotation;
+
+        if (controller != null)
+            controller.enabled = true;
+
         ResetFadeUI();
     }
 
     void ResetFadeUI()
     {
-        CanvasGroup[] groups =
-            FindObjectsByType<CanvasGroup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        CanvasGroup[] groups = FindObjectsByType<CanvasGroup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (CanvasGroup group in groups)
         {
@@ -107,8 +115,7 @@ public class PlayerSpawnManager : NetworkBehaviour
             }
         }
 
-        GameObject[] objects =
-            FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        GameObject[] objects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (GameObject obj in objects)
         {
