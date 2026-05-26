@@ -1,24 +1,27 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class TransferTunnel : MonoBehaviour
+public class TransferTunnel : NetworkBehaviour
 {
+    [Header("Points")]
+    public Transform visualStartPoint;
     public Transform inPoint;
     public Transform targetSpawnPoint;
 
+    [Header("UI")]
     public GameObject pressEUI;
     public GameObject pressXUI;
 
-    [Header("Controls")]
-    public KeyCode keyboardTransferKey = KeyCode.E;
-
-    private GameObject currentObject;
     private bool playerInside;
     private bool isTransferring;
     private bool usingController;
 
     private static TransferTunnel activeTunnel;
+
+    private InventorySystem playerInventory;
+    private PickupSystem playerPickupSystem;
 
     void Start()
     {
@@ -27,24 +30,45 @@ public class TransferTunnel : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
+
         DetectInputDevice();
 
-        if (activeTunnel == this)
+        if (activeTunnel != this) return;
+
+        UpdateUI();
+
+        bool keyboardTransfer =
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        bool controllerTransfer =
+            Gamepad.current != null &&
+            Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+        if (
+            playerInside &&
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null &&
+            !isTransferring &&
+            (keyboardTransfer || controllerTransfer)
+        )
         {
-            UpdateUI();
+            GameObject selectedItem = playerInventory.GetSelectedItem();
+            NetworkObject netObj = selectedItem.GetComponent<NetworkObject>();
 
-            bool keyboardTransfer =
-                Keyboard.current != null &&
-                Keyboard.current.eKey.wasPressedThisFrame;
-
-            bool controllerTransfer =
-                Gamepad.current != null &&
-                Gamepad.current.buttonSouth.wasPressedThisFrame;
-
-            if (playerInside && currentObject != null && !isTransferring && (keyboardTransfer || controllerTransfer))
+            if (netObj == null)
             {
-                StartCoroutine(TransferObject());
+                Debug.LogWarning("Transfer object needs NetworkObject: " + selectedItem.name);
+                return;
             }
+
+            RequestTransferServerRpc(netObj.NetworkObjectId);
+
+            playerInventory.RemoveItem(selectedItem);
+
+            if (playerPickupSystem != null)
+                playerPickupSystem.ClearHandAfterTransfer();
         }
     }
 
@@ -71,59 +95,58 @@ public class TransferTunnel : MonoBehaviour
         }
 
         if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
-        {
             usingController = false;
-        }
 
         if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
-        {
             usingController = false;
-        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInside = true;
-            activeTunnel = this;
-        }
+        if (!other.CompareTag("Player")) return;
 
-        if (other.CompareTag("Pickup"))
-        {
-            currentObject = other.gameObject;
-        }
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+
+        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
+        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+
+        playerInside = true;
+        activeTunnel = this;
 
         UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+
+        playerInside = false;
+
+        if (activeTunnel == this)
         {
-            playerInside = false;
-
-            if (activeTunnel == this)
-            {
-                activeTunnel = null;
-                HideUI();
-            }
+            activeTunnel = null;
+            playerInventory = null;
+            playerPickupSystem = null;
+            HideUI();
         }
-
-        if (other.gameObject == currentObject)
-        {
-            currentObject = null;
-        }
-
-        UpdateUI();
     }
 
     void UpdateUI()
     {
-        if (activeTunnel != this)
-            return;
+        if (activeTunnel != this) return;
 
-        bool showUI = playerInside && currentObject != null && !isTransferring;
+        bool hasSelectedItem =
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null;
+
+        bool showUI =
+            playerInside &&
+            hasSelectedItem &&
+            !isTransferring;
 
         if (pressEUI != null)
             pressEUI.SetActive(showUI && !usingController);
@@ -141,24 +164,46 @@ public class TransferTunnel : MonoBehaviour
             pressXUI.SetActive(false);
     }
 
-    IEnumerator TransferObject()
+    [ServerRpc(RequireOwnership = false)]
+    void RequestTransferServerRpc(ulong networkObjectId)
+    {
+        TransferObjectClientRpc(networkObjectId);
+    }
+
+    [ClientRpc]
+    void TransferObjectClientRpc(ulong networkObjectId)
+    {
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
+            return;
+
+        StartCoroutine(TransferObject(netObj.gameObject));
+    }
+
+    IEnumerator TransferObject(GameObject objectToTransfer)
     {
         isTransferring = true;
         HideUI();
 
-        GameObject objectToTransfer = currentObject;
+        objectToTransfer.SetActive(true);
+        objectToTransfer.transform.SetParent(null);
 
         Rigidbody rb = objectToTransfer.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
             rb.isKinematic = true;
+            rb.useGravity = false;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
-        Vector3 startPos = objectToTransfer.transform.position;
-        Quaternion startRot = objectToTransfer.transform.rotation;
+        Transform startPoint = visualStartPoint != null ? visualStartPoint : inPoint;
+
+        Vector3 startPos = startPoint.position;
+        Quaternion startRot = startPoint.rotation;
+
+        objectToTransfer.transform.position = startPos;
+        objectToTransfer.transform.rotation = startRot;
 
         float duration = 0.5f;
         float t = 0f;
@@ -171,8 +216,14 @@ public class TransferTunnel : MonoBehaviour
             objectToTransfer.transform.position =
                 Vector3.Lerp(startPos, inPoint.position, progress);
 
-            objectToTransfer.transform.rotation =
-                Quaternion.Lerp(startRot, inPoint.rotation, progress);
+            Quaternion smoothRotation =
+    Quaternion.Lerp(startRot, inPoint.rotation, progress);
+
+Quaternion spinRotation =
+    Quaternion.Euler(0f, progress * 180f, 0f);
+
+objectToTransfer.transform.rotation =
+    smoothRotation * spinRotation;
 
             yield return null;
         }
@@ -183,9 +234,9 @@ public class TransferTunnel : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
+            rb.useGravity = true;
         }
 
-        currentObject = null;
         isTransferring = false;
 
         UpdateUI();

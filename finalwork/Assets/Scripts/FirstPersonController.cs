@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
-public class FirstPersonController : MonoBehaviour
+
+public class FirstPersonController : NetworkBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -17,23 +18,50 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 velocity;
     private float xRotation = 0f;
 
-    void Start()
+    void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            if (playerCamera != null)
+            {
+                Camera cam = playerCamera.GetComponent<Camera>();
+                if (cam != null) cam.enabled = false;
+
+                AudioListener listener = playerCamera.GetComponent<AudioListener>();
+                if (listener != null) listener.enabled = false;
+            }
+
+            enabled = false;
+            return;
+        }
+
+        if (playerCamera != null)
+        {
+            Camera cam = playerCamera.GetComponent<Camera>();
+            if (cam != null) cam.enabled = true;
+
+            AudioListener listener = playerCamera.GetComponent<AudioListener>();
+            if (listener != null) listener.enabled = true;
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
-    {
-        
-        LookAround();
-        MovePlayer();
-        
-    }
+{
+    if (!IsOwner) return;
+    if (!Application.isFocused) return;
 
+    LookAround();
+    MovePlayer();
+}
     void MovePlayer()
     {
         Vector2 moveInput = Vector2.zero;
@@ -60,22 +88,23 @@ public class FirstPersonController : MonoBehaviour
 
         moveInput = Vector2.ClampMagnitude(moveInput, 1f);
 
-        if (animator != null)
-        {
-            float speed = moveInput.magnitude;
-            animator.SetFloat("Speed", speed);
-        }
+        float speedValue = moveInput.magnitude;
+
+if (animator != null)
+    animator.SetFloat("Speed", speedValue);
+
+UpdateSpeedServerRpc(speedValue);
 
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * moveSpeed * Time.deltaTime);
 
         if (controller.isGrounded && velocity.y < 0)
-        {
             velocity.y = -2f;
-        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        
+        
     }
 
     void LookAround()
@@ -83,14 +112,10 @@ public class FirstPersonController : MonoBehaviour
         Vector2 lookInput = Vector2.zero;
 
         if (Mouse.current != null)
-        {
             lookInput += Mouse.current.delta.ReadValue() * mouseSensitivity;
-        }
 
         if (Gamepad.current != null)
-        {
             lookInput += Gamepad.current.rightStick.ReadValue() * controllerLookSensitivity * Time.deltaTime;
-        }
 
         float mouseX = lookInput.x;
         float mouseY = lookInput.y;
@@ -101,4 +126,10 @@ public class FirstPersonController : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
+    [ServerRpc]
+void UpdateSpeedServerRpc(float speedValue)
+{
+    if (animator != null)
+        animator.SetFloat("Speed", speedValue);
+}
 }

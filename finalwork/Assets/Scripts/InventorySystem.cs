@@ -31,12 +31,13 @@ public class InventorySystem : MonoBehaviour
         UpdateUI();
     }
 
-    void Update()
-    {
-        HandleSelection();
-        DetectInputDevice();
-    }
+   void Update()
+{
+    if (!Application.isFocused) return;
 
+    HandleSelection();
+    DetectInputDevice();
+}
     void HandleSelection()
     {
         if (Keyboard.current != null)
