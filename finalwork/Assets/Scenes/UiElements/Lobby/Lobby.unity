@@ -1840,7 +1840,7 @@ MonoBehaviour:
   startSelector: {fileID: 1356561770}
   fadePanel: {fileID: 1232216040}
   mainMenuSceneName: MainMenu
-  gameSceneName: MultiplayerOudheidPuzzle1
+  gameSceneName: MultiplayerPhrehistoricPuzzle1
 --- !u!4 &1125740165
 Transform:
   m_ObjectHideFlags: 0
