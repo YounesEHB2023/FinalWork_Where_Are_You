@@ -3923,6 +3923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b290d55062e0464796d4cee1dbdddbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaperReadUI
+  ownerPaper: {fileID: 0}
   titleObjects:
   - {fileID: 1916421587}
   - {fileID: 1720076483}
@@ -4547,7 +4548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efc96327a574a254aada6025588e5d5e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1225
+      value: -1087
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efc96327a574a254aada6025588e5d5e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4555,7 +4556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efc96327a574a254aada6025588e5d5e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8135
+      value: 8043
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efc96327a574a254aada6025588e5d5e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4742,8 +4743,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.41918892, y: 0.13960153, z: 1.0518572}
-  m_Center: {x: -0.0011612187, y: 0.009348924, z: -0.00452994}
+  m_Size: {x: 0.46491963, y: 0.13960153, z: 1.0518572}
+  m_Center: {x: -0.001161219, y: 0.009348924, z: -0.00452994}
 --- !u!114 &1081848608
 MonoBehaviour:
   m_ObjectHideFlags: 0
