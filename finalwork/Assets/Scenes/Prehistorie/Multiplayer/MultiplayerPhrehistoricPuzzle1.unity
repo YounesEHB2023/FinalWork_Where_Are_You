@@ -8822,6 +8822,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: 0, y: 0, z: 75}
   holdScale: {x: 100, y: 100, z: 100}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &710297285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11366,6 +11369,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: 0, y: 0, z: 0}
   holdScale: {x: 27, y: 27, z: 27}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &889431271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11480,81 +11486,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2caf1e27dea9af347a4438795f887095, type: 3}
---- !u!1 &894229662
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 894229663}
-  - component: {fileID: 894229664}
-  - component: {fileID: 894229665}
-  m_Layer: 0
-  m_Name: SpawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &894229663
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894229662}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -53.99313, y: 0, z: 38.45135}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &894229664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894229662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 962766531
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
---- !u!114 &894229665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894229662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9711ce79c24d83d4da104a9447084a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnManager
-  ShowTopMostFoldoutHeaderGroup: 1
-  playerPrefab: {fileID: 4419601822198444878, guid: 91f131ea59f5277499d446c4669d97eb, type: 3}
-  spawnPoints:
-  - {fileID: 2097445916}
-  - {fileID: 1366665554}
 --- !u!4 &900141976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2944761154231371293, guid: f1490f935f799e74082ef3bbab506c4c, type: 3}
@@ -11736,6 +11667,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: -0.5, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 13.16, y: 13.16, z: 13.16}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!1001 &913493739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14612,6 +14546,66 @@ Transform:
   - {fileID: 696721}
   m_Father: {fileID: 1247760845}
   m_LocalEulerAnglesHint: {x: 1.2, y: 85.354, z: 0.22}
+--- !u!1 &1145041524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145041526}
+  - component: {fileID: 1145041525}
+  - component: {fileID: 1145041527}
+  m_Layer: 0
+  m_Name: LocalMultiplayerDisplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1145041525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145041524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998e74eab84ff184c9e0a3637884ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalMultiplayerDisplayManager
+--- !u!4 &1145041526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145041524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 703.28796, y: -0, z: 15860.233}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145041527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145041524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e924cb15ad79a4fb51a98b03dbb762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalPlayerSpawnManager
+  playerPrefab: {fileID: 4419601822198444878, guid: 91f131ea59f5277499d446c4669d97eb, type: 3}
+  spawnPoint1: {fileID: 2097445916}
+  spawnPoint2: {fileID: 1366665554}
 --- !u!4 &1153177545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
@@ -15069,6 +15063,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: 0, y: 0, z: 0}
   holdScale: {x: 20, y: 20, z: 20}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1162209025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17150,6 +17147,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: -0.4, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 13, y: 13, z: 13}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!4 &1268474093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6985333857372317176, guid: 1f761016c03a561418ff210aec563e01, type: 3}
@@ -17995,6 +17995,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: -0.4, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 7.966405, y: 7.979674, z: 5.636691}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!1 &1354482520
 GameObject:
   m_ObjectHideFlags: 0
@@ -19825,6 +19828,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: -90, y: 0, z: 150}
   holdScale: {x: 8, y: 8, z: 60}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1492990949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21453,6 +21459,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: 0, y: 0, z: 0}
   holdScale: {x: 20, y: -35.01331, z: -35.01331}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1680757869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27792,6 +27801,9 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0, z: 0}
   holdRotation: {x: -280, y: 220, z: 50}
   holdScale: {x: 15, y: 15, z: 17.66463}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &2058878708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29429,6 +29441,6 @@ SceneRoots:
   - {fileID: 2024055281}
   - {fileID: 2118690615}
   - {fileID: 280005734}
-  - {fileID: 894229663}
   - {fileID: 1385120432}
   - {fileID: 49959394}
+  - {fileID: 1145041526}
