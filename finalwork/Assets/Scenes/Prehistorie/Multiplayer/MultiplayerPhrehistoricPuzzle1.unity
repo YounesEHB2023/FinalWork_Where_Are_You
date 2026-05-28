@@ -4323,7 +4323,7 @@ MonoBehaviour:
   m_text: Left Click to break
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
-  m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
+  m_sharedMaterial: {fileID: 6654887942950434934, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4389,7 +4389,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &288852201
@@ -6602,7 +6602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 620, y: 250}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &495000383
@@ -6742,7 +6742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56, y: 9}
+  m_AnchoredPosition: {x: -30, y: 9}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &497114630
@@ -19609,7 +19609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -696, y: -291}
+  m_AnchoredPosition: {x: -675, y: -291}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1422524187
@@ -30061,7 +30061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678393b65f17b314092651d953ac059d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BarricadeBreak
-  ShowTopMostFoldoutHeaderGroup: 1
+  ownerPlayerIndex: 0
   inventorySystem: {fileID: 0}
   barricadeVisual: {fileID: 2118690611}
   pressEUI: {fileID: 288852198}
