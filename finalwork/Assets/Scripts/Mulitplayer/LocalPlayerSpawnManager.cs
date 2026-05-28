@@ -33,6 +33,18 @@ public class LocalPlayerSpawnManager : MonoBehaviour
             controller.useKeyboardAndMouse = false;
         }
 
+        PickupSystem pickup = player.GetComponentInChildren<PickupSystem>(true);
+if (pickup != null)
+{
+    pickup.playerIndex = playerIndex;
+}
+
+InventorySystem inventory = player.GetComponentInChildren<InventorySystem>(true);
+if (inventory != null)
+{
+    inventory.playerIndex = playerIndex;
+}
+
         Camera cam = player.GetComponentInChildren<Camera>(true);
 
         if (cam != null)

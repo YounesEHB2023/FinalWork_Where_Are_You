@@ -120,6 +120,8 @@ public class TransferTunnel : MonoBehaviour
 
         if (pressXUI != null)
             pressXUI.SetActive(showUI && usingController);
+        
+        Debug.Log("Tunnel UI check: " + showUI);
     }
 
     void HideUI()
