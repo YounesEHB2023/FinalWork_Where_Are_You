@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: 28418fe065f61ad478f5f8eaef03a91f, type: 3}
+  greekWeaponType: 0
 --- !u!114 &8532307551022788390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,3 +256,6 @@ MonoBehaviour:
   holdPosition: {x: 0.2, y: 0.2, z: 0}
   holdRotation: {x: 20, y: 190, z: 100}
   holdScale: {x: 12, y: 12, z: 12}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
+  pedestalRotationOffset: {x: 0, y: 0, z: 0}
+  pedestalScale: {x: 1, y: 1, z: 1}
