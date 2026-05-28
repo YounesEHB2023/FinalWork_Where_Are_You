@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
-public class BarricadeBreak : NetworkBehaviour
+public class BarricadeBreak : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 0; // Player 1 = 0
+
     [Header("References")]
     public InventorySystem inventorySystem;
     public GameObject barricadeVisual;
@@ -31,7 +33,7 @@ public class BarricadeBreak : NetworkBehaviour
 
     private int currentHits = 0;
     private bool playerInside = false;
-    private bool usingController = false;
+    private bool usingController = true;
     private bool isAnimating = false;
     private bool broken = false;
 
@@ -49,43 +51,63 @@ public class BarricadeBreak : NetworkBehaviour
         DetectInputDevice();
         UpdateUI();
 
+        if (!playerInside) return;
+        if (!HasAxeSelected()) return;
+        if (isAnimating || broken) return;
+
+        if (PressedHit())
+            HitBarricade();
+    }
+
+    bool PressedHit()
+    {
         bool mouseHit =
+            ownerPlayerIndex == 0 &&
             Mouse.current != null &&
             Mouse.current.leftButton.wasPressedThisFrame;
 
-        bool controllerHit =
-            Gamepad.current != null &&
-            Gamepad.current.buttonWest.wasPressedThisFrame;
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
 
-        if (playerInside && HasAxeSelected() && !isAnimating && !broken && (mouseHit || controllerHit))
-        {
-            HitBarricade();
-        }
+        bool controllerHit =
+            pad != null &&
+            pad.buttonWest.wasPressedThisFrame; // Carré PS5
+
+        return mouseHit || controllerHit;
+    }
+
+    Gamepad GetAssignedGamepad(int playerIndex)
+    {
+        if (Gamepad.all.Count <= playerIndex)
+            return null;
+
+        return Gamepad.all[playerIndex];
     }
 
     void DetectInputDevice()
     {
-        if (Gamepad.current != null)
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
+
+        if (pad != null)
         {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
-            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 leftStick = pad.leftStick.ReadValue();
+            Vector2 rightStick = pad.rightStick.ReadValue();
 
             if (
                 dpad != Vector2.zero ||
                 leftStick.magnitude > 0.1f ||
                 rightStick.magnitude > 0.1f ||
-                Gamepad.current.buttonWest.wasPressedThisFrame
+                pad.buttonWest.wasPressedThisFrame
             )
             {
                 usingController = true;
             }
         }
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             usingController = false;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
             usingController = false;
     }
 
@@ -94,7 +116,6 @@ public class BarricadeBreak : NetworkBehaviour
         if (inventorySystem == null) return false;
 
         GameObject selectedItem = inventorySystem.GetSelectedItem();
-
         if (selectedItem == null) return false;
 
         return selectedItem.name.ToLower().Contains(requiredItemName.ToLower());
@@ -112,29 +133,12 @@ public class BarricadeBreak : NetworkBehaviour
         if (audioSource != null && hitSound != null)
             audioSource.PlayOneShot(hitSound);
 
-        StartCoroutine(HitAnimation());
-
-        RequestHitBarricadeServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void RequestHitBarricadeServerRpc()
-    {
-        if (broken) return;
-
         currentHits++;
 
-        if (currentHits >= hitsNeeded)
-        {
-            broken = true;
-            BreakBarricadeClientRpc();
-        }
-    }
+        StartCoroutine(HitAnimation());
 
-    [ClientRpc]
-    void BreakBarricadeClientRpc()
-    {
-        StartCoroutine(BreakBarricade());
+        if (currentHits >= hitsNeeded)
+            StartCoroutine(BreakBarricade());
     }
 
     IEnumerator HitAnimation()
@@ -220,7 +224,6 @@ public class BarricadeBreak : NetworkBehaviour
     IEnumerator BreakBarricade()
     {
         broken = true;
-
         HideUI();
 
         if (hitSound != null)
@@ -260,18 +263,14 @@ public class BarricadeBreak : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
 
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        if (pickup == null || inventory == null) return;
+        if (pickup.playerIndex != ownerPlayerIndex) return;
 
-        inventorySystem =
-            other.GetComponentInChildren<InventorySystem>(true);
-
-        playerPickupSystem =
-            other.GetComponentInChildren<PickupSystem>(true);
-
-        if (inventorySystem == null) return;
-
+        playerPickupSystem = pickup;
+        inventorySystem = inventory;
         playerInside = true;
 
         UpdateUI();
@@ -281,13 +280,13 @@ public class BarricadeBreak : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
-
         playerPickupSystem = null;
+        inventorySystem = null;
 
         HideUI();
     }
