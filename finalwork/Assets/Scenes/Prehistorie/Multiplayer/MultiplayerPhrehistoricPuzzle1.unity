@@ -2476,8 +2476,8 @@ MonoBehaviour:
   targetSpawnPoint: {fileID: 481592806}
   pressEUIPlayer1: {fileID: 1881223177}
   pressXUIPlayer1: {fileID: 2012830666}
-  pressEUIPlayer2: {fileID: 591498698}
-  pressXUIPlayer2: {fileID: 172772764}
+  pressEUIPlayer2: {fileID: 0}
+  pressXUIPlayer2: {fileID: 0}
 --- !u!65 &164463336
 BoxCollider:
   m_ObjectHideFlags: 0
