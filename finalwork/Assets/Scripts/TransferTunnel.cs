@@ -4,17 +4,17 @@ using UnityEngine.InputSystem;
 
 public class TransferTunnel : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 0; // Player 1 = 0, Player 2 = 1
+
     [Header("Points")]
     public Transform visualStartPoint;
     public Transform inPoint;
     public Transform targetSpawnPoint;
 
     [Header("UI")]
-    public GameObject pressEUIPlayer1;
-public GameObject pressXUIPlayer1;
-
-public GameObject pressEUIPlayer2;
-public GameObject pressXUIPlayer2;
+    public GameObject pressEUI;
+    public GameObject pressXUI;
 
     private bool playerInside;
     private bool isTransferring;
@@ -32,6 +32,7 @@ public GameObject pressXUIPlayer2;
     {
         if (!Application.isFocused) return;
 
+        DetectInputDevice();
         UpdateUI();
 
         if (!playerInside) return;
@@ -53,14 +54,12 @@ public GameObject pressXUIPlayer2;
 
     bool PressedTransfer()
     {
-        int playerIndex = playerPickupSystem.playerIndex;
-
         bool keyboardPressed =
-            playerIndex == 0 &&
+            ownerPlayerIndex == 0 &&
             Keyboard.current != null &&
             Keyboard.current.eKey.wasPressedThisFrame;
 
-        Gamepad pad = GetAssignedGamepad(playerIndex);
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
 
         bool controllerPressed =
             pad != null &&
@@ -81,14 +80,18 @@ public GameObject pressXUIPlayer2;
     {
         if (!other.CompareTag("Player")) return;
 
-        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
-        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
 
-        if (playerInventory == null || playerPickupSystem == null) return;
+        if (pickup == null || inventory == null) return;
 
+        if (pickup.playerIndex != ownerPlayerIndex) return;
+
+        playerPickupSystem = pickup;
+        playerInventory = inventory;
         playerInside = true;
-        usingController = true;
 
+        Debug.Log("Tunnel owner " + ownerPlayerIndex + " entered by player " + pickup.playerIndex);
 
         UpdateUI();
     }
@@ -97,53 +100,68 @@ public GameObject pressXUIPlayer2;
     {
         if (!other.CompareTag("Player")) return;
 
-        PickupSystem exitingPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
 
-        if (exitingPickupSystem != playerPickupSystem) return;
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
-        playerInventory = null;
         playerPickupSystem = null;
+        playerInventory = null;
 
         HideUI();
     }
 
-   void UpdateUI()
-{
-    HideUI();
-
-    bool hasSelectedItem =
-        playerInventory != null &&
-        playerInventory.GetSelectedItem() != null;
-
-    bool showUI =
-        playerInside &&
-        hasSelectedItem &&
-        !isTransferring;
-
-    if (!showUI || playerPickupSystem == null)
-        return;
-
-    if (playerPickupSystem.playerIndex == 0)
+    void UpdateUI()
     {
-        if (pressXUIPlayer1 != null)
-            pressXUIPlayer1.SetActive(true);
+        bool showUI =
+            playerInside &&
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null &&
+            !isTransferring;
+
+        if (!showUI)
+        {
+            HideUI();
+            return;
+        }
+
+        if (pressEUI != null)
+            pressEUI.SetActive(!usingController);
+
+        if (pressXUI != null)
+            pressXUI.SetActive(usingController);
     }
-    else
-    {
-        if (pressXUIPlayer2 != null)
-            pressXUIPlayer2.SetActive(true);
-    }
-}
 
     void HideUI()
-{
-    if (pressEUIPlayer1 != null) pressEUIPlayer1.SetActive(false);
-    if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
+    {
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
 
-    if (pressEUIPlayer2 != null) pressEUIPlayer2.SetActive(false);
-    if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
-}
+        if (pressXUI != null)
+            pressXUI.SetActive(false);
+    }
+
+    void DetectInputDevice()
+    {
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
+
+        if (pad != null)
+        {
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 stick = pad.leftStick.ReadValue();
+            Vector2 rightStick = pad.rightStick.ReadValue();
+
+            if (dpad != Vector2.zero || stick.magnitude > 0.1f || rightStick.magnitude > 0.1f)
+                usingController = true;
+        }
+
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+            usingController = false;
+
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+            usingController = false;
+    }
 
     IEnumerator TransferObject(GameObject objectToTransfer)
     {
@@ -207,6 +225,4 @@ public GameObject pressXUIPlayer2;
         isTransferring = false;
         UpdateUI();
     }
-
-  
 }
