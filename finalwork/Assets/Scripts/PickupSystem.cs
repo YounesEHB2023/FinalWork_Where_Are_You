@@ -188,9 +188,8 @@ public class PickupSystem : MonoBehaviour
         heldObject = obj;
         heldRb = heldObject.GetComponent<Rigidbody>();
 
-        heldObject.SetActive(false);
-
         CreateHeldVisual(obj);
+heldObject.SetActive(false);
 
         if (animator != null)
             animator.SetBool("IsHolding", true);
@@ -202,6 +201,7 @@ public class PickupSystem : MonoBehaviour
             Destroy(heldVisual);
 
         heldVisual = Instantiate(original, holdPoint);
+        heldVisual.SetActive(true);
         heldVisual.name = original.name + "_HeldVisual";
 
         heldVisual.transform.localPosition = Vector3.zero;

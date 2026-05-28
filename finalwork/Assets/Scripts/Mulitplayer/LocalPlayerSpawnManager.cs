@@ -47,5 +47,11 @@ public class LocalPlayerSpawnManager : MonoBehaviour
         {
             listener.enabled = playerIndex == 0;
         }
+        Canvas[] canvases = player.GetComponentsInChildren<Canvas>(true);
+
+        foreach (Canvas canvas in canvases)
+        {
+           canvas.targetDisplay = displayIndex;
+        }
     }
 }

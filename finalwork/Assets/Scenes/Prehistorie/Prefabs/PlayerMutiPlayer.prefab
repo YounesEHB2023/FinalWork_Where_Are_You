@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec4617d1b5679b4db6a666e70e31efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySystem
+  playerIndex: 0
   slotBackgrounds:
   - {fileID: 1270408969958946507}
   - {fileID: 2315284741982641465}
@@ -1393,6 +1394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d849c68207567c24ca3467de9d41f940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupSystem
+  playerIndex: 0
   playerCamera: {fileID: 8991880835045353649}
   holdPoint: {fileID: 1074515002698785663}
   animator: {fileID: 8884627875289522137}
@@ -1400,6 +1402,7 @@ MonoBehaviour:
   pickupDistance: 4
   pickupRadius: 0.8
   dropForwardForce: 1
+  dropDistanceFromPlayer: 1.5
 --- !u!1 &2454091539048243447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,7 +2380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecc2352fccec094f987e6c2d70343de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonController
-  ShowTopMostFoldoutHeaderGroup: 1
+  playerIndex: 0
+  useKeyboardAndMouse: 0
   moveSpeed: 5
   gravity: -9.81
   playerCamera: {fileID: 8624643932877420328}
@@ -5219,7 +5223,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.4
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -5236,7 +5240,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!81 &818137136954603152
