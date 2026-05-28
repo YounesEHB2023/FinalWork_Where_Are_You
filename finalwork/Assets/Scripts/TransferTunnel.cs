@@ -86,6 +86,8 @@ public class TransferTunnel : MonoBehaviour
         playerInside = true;
         usingController = true;
 
+        SetPromptDisplayForPlayer();
+
         UpdateUI();
     }
 
@@ -192,4 +194,20 @@ public class TransferTunnel : MonoBehaviour
         isTransferring = false;
         UpdateUI();
     }
+
+    void SetPromptDisplayForPlayer()
+{
+    if (playerPickupSystem == null) return;
+
+    int displayIndex = playerPickupSystem.playerIndex;
+
+    Canvas pressECanvas = pressEUI != null ? pressEUI.GetComponentInParent<Canvas>(true) : null;
+    Canvas pressXCanvas = pressXUI != null ? pressXUI.GetComponentInParent<Canvas>(true) : null;
+
+    if (pressECanvas != null)
+        pressECanvas.targetDisplay = displayIndex;
+
+    if (pressXCanvas != null)
+        pressXCanvas.targetDisplay = displayIndex;
+}
 }
