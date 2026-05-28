@@ -4,24 +4,18 @@ using UnityEngine.InputSystem;
 
 public class TransferTunnel : MonoBehaviour
 {
-    [Header("Points")]
     public Transform visualStartPoint;
     public Transform inPoint;
     public Transform targetSpawnPoint;
 
-    [Header("UI")]
-    public GameObject pressEUIPlayer1;
-public GameObject pressXUIPlayer1;
+    public GameObject pressXUIPlayer1;
+    public GameObject pressXUIPlayer2;
 
-public GameObject pressEUIPlayer2;
-public GameObject pressXUIPlayer2;
+    private InventorySystem[] inventories = new InventorySystem[2];
+    private PickupSystem[] pickups = new PickupSystem[2];
+    private bool[] playersInside = new bool[2];
 
-    private bool playerInside;
     private bool isTransferring;
-    private bool usingController = true;
-
-    private InventorySystem playerInventory;
-    private PickupSystem playerPickupSystem;
 
     void Start()
     {
@@ -30,43 +24,26 @@ public GameObject pressXUIPlayer2;
 
     void Update()
     {
-        if (!Application.isFocused) return;
-
         UpdateUI();
 
-        if (!playerInside) return;
-        if (isTransferring) return;
-        if (playerInventory == null) return;
-        if (playerPickupSystem == null) return;
-
-        GameObject selectedItem = playerInventory.GetSelectedItem();
-        if (selectedItem == null) return;
-
-        if (PressedTransfer())
+        for (int i = 0; i < 2; i++)
         {
-            playerInventory.RemoveItem(selectedItem);
-            playerPickupSystem.ClearHandAfterTransfer();
+            if (!playersInside[i]) continue;
+            if (inventories[i] == null || pickups[i] == null) continue;
+            if (isTransferring) continue;
 
-            StartCoroutine(TransferObject(selectedItem));
+            GameObject selectedItem = inventories[i].GetSelectedItem();
+            if (selectedItem == null) continue;
+
+            Gamepad pad = GetAssignedGamepad(i);
+
+            if (pad != null && pad.buttonSouth.wasPressedThisFrame)
+            {
+                inventories[i].RemoveItem(selectedItem);
+                pickups[i].ClearHandAfterTransfer();
+                StartCoroutine(TransferObject(selectedItem));
+            }
         }
-    }
-
-    bool PressedTransfer()
-    {
-        int playerIndex = playerPickupSystem.playerIndex;
-
-        bool keyboardPressed =
-            playerIndex == 0 &&
-            Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame;
-
-        Gamepad pad = GetAssignedGamepad(playerIndex);
-
-        bool controllerPressed =
-            pad != null &&
-            pad.buttonSouth.wasPressedThisFrame;
-
-        return keyboardPressed || controllerPressed;
     }
 
     Gamepad GetAssignedGamepad(int playerIndex)
@@ -81,70 +58,68 @@ public GameObject pressXUIPlayer2;
     {
         if (!other.CompareTag("Player")) return;
 
-        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
-        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
 
-        if (playerInventory == null || playerPickupSystem == null) return;
+        if (pickup == null || inventory == null) return;
 
-        playerInside = true;
-        usingController = true;
+        int index = pickup.playerIndex;
+        if (index < 0 || index > 1) return;
 
-        
+        pickups[index] = pickup;
+        inventories[index] = inventory;
+        playersInside[index] = true;
 
-        UpdateUI();
+        Debug.Log("Player " + (index + 1) + " entered tunnel");
     }
 
     void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        PickupSystem exitingPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
 
-        if (exitingPickupSystem != playerPickupSystem) return;
+        int index = pickup.playerIndex;
+        if (index < 0 || index > 1) return;
 
-        playerInside = false;
-        playerInventory = null;
-        playerPickupSystem = null;
+        pickups[index] = null;
+        inventories[index] = null;
+        playersInside[index] = false;
 
-        HideUI();
+        Debug.Log("Player " + (index + 1) + " exited tunnel");
     }
 
-   void UpdateUI()
-{
-    HideUI();
-
-    bool hasSelectedItem =
-        playerInventory != null &&
-        playerInventory.GetSelectedItem() != null;
-
-    bool showUI =
-        playerInside &&
-        hasSelectedItem &&
-        !isTransferring;
-
-    if (!showUI || playerPickupSystem == null)
-        return;
-
-    if (playerPickupSystem.playerIndex == 0)
+    void UpdateUI()
     {
         if (pressXUIPlayer1 != null)
-            pressXUIPlayer1.SetActive(true);
-    }
-    else
-    {
+        {
+            bool showP1 =
+                playersInside[0] &&
+                inventories[0] != null &&
+                inventories[0].GetSelectedItem() != null &&
+                !isTransferring;
+
+            pressXUIPlayer1.SetActive(showP1);
+        }
+
         if (pressXUIPlayer2 != null)
-            pressXUIPlayer2.SetActive(true);
+        {
+            bool showP2 =
+                playersInside[1] &&
+                inventories[1] != null &&
+                inventories[1].GetSelectedItem() != null &&
+                !isTransferring;
+
+            pressXUIPlayer2.SetActive(showP2);
+        }
     }
-}
 
     void HideUI()
-{
-    if (pressEUIPlayer1 != null) pressEUIPlayer1.SetActive(false);
-    if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
-
-    if (pressEUIPlayer2 != null) pressEUIPlayer2.SetActive(false);
-    if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
-}
+    {
+        if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
+        if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
+    }
 
     IEnumerator TransferObject(GameObject objectToTransfer)
     {
@@ -183,14 +158,8 @@ public GameObject pressXUIPlayer2;
             objectToTransfer.transform.position =
                 Vector3.Lerp(startPos, inPoint.position, progress);
 
-            Quaternion smoothRotation =
-                Quaternion.Lerp(startRot, inPoint.rotation, progress);
-
-            Quaternion spinRotation =
-                Quaternion.Euler(0f, progress * 180f, 0f);
-
             objectToTransfer.transform.rotation =
-                smoothRotation * spinRotation;
+                Quaternion.Lerp(startRot, inPoint.rotation, progress);
 
             yield return null;
         }
@@ -206,8 +175,5 @@ public GameObject pressXUIPlayer2;
         }
 
         isTransferring = false;
-        UpdateUI();
     }
-
-   
 }
