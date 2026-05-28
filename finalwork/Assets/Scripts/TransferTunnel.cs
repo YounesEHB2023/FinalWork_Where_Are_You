@@ -4,18 +4,24 @@ using UnityEngine.InputSystem;
 
 public class TransferTunnel : MonoBehaviour
 {
+    [Header("Points")]
     public Transform visualStartPoint;
     public Transform inPoint;
     public Transform targetSpawnPoint;
 
-    public GameObject pressXUIPlayer1;
-    public GameObject pressXUIPlayer2;
+    [Header("UI")]
+    public GameObject pressEUIPlayer1;
+public GameObject pressXUIPlayer1;
 
-    private InventorySystem[] inventories = new InventorySystem[2];
-    private PickupSystem[] pickups = new PickupSystem[2];
-    private bool[] playersInside = new bool[2];
+public GameObject pressEUIPlayer2;
+public GameObject pressXUIPlayer2;
 
+    private bool playerInside;
     private bool isTransferring;
+    private bool usingController = true;
+
+    private InventorySystem playerInventory;
+    private PickupSystem playerPickupSystem;
 
     void Start()
     {
@@ -24,26 +30,43 @@ public class TransferTunnel : MonoBehaviour
 
     void Update()
     {
+        if (!Application.isFocused) return;
+
         UpdateUI();
 
-        for (int i = 0; i < 2; i++)
+        if (!playerInside) return;
+        if (isTransferring) return;
+        if (playerInventory == null) return;
+        if (playerPickupSystem == null) return;
+
+        GameObject selectedItem = playerInventory.GetSelectedItem();
+        if (selectedItem == null) return;
+
+        if (PressedTransfer())
         {
-            if (!playersInside[i]) continue;
-            if (inventories[i] == null || pickups[i] == null) continue;
-            if (isTransferring) continue;
+            playerInventory.RemoveItem(selectedItem);
+            playerPickupSystem.ClearHandAfterTransfer();
 
-            GameObject selectedItem = inventories[i].GetSelectedItem();
-            if (selectedItem == null) continue;
-
-            Gamepad pad = GetAssignedGamepad(i);
-
-            if (pad != null && pad.buttonSouth.wasPressedThisFrame)
-            {
-                inventories[i].RemoveItem(selectedItem);
-                pickups[i].ClearHandAfterTransfer();
-                StartCoroutine(TransferObject(selectedItem));
-            }
+            StartCoroutine(TransferObject(selectedItem));
         }
+    }
+
+    bool PressedTransfer()
+    {
+        int playerIndex = playerPickupSystem.playerIndex;
+
+        bool keyboardPressed =
+            playerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        Gamepad pad = GetAssignedGamepad(playerIndex);
+
+        bool controllerPressed =
+            pad != null &&
+            pad.buttonSouth.wasPressedThisFrame;
+
+        return keyboardPressed || controllerPressed;
     }
 
     Gamepad GetAssignedGamepad(int playerIndex)
@@ -58,68 +81,69 @@ public class TransferTunnel : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
-        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
+        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
+        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
 
-        if (pickup == null || inventory == null) return;
+        if (playerInventory == null || playerPickupSystem == null) return;
 
-        int index = pickup.playerIndex;
-        if (index < 0 || index > 1) return;
+        playerInside = true;
+        usingController = true;
 
-        pickups[index] = pickup;
-        inventories[index] = inventory;
-        playersInside[index] = true;
 
-        Debug.Log("Player " + (index + 1) + " entered tunnel");
+        UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
-        if (pickup == null) return;
+        PickupSystem exitingPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
 
-        int index = pickup.playerIndex;
-        if (index < 0 || index > 1) return;
+        if (exitingPickupSystem != playerPickupSystem) return;
 
-        pickups[index] = null;
-        inventories[index] = null;
-        playersInside[index] = false;
+        playerInside = false;
+        playerInventory = null;
+        playerPickupSystem = null;
 
-        Debug.Log("Player " + (index + 1) + " exited tunnel");
+        HideUI();
     }
 
-    void UpdateUI()
+   void UpdateUI()
+{
+    HideUI();
+
+    bool hasSelectedItem =
+        playerInventory != null &&
+        playerInventory.GetSelectedItem() != null;
+
+    bool showUI =
+        playerInside &&
+        hasSelectedItem &&
+        !isTransferring;
+
+    if (!showUI || playerPickupSystem == null)
+        return;
+
+    if (playerPickupSystem.playerIndex == 0)
     {
         if (pressXUIPlayer1 != null)
-        {
-            bool showP1 =
-                playersInside[0] &&
-                inventories[0] != null &&
-                inventories[0].GetSelectedItem() != null &&
-                !isTransferring;
-
-            pressXUIPlayer1.SetActive(showP1);
-        }
-
-        if (pressXUIPlayer2 != null)
-        {
-            bool showP2 =
-                playersInside[1] &&
-                inventories[1] != null &&
-                inventories[1].GetSelectedItem() != null &&
-                !isTransferring;
-
-            pressXUIPlayer2.SetActive(showP2);
-        }
+            pressXUIPlayer1.SetActive(true);
     }
+    else
+    {
+        if (pressXUIPlayer2 != null)
+            pressXUIPlayer2.SetActive(true);
+    }
+}
 
     void HideUI()
-    {
-        if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
-        if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
-    }
+{
+    if (pressEUIPlayer1 != null) pressEUIPlayer1.SetActive(false);
+    if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
+
+    if (pressEUIPlayer2 != null) pressEUIPlayer2.SetActive(false);
+    if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
+}
 
     IEnumerator TransferObject(GameObject objectToTransfer)
     {
@@ -158,8 +182,14 @@ public class TransferTunnel : MonoBehaviour
             objectToTransfer.transform.position =
                 Vector3.Lerp(startPos, inPoint.position, progress);
 
-            objectToTransfer.transform.rotation =
+            Quaternion smoothRotation =
                 Quaternion.Lerp(startRot, inPoint.rotation, progress);
+
+            Quaternion spinRotation =
+                Quaternion.Euler(0f, progress * 180f, 0f);
+
+            objectToTransfer.transform.rotation =
+                smoothRotation * spinRotation;
 
             yield return null;
         }
@@ -175,5 +205,8 @@ public class TransferTunnel : MonoBehaviour
         }
 
         isTransferring = false;
+        UpdateUI();
     }
+
+  
 }
