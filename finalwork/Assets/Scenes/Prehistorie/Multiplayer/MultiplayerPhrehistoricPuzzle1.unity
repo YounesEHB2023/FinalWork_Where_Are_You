@@ -2474,8 +2474,10 @@ MonoBehaviour:
   visualStartPoint: {fileID: 1028519538}
   inPoint: {fileID: 1961847974}
   targetSpawnPoint: {fileID: 481592806}
-  pressEUI: {fileID: 1881223177}
-  pressXUI: {fileID: 2012830666}
+  pressEUIPlayer1: {fileID: 1881223177}
+  pressXUIPlayer1: {fileID: 2012830666}
+  pressEUIPlayer2: {fileID: 591498698}
+  pressXUIPlayer2: {fileID: 172772764}
 --- !u!65 &164463336
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26422,8 +26424,10 @@ MonoBehaviour:
   visualStartPoint: {fileID: 258741622}
   inPoint: {fileID: 859067852}
   targetSpawnPoint: {fileID: 765262873}
-  pressEUI: {fileID: 591498698}
-  pressXUI: {fileID: 172772764}
+  pressEUIPlayer1: {fileID: 1881223177}
+  pressXUIPlayer1: {fileID: 2012830666}
+  pressEUIPlayer2: {fileID: 591498698}
+  pressXUIPlayer2: {fileID: 172772764}
 --- !u!114 &1955597363
 MonoBehaviour:
   m_ObjectHideFlags: 0
