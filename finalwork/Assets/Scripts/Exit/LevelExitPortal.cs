@@ -1,133 +1,119 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelExitPortal : NetworkBehaviour
+public class LevelExitPortal : MonoBehaviour
 {
     [Header("Scene")]
-    public string nextSceneName = "PrehistoricPuzzle2";
+    public string nextSceneName = "MultiplayerOudheidPuzzle1";
 
-    [Header("Portal")]
-    public Transform portalCenter;
-    public int requiredPlayers = 1;
+    [Header("Owner")]
+    public int triggerPlayerIndex = 0; // Player 1 = 0
 
     [Header("Camera Animation")]
     public float animationDuration = 2f;
-    public float moveStrength = 0.65f;
-    public float spinSpeed = 220f;
-    public float maxFov = 120f;
+    public float maxFov = 115f;
 
     [Header("Fade")]
-    public CanvasGroup blackFadeCanvasGroup;
+    public CanvasGroup blackFadePlayer1;
+    public CanvasGroup blackFadePlayer2;
 
-    private HashSet<ulong> playersInside = new HashSet<ulong>();
     private bool transitionStarted = false;
 
     void Start()
     {
-        if (blackFadeCanvasGroup != null)
-            blackFadeCanvasGroup.alpha = 0f;
+        ResetFade(blackFadePlayer1);
+        ResetFade(blackFadePlayer2);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if (transitionStarted) return;
         if (!other.CompareTag("Player")) return;
-        if (!IsServer) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj == null) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
 
-        playersInside.Add(playerNetObj.OwnerClientId);
+        if (pickup.playerIndex != triggerPlayerIndex) return;
 
-        if (!transitionStarted && playersInside.Count >= requiredPlayers)
-        {
-            transitionStarted = true;
-
-            StartTransitionClientRpc();
-
-            StartCoroutine(LoadNextSceneAfterDelay());
-        }
+        transitionStarted = true;
+        StartCoroutine(TransitionAndLoadScene());
     }
 
-    [ClientRpc]
-    void StartTransitionClientRpc()
+    IEnumerator TransitionAndLoadScene()
     {
-        StartCoroutine(TransitionAnimation());
-    }
+        PrepareFade(blackFadePlayer1);
+        PrepareFade(blackFadePlayer2);
 
-    IEnumerator TransitionAnimation()
-{
-    if (blackFadeCanvasGroup != null)
-{
-    blackFadeCanvasGroup.gameObject.SetActive(true);
-    blackFadeCanvasGroup.transform.SetAsLastSibling();
-    blackFadeCanvasGroup.blocksRaycasts = true;
-    blackFadeCanvasGroup.alpha = 0f;
-}
-
-    Camera cam = FindPlayerCamera();
-
-    if (cam == null)
-        yield break;
-
-    Transform camTransform = cam.transform;
-
-    Quaternion startRot = camTransform.localRotation;
-    float startFov = cam.fieldOfView;
-
-    float t = 0f;
-
-    while (t < animationDuration)
-    {
-        t += Time.deltaTime;
-        float progress = Mathf.SmoothStep(0f, 1f, t / animationDuration);
-
-        cam.fieldOfView = Mathf.Lerp(startFov, maxFov, progress);
-
-        float spin = Mathf.Sin(progress * Mathf.PI) * 12f;
-        camTransform.localRotation = startRot * Quaternion.Euler(0f, 0f, spin);
-
-        if (blackFadeCanvasGroup != null)
-        {
-            float fadeProgress = Mathf.InverseLerp(0.55f, 1f, progress);
-            blackFadeCanvasGroup.alpha = fadeProgress;
-        }
-
-        yield return null;
-    }
-
-    if (blackFadeCanvasGroup != null)
-        blackFadeCanvasGroup.alpha = 1f;
-
-    cam.fieldOfView = startFov;
-    camTransform.localRotation = startRot;
-}
-
-    Camera FindPlayerCamera()
-    {
         Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
 
-        foreach (Camera cam in cameras)
+        float[] startFovs = new float[cameras.Length];
+        Quaternion[] startRots = new Quaternion[cameras.Length];
+
+        for (int i = 0; i < cameras.Length; i++)
         {
-            if (cam.enabled && cam.name.Contains("PlayerCamera"))
-                return cam;
+            startFovs[i] = cameras[i].fieldOfView;
+            startRots[i] = cameras[i].transform.localRotation;
         }
 
-        foreach (Camera cam in cameras)
+        float t = 0f;
+
+        while (t < animationDuration)
         {
-            if (cam.enabled)
-                return cam;
+            t += Time.deltaTime;
+            float progress = Mathf.SmoothStep(0f, 1f, t / animationDuration);
+
+            for (int i = 0; i < cameras.Length; i++)
+            {
+                cameras[i].fieldOfView = Mathf.Lerp(startFovs[i], maxFov, progress);
+
+                float spin = Mathf.Sin(progress * Mathf.PI) * 12f;
+                cameras[i].transform.localRotation =
+                    startRots[i] * Quaternion.Euler(0f, 0f, spin);
+            }
+
+            float fadeProgress = Mathf.InverseLerp(0.55f, 1f, progress);
+
+            SetFade(blackFadePlayer1, fadeProgress);
+            SetFade(blackFadePlayer2, fadeProgress);
+
+            yield return null;
         }
 
-        return null;
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            cameras[i].fieldOfView = startFovs[i];
+            cameras[i].transform.localRotation = startRots[i];
+        }
+
+        SetFade(blackFadePlayer1, 1f);
+        SetFade(blackFadePlayer2, 1f);
+
+        SceneManager.LoadScene(nextSceneName);
     }
 
-    IEnumerator LoadNextSceneAfterDelay()
+    void PrepareFade(CanvasGroup fade)
     {
-        yield return new WaitForSeconds(animationDuration + 0.2f);
+        if (fade == null) return;
 
-        NetworkManager.Singleton.SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
+        fade.gameObject.SetActive(true);
+        fade.transform.SetAsLastSibling();
+        fade.blocksRaycasts = true;
+        fade.alpha = 0f;
+    }
+
+    void SetFade(CanvasGroup fade, float alpha)
+    {
+        if (fade == null) return;
+        fade.alpha = alpha;
+    }
+
+    void ResetFade(CanvasGroup fade)
+    {
+        if (fade == null) return;
+
+        fade.alpha = 0f;
+        fade.blocksRaycasts = false;
+        fade.gameObject.SetActive(false);
     }
 }
