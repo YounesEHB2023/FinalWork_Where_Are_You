@@ -10,8 +10,11 @@ public class TransferTunnel : MonoBehaviour
     public Transform targetSpawnPoint;
 
     [Header("UI")]
-    public GameObject pressEUI;
-    public GameObject pressXUI;
+    public GameObject pressEUIPlayer1;
+public GameObject pressXUIPlayer1;
+
+public GameObject pressEUIPlayer2;
+public GameObject pressXUIPlayer2;
 
     private bool playerInside;
     private bool isTransferring;
@@ -106,31 +109,42 @@ public class TransferTunnel : MonoBehaviour
         HideUI();
     }
 
-    void UpdateUI()
+   void UpdateUI()
+{
+    HideUI();
+
+    bool hasSelectedItem =
+        playerInventory != null &&
+        playerInventory.GetSelectedItem() != null;
+
+    bool showUI =
+        playerInside &&
+        hasSelectedItem &&
+        !isTransferring;
+
+    if (!showUI || playerPickupSystem == null)
+        return;
+
+    if (playerPickupSystem.playerIndex == 0)
     {
-        bool hasSelectedItem =
-            playerInventory != null &&
-            playerInventory.GetSelectedItem() != null;
-
-        bool showUI =
-            playerInside &&
-            hasSelectedItem &&
-            !isTransferring;
-
-        if (pressEUI != null)
-            pressEUI.SetActive(showUI && !usingController);
-
-        if (pressXUI != null)
-            pressXUI.SetActive(showUI && usingController);
-        
-        Debug.Log("Tunnel UI check: " + showUI);
+        if (pressXUIPlayer1 != null)
+            pressXUIPlayer1.SetActive(true);
     }
+    else
+    {
+        if (pressXUIPlayer2 != null)
+            pressXUIPlayer2.SetActive(true);
+    }
+}
 
     void HideUI()
-    {
-        if (pressEUI != null) pressEUI.SetActive(false);
-        if (pressXUI != null) pressXUI.SetActive(false);
-    }
+{
+    if (pressEUIPlayer1 != null) pressEUIPlayer1.SetActive(false);
+    if (pressXUIPlayer1 != null) pressXUIPlayer1.SetActive(false);
+
+    if (pressEUIPlayer2 != null) pressEUIPlayer2.SetActive(false);
+    if (pressXUIPlayer2 != null) pressXUIPlayer2.SetActive(false);
+}
 
     IEnumerator TransferObject(GameObject objectToTransfer)
     {
