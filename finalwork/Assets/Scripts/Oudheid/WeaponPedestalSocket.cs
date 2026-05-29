@@ -23,7 +23,6 @@ public class WeaponPedestalSocket : MonoBehaviour
     public GameObject pressEUI;
     public GameObject pressXUI;
 
-    private static WeaponPedestalSocket[] activeSockets = new WeaponPedestalSocket[2];
 
     private bool playerInside;
     private bool usingController = true;
@@ -48,16 +47,7 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         DetectInputDevice();
 
-        if (playerInside)
-            UpdateActiveSocket();
-
-        bool isActive = activeSockets[ownerPlayerIndex] == this;
-
-        if (!isActive)
-        {
-            HideUI();
-            return;
-        }
+        
 
         UpdateUI();
 
@@ -133,24 +123,7 @@ public class WeaponPedestalSocket : MonoBehaviour
         HideUI();
     }
 
-    void UpdateActiveSocket()
-    {
-        if (currentPlayer == null) return;
-
-        WeaponPedestalSocket activeSocket = activeSockets[ownerPlayerIndex];
-
-        if (activeSocket == null || !activeSocket.playerInside)
-        {
-            activeSockets[ownerPlayerIndex] = this;
-            return;
-        }
-
-        float myDistance = Vector3.Distance(currentPlayer.position, transform.position);
-        float activeDistance = Vector3.Distance(currentPlayer.position, activeSocket.transform.position);
-
-        if (myDistance < activeDistance)
-            activeSockets[ownerPlayerIndex] = this;
-    }
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -167,7 +140,7 @@ public class WeaponPedestalSocket : MonoBehaviour
         playerPickupSystem = pickup;
 
         playerInside = true;
-        activeSockets[ownerPlayerIndex] = this;
+        Debug.Log("ENTER SOCKET: " + gameObject.name + " | owner: " + ownerPlayerIndex);
 
         playerPickupSystem.SetPickupInputBlocked(true);
 
@@ -184,8 +157,7 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         playerInside = false;
 
-        if (activeSockets[ownerPlayerIndex] == this)
-            activeSockets[ownerPlayerIndex] = null;
+        
 
         if (playerPickupSystem != null)
             playerPickupSystem.SetPickupInputBlocked(false);
@@ -210,11 +182,9 @@ public class WeaponPedestalSocket : MonoBehaviour
             (hasSelectedWeapon || placedWeapon != null);
 
         if (!canShow)
-        {
-            HideUI();
-            return;
-        }
+    return;
 
+Debug.Log("SHOW UI FROM: " + gameObject.name);
         if (pressEUI != null)
             pressEUI.SetActive(!usingController);
 
