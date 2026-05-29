@@ -14,10 +14,11 @@ public class LobbyManager : MonoBehaviour
     public Button startButton;
     public Button backButton;
 
-    public GameObject backSelector;
-    public GameObject startSelector;
+    public CanvasGroup backButtonGroup;
+    public CanvasGroup startButtonGroup;
+
     public GameObject player1JoinHint;
-public GameObject player2JoinHint;
+    public GameObject player2JoinHint;
 
     public CanvasGroup fadePanel;
 
@@ -27,9 +28,10 @@ public GameObject player2JoinHint;
     private Color readyColor = new Color32(107, 217, 61, 255);
     private Color waitingColor = new Color32(218, 126, 25, 255);
 
-    private int selectedButtonIndex = 0;
+    private int selectedButtonIndex = 0; // 0 = Back, 1 = Start
     private bool joystickReady = true;
     private bool isStarting = false;
+    private bool autoSelectedStart = false;
 
     void Start()
     {
@@ -42,7 +44,7 @@ public GameObject player2JoinHint;
             backButton.onClick.AddListener(BackToMenu);
 
         UpdateLobbyUI();
-        UpdateSelectorVisual();
+        UpdateButtonVisuals();
         StartCoroutine(IntroFade());
     }
 
@@ -54,26 +56,24 @@ public GameObject player2JoinHint;
         HandleMenuControl();
 
         UpdateLobbyUI();
-        UpdateSelectorVisual();
+        UpdateButtonVisuals();
     }
 
     void HandleGamepadJoin()
     {
         foreach (Gamepad pad in Gamepad.all)
         {
-            if (!pad.buttonNorth.wasPressedThisFrame) continue; // Triangle PS5
+            if (!pad.buttonNorth.wasPressedThisFrame) continue;
 
             if (LocalMultiplayerData.player1Gamepad == null)
             {
                 LocalMultiplayerData.player1Gamepad = pad;
-                Debug.Log("Player 1 joined with: " + pad.displayName);
                 return;
             }
 
             if (LocalMultiplayerData.player2Gamepad == null && pad != LocalMultiplayerData.player1Gamepad)
             {
                 LocalMultiplayerData.player2Gamepad = pad;
-                Debug.Log("Player 2 joined with: " + pad.displayName);
                 return;
             }
         }
@@ -81,15 +81,12 @@ public GameObject player2JoinHint;
 
     void UpdateLobbyUI()
     {
-
         bool p1Ready = LocalMultiplayerData.HasPlayer1;
         bool p2Ready = LocalMultiplayerData.HasPlayer2;
+        bool bothReady = p1Ready && p2Ready;
 
-        if (player1JoinHint != null)
-    player1JoinHint.SetActive(!p1Ready);
-
-if (player2JoinHint != null)
-    player2JoinHint.SetActive(!p2Ready);
+        if (player1JoinHint != null) player1JoinHint.SetActive(!p1Ready);
+        if (player2JoinHint != null) player2JoinHint.SetActive(!p2Ready);
 
         if (player1StatusText != null)
         {
@@ -113,10 +110,19 @@ if (player2JoinHint != null)
         }
 
         if (startButton != null)
-            startButton.interactable = p1Ready && p2Ready && !isStarting;
+            startButton.interactable = bothReady && !isStarting;
 
-        if (selectedButtonIndex == 1 && startButton != null && !startButton.interactable)
+        if (bothReady && !autoSelectedStart)
+        {
+            selectedButtonIndex = 1;
+            autoSelectedStart = true;
+        }
+
+        if (!bothReady)
+        {
             selectedButtonIndex = 0;
+            autoSelectedStart = false;
+        }
     }
 
     void HandleMenuControl()
@@ -172,13 +178,16 @@ if (player2JoinHint != null)
             selectedButtonIndex = 1;
     }
 
-    void UpdateSelectorVisual()
+    void UpdateButtonVisuals()
     {
-        if (backSelector != null)
-            backSelector.SetActive(selectedButtonIndex == 0);
+        SetButtonOpacity(backButtonGroup, selectedButtonIndex == 0 ? 1f : 0.5f);
+        SetButtonOpacity(startButtonGroup, selectedButtonIndex == 1 ? 1f : 0.5f);
+    }
 
-        if (startSelector != null)
-            startSelector.SetActive(selectedButtonIndex == 1);
+    void SetButtonOpacity(CanvasGroup group, float alpha)
+    {
+        if (group == null) return;
+        group.alpha = alpha;
     }
 
     void StartGame()
