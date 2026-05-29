@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelExitPortal : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class LevelExitPortal : MonoBehaviour
     public string nextSceneName = "MultiplayerOudheidPuzzle1";
 
     [Header("Owner")]
-    public int triggerPlayerIndex = 0; // Player 1 = 0
+    public int triggerPlayerIndex = 0;
 
     [Header("Camera Animation")]
     public float animationDuration = 2f;
@@ -17,6 +16,9 @@ public class LevelExitPortal : MonoBehaviour
     [Header("Fade")]
     public CanvasGroup blackFadePlayer1;
     public CanvasGroup blackFadePlayer2;
+
+    [Header("Complete Popup")]
+    public LevelCompletePopupManager completePopupManager;
 
     private bool transitionStarted = false;
 
@@ -37,10 +39,10 @@ public class LevelExitPortal : MonoBehaviour
         if (pickup.playerIndex != triggerPlayerIndex) return;
 
         transitionStarted = true;
-        StartCoroutine(TransitionAndLoadScene());
+        StartCoroutine(TransitionAndShowPopup());
     }
 
-    IEnumerator TransitionAndLoadScene()
+    IEnumerator TransitionAndShowPopup()
     {
         PrepareFade(blackFadePlayer1);
         PrepareFade(blackFadePlayer2);
@@ -89,7 +91,15 @@ public class LevelExitPortal : MonoBehaviour
         SetFade(blackFadePlayer1, 1f);
         SetFade(blackFadePlayer2, 1f);
 
-        SceneManager.LoadScene(nextSceneName);
+        if (completePopupManager != null)
+        {
+            completePopupManager.nextSceneName = nextSceneName;
+            completePopupManager.ShowPopup();
+        }
+        else
+        {
+            Debug.LogWarning("Complete Popup Manager is missing.");
+        }
     }
 
     void PrepareFade(CanvasGroup fade)
