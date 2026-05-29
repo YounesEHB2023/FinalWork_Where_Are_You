@@ -42,7 +42,7 @@ public class OudheidWeaponPuzzleManager : MonoBehaviour
             socket.LockPlacedWeapon();
 
         if (finalPuzzleManager != null)
-            finalPuzzleManager.ReportPuzzleSolved(isPlayer1Puzzle);
+    finalPuzzleManager.CheckFinalPuzzle();
 
         Debug.Log(gameObject.name + " CORRECT");
     }

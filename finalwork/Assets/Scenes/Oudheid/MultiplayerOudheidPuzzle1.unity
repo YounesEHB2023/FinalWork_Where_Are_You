@@ -5197,7 +5197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a3f9c4f42576049af959405bca353c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OudheidFinalPuzzleManager
-  ShowTopMostFoldoutHeaderGroup: 1
+  player1Puzzle: {fileID: 77689214}
+  player2Puzzle: {fileID: 808376258}
   doors:
   - {fileID: 2024337895}
   - {fileID: 1277319292}
