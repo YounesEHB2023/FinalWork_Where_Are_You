@@ -54,6 +54,11 @@ The goal of this project is to:
 | Colliders Crash Course | [YouTube](https://youtu.be/bX_R0cQHKJg) |
 | Fixing Pink Materials Bug | [YouTube](https://youtu.be/-KWjUD-PJbA) |
 | Build Profiles Setup | [YouTube](https://youtu.be/SdaxiltoPyA) |
+| TCP server Guide set up | [Article](https://medium.com/@rabeeqiblawi/implementing-a-basic-tcp-server-in-unity-a-step-by-step-guide-449d8504d1c5)
+| Unity clone Editor Extension | [Github](https://github.com/VeriorPies/ParrelSync)
+| Unity WebSocket Support | [Article](https://medium.com/@6386391ritesh/unity-websocket-support-ea2420df452c)
+| Network connection management | [Unity docs](https://docs.unity.com/en-us/mps-sdk/manage-session-network-connection )
+
 ### 🎨 Assets
 | Asset | Source |
 |-------|--------|
