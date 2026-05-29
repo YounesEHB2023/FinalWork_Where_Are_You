@@ -1,11 +1,10 @@
 using System.Collections;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OudheidExitPortal : NetworkBehaviour
+public class OudheidExitPortal : MonoBehaviour
 {
-    public bool isPlayer1Exit = true;
+    public int ownerPlayerIndex = 0;
     public string nextSceneName = "MulitplayerMiddeleeuwenPuzzle1";
 
     public CanvasGroup blackFadeCanvasGroup;
@@ -21,7 +20,11 @@ public class OudheidExitPortal : NetworkBehaviour
     void Start()
     {
         if (blackFadeCanvasGroup != null)
+        {
             blackFadeCanvasGroup.alpha = 0f;
+            blackFadeCanvasGroup.blocksRaycasts = false;
+            blackFadeCanvasGroup.gameObject.SetActive(false);
+        }
 
         if (waitingTextObject != null)
             waitingTextObject.SetActive(false);
@@ -32,15 +35,28 @@ public class OudheidExitPortal : NetworkBehaviour
         if (triggered) return;
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj == null || !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+
+        if (pickup.playerIndex != ownerPlayerIndex) return;
 
         triggered = true;
 
-        HideInventoryUI();
+        HideInventoryUI(ownerPlayerIndex);
         StartCoroutine(FadeToBlack());
 
-        ReportPlayerExitedServerRpc(isPlayer1Exit);
+        if (ownerPlayerIndex == 0)
+            player1Ready = true;
+        else
+            player2Ready = true;
+
+        if (player1Ready && player2Ready)
+        {
+            player1Ready = false;
+            player2Ready = false;
+
+            StartCoroutine(LoadSceneAfterSmallDelay());
+        }
     }
 
     IEnumerator FadeToBlack()
@@ -48,7 +64,9 @@ public class OudheidExitPortal : NetworkBehaviour
         if (blackFadeCanvasGroup != null)
         {
             blackFadeCanvasGroup.gameObject.SetActive(true);
+            blackFadeCanvasGroup.transform.SetAsLastSibling();
             blackFadeCanvasGroup.blocksRaycasts = true;
+            blackFadeCanvasGroup.alpha = 0f;
 
             float t = 0f;
 
@@ -69,31 +87,23 @@ public class OudheidExitPortal : NetworkBehaviour
         }
     }
 
-    void HideInventoryUI()
+    IEnumerator LoadSceneAfterSmallDelay()
+    {
+        yield return new WaitForSeconds(fadeDuration + 0.2f);
+        SceneManager.LoadScene(nextSceneName);
+    }
+
+    void HideInventoryUI(int playerIndex)
     {
         GameObject[] objects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (GameObject obj in objects)
         {
-            if (obj.name.Contains("InventoryCanvas") || obj.name.Contains("InventoryUI"))
+            if (playerIndex == 0 && obj.name.Contains("Inventory_Player1"))
                 obj.SetActive(false);
-        }
-    }
 
-    [ServerRpc(RequireOwnership = false)]
-    void ReportPlayerExitedServerRpc(bool player1Exit)
-    {
-        if (player1Exit)
-            player1Ready = true;
-        else
-            player2Ready = true;
-
-        if (player1Ready && player2Ready)
-        {
-            player1Ready = false;
-            player2Ready = false;
-
-            NetworkManager.Singleton.SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
+            if (playerIndex == 1 && obj.name.Contains("Inventory_Player2"))
+                obj.SetActive(false);
         }
     }
 }

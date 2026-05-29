@@ -5,6 +5,9 @@ public class PaperReadUI : MonoBehaviour
 {
     [HideInInspector] public ReadablePaper ownerPaper;
 
+    [Header("Owner")]
+    public int ownerPlayerIndex = 1;
+
     [Header("Pages")]
     public GameObject[] titleObjects;
     public GameObject[] textObjects;
@@ -14,7 +17,7 @@ public class PaperReadUI : MonoBehaviour
     public GameObject controllerCloseIcon;
 
     private int currentPage = 0;
-    private bool usingController;
+    private bool usingController = true;
     private float pageInputCooldown;
 
     public void Open(ReadablePaper readablePaper)
@@ -30,21 +33,29 @@ public class PaperReadUI : MonoBehaviour
         DetectInputDevice();
         UpdateCloseIcon();
 
-        pageInputCooldown -= Time.unscaledDeltaTime;
+        pageInputCooldown -= Time.deltaTime;
 
-        bool nextKeyboard = Keyboard.current != null &&
+        Gamepad pad = GetAssignedGamepad();
+
+        bool nextKeyboard =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
             (Keyboard.current.dKey.wasPressedThisFrame || Keyboard.current.rightArrowKey.wasPressedThisFrame);
 
-        bool prevKeyboard = Keyboard.current != null &&
+        bool prevKeyboard =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
             (Keyboard.current.aKey.wasPressedThisFrame || Keyboard.current.leftArrowKey.wasPressedThisFrame);
 
-        bool nextController = Gamepad.current != null &&
+        bool nextController =
+            pad != null &&
             pageInputCooldown <= 0f &&
-            (Gamepad.current.dpad.right.isPressed || Gamepad.current.leftStick.ReadValue().x > 0.6f);
+            (pad.dpad.right.isPressed || pad.leftStick.ReadValue().x > 0.6f);
 
-        bool prevController = Gamepad.current != null &&
+        bool prevController =
+            pad != null &&
             pageInputCooldown <= 0f &&
-            (Gamepad.current.dpad.left.isPressed || Gamepad.current.leftStick.ReadValue().x < -0.6f);
+            (pad.dpad.left.isPressed || pad.leftStick.ReadValue().x < -0.6f);
 
         if (nextKeyboard || nextController)
         {
@@ -66,21 +77,31 @@ public class PaperReadUI : MonoBehaviour
             UpdatePage();
         }
 
-        bool closeKeyboard = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
-        bool closeController = Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame;
+        bool closeKeyboard =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.escapeKey.wasPressedThisFrame;
+
+        bool closeController =
+            pad != null &&
+            pad.buttonEast.wasPressedThisFrame; // rond PS5
 
         if (closeKeyboard || closeController)
             CloseUI();
     }
 
+    Gamepad GetAssignedGamepad()
+    {
+        if (Gamepad.all.Count <= ownerPlayerIndex)
+            return null;
+
+        return Gamepad.all[ownerPlayerIndex];
+    }
+
     void CloseUI()
     {
-        Debug.Log("PAPER UI CLOSE BUTTON");
-
         if (ownerPaper != null)
             ownerPaper.ClosePaper();
-        else
-            Debug.LogWarning("ownerPaper is NULL");
 
         gameObject.SetActive(false);
     }
@@ -108,19 +129,21 @@ public class PaperReadUI : MonoBehaviour
 
     void DetectInputDevice()
     {
-        if (Gamepad.current != null)
-        {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 stick = Gamepad.current.leftStick.ReadValue();
+        Gamepad pad = GetAssignedGamepad();
 
-            if (dpad != Vector2.zero || stick.magnitude > 0.1f || Gamepad.current.buttonEast.wasPressedThisFrame)
+        if (pad != null)
+        {
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 stick = pad.leftStick.ReadValue();
+
+            if (dpad != Vector2.zero || stick.magnitude > 0.1f || pad.buttonEast.wasPressedThisFrame)
                 usingController = true;
         }
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             usingController = false;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
             usingController = false;
     }
 }

@@ -1,24 +1,29 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
 public class ReadablePaper : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 1;
+
+    [Header("UI")]
     public PaperReadUI paperUI;
     public GameObject pressEUI;
     public GameObject pressXUI;
 
     private bool playerInside;
-    private bool usingController;
+    private bool usingController = true;
     private bool isReading;
 
     private MonoBehaviour[] disabledScripts;
+    private PickupSystem playerPickupSystem;
 
     void Start()
     {
         if (paperUI != null)
         {
             paperUI.ownerPaper = this;
+            paperUI.ownerPlayerIndex = ownerPlayerIndex;
             paperUI.gameObject.SetActive(false);
         }
 
@@ -34,21 +39,44 @@ public class ReadablePaper : MonoBehaviour
 
         if (!playerInside || isReading) return;
 
-        bool pressed =
-            (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) ||
-            (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame);
-
-        if (pressed)
+        if (PressedOpen())
             OpenPaper();
+    }
+
+    bool PressedOpen()
+    {
+        bool keyboardPressed =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        Gamepad pad = GetAssignedGamepad();
+
+        bool controllerPressed =
+            pad != null &&
+            pad.buttonSouth.wasPressedThisFrame;
+
+        return keyboardPressed || controllerPressed;
+    }
+
+    Gamepad GetAssignedGamepad()
+    {
+        if (Gamepad.all.Count <= ownerPlayerIndex)
+            return null;
+
+        return Gamepad.all[ownerPlayerIndex];
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject netObj = other.GetComponent<NetworkObject>();
-        if (netObj != null && !netObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
 
+        if (pickup.playerIndex != ownerPlayerIndex) return;
+
+        playerPickupSystem = pickup;
         playerInside = true;
     }
 
@@ -56,18 +84,20 @@ public class ReadablePaper : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject netObj = other.GetComponent<NetworkObject>();
-        if (netObj != null && !netObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
+        playerPickupSystem = null;
+
         HidePrompt();
     }
 
     void OpenPaper()
     {
         if (paperUI == null) return;
-
-        Debug.Log("OPEN PAPER");
 
         isReading = true;
         HidePrompt();
@@ -81,8 +111,6 @@ public class ReadablePaper : MonoBehaviour
 
     public void ClosePaper()
     {
-        Debug.Log("CLOSE PAPER");
-
         isReading = false;
         EnablePlayerControls();
 
@@ -94,7 +122,9 @@ public class ReadablePaper : MonoBehaviour
 
     void DisablePlayerControls()
     {
-        GameObject player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
+        if (playerPickupSystem == null) return;
+
+        GameObject player = playerPickupSystem.gameObject;
         disabledScripts = player.GetComponentsInChildren<MonoBehaviour>(true);
 
         foreach (MonoBehaviour script in disabledScripts)
@@ -110,7 +140,6 @@ public class ReadablePaper : MonoBehaviour
                 scriptName.Contains("PlayerInteract")
             )
             {
-                Debug.Log("DISABLE: " + scriptName);
                 script.enabled = false;
             }
         }
@@ -118,11 +147,7 @@ public class ReadablePaper : MonoBehaviour
 
     void EnablePlayerControls()
     {
-        if (disabledScripts == null)
-        {
-            Debug.LogWarning("No disabled scripts found.");
-            return;
-        }
+        if (disabledScripts == null) return;
 
         foreach (MonoBehaviour script in disabledScripts)
         {
@@ -137,7 +162,6 @@ public class ReadablePaper : MonoBehaviour
                 scriptName.Contains("PlayerInteract")
             )
             {
-                Debug.Log("ENABLE: " + scriptName);
                 script.enabled = true;
             }
         }
@@ -145,14 +169,19 @@ public class ReadablePaper : MonoBehaviour
 
     void UpdatePrompt()
     {
-        if (!playerInside)
+        bool showUI = playerInside && !isReading;
+
+        if (!showUI)
         {
             HidePrompt();
             return;
         }
 
-        if (pressEUI != null) pressEUI.SetActive(!usingController);
-        if (pressXUI != null) pressXUI.SetActive(usingController);
+        if (pressEUI != null)
+            pressEUI.SetActive(!usingController);
+
+        if (pressXUI != null)
+            pressXUI.SetActive(usingController);
     }
 
     void HidePrompt()
@@ -163,19 +192,21 @@ public class ReadablePaper : MonoBehaviour
 
     void DetectInputDevice()
     {
-        if (Gamepad.current != null)
+        Gamepad pad = GetAssignedGamepad();
+
+        if (pad != null)
         {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 stick = Gamepad.current.leftStick.ReadValue();
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 stick = pad.leftStick.ReadValue();
 
             if (dpad != Vector2.zero || stick.magnitude > 0.1f)
                 usingController = true;
         }
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             usingController = false;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
             usingController = false;
     }
 }

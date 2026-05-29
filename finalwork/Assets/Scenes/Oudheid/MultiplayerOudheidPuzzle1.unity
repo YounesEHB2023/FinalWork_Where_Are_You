@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 12788016}
   - component: {fileID: 12788015}
-  - component: {fileID: 12788014}
   - component: {fileID: 12788013}
   m_Layer: 0
   m_Name: OudheidExit_Player2
@@ -150,37 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68ae38b744599143b38aed635fca8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OudheidExitPortal
-  ShowTopMostFoldoutHeaderGroup: 1
-  isPlayer1Exit: 0
+  ownerPlayerIndex: 1
   nextSceneName: MulitplayerMiddeleeuwenPuzzle1
-  blackFadeCanvasGroup: {fileID: 543230509}
-  waitingTextObject: {fileID: 700876792}
+  blackFadeCanvasGroup: {fileID: 1795338623}
+  waitingTextObject: {fileID: 1778279393}
   fadeDuration: 1
---- !u!114 &12788014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12788012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2588456994
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!65 &12788015
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4530,7 +4503,7 @@ Canvas:
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
 --- !u!224 &893099852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4576,6 +4549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaperReadUI
   ownerPaper: {fileID: 0}
+  ownerPlayerIndex: 1
   titleObjects:
   - {fileID: 1916421587}
   - {fileID: 1720076483}
@@ -5459,8 +5433,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46491963, y: 0.13960153, z: 1.0518572}
-  m_Center: {x: -0.001161219, y: 0.009348924, z: -0.00452994}
+  m_Size: {x: 0.49218276, y: 0.13960153, z: 1.1108092}
+  m_Center: {x: -0.0011612318, y: 0.009348924, z: -0.0068922704}
 --- !u!114 &1081848608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5496,7 +5470,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1086386486}
   - component: {fileID: 1086386485}
-  - component: {fileID: 1086386484}
   - component: {fileID: 1086386483}
   m_Layer: 0
   m_Name: OudheidExit_Player1
@@ -5517,37 +5490,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68ae38b744599143b38aed635fca8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OudheidExitPortal
-  ShowTopMostFoldoutHeaderGroup: 1
-  isPlayer1Exit: 1
+  ownerPlayerIndex: 0
   nextSceneName: MulitplayerMiddeleeuwenPuzzle1
   blackFadeCanvasGroup: {fileID: 543230509}
   waitingTextObject: {fileID: 700876792}
   fadeDuration: 1
---- !u!114 &1086386484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086386482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2657280521
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!65 &1086386485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6515,9 +6462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cc6eca9922edf44ab5b08f07a12967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReadablePaper
+  ownerPlayerIndex: 1
   paperUI: {fileID: 893099853}
-  pressEUI: {fileID: 0}
-  pressXUI: {fileID: 0}
+  pressEUI: {fileID: 1076659434}
+  pressXUI: {fileID: 1656941049}
 --- !u!1001 &1387767630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6874,7 +6822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf3d4e5a2baff9d47bc6a177b653e199, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 356.30435
+      value: 329
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf3d4e5a2baff9d47bc6a177b653e199, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6882,7 +6830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf3d4e5a2baff9d47bc6a177b653e199, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8115.555
+      value: 8092
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf3d4e5a2baff9d47bc6a177b653e199, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7071,8 +7019,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.004278156, y: 0.01052883, z: 0.0011795922}
-  m_Center: {x: -0.000034323934, y: 0.000032310523, z: -0.000041552477}
+  m_Size: {x: 0.005254815, y: 0.010752164, z: 0.0011795922}
+  m_Center: {x: -0.0001535768, y: 0.00014398113, z: -0.000041552506}
 --- !u!114 &1447410816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7649,7 +7597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac2a63f89e88fae459d06bbbef41e286, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8313
+      value: 8190
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac2a63f89e88fae459d06bbbef41e286, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7813,8 +7761,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0045610657, y: 0.01055906, z: 0.0014559894}
-  m_Center: {x: 0.000059274433, y: 0.00023273453, z: 0.00007613344}
+  m_Size: {x: 0.0051319753, y: 0.011889061, z: 0.0014559894}
+  m_Center: {x: 0.00008792103, y: 0.0003556942, z: 0.000076133474}
 --- !u!114 &1549344747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9429,7 +9377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1795338622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9908,7 +9856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1132.572
+      value: 1210
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9916,23 +9864,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8264.664
+      value: 8027
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3535538
+      value: -0.41262594
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.3535538
+      value: 0.41262594
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6123722
+      value: 0.5742298
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6123722
+      value: 0.5742298
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9944,7 +9892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 240
+      value: 251.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 84bf9b3f1f9095f45af155be1952b114, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -10080,8 +10028,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0044562886, y: 0.010423228, z: 0.0010693443}
-  m_Center: {x: -0.000022097893, y: -0.0000056842578, z: -0.000037152116}
+  m_Size: {x: 0.005491137, y: 0.010786363, z: 0.0015781386}
+  m_Center: {x: 0.000004798051, y: 0.00017588427, z: -0.000037152124}
 --- !u!114 &1915059931
 MonoBehaviour:
   m_ObjectHideFlags: 0
