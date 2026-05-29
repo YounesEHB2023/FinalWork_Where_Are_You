@@ -5366,7 +5366,7 @@ MonoBehaviour:
   holdScale: {x: 1, y: 1, z: 1}
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: -90, y: 180, z: 0}
-  pedestalScale: {x: 750, y: 750, z: 750}
+  pedestalScale: {x: 1.15, y: 1, z: 1.15}
 --- !u!114 &1081848603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7087,9 +7087,9 @@ MonoBehaviour:
   holdPosition: {x: 0, y: 0, z: 0}
   holdRotation: {x: 0, y: 180, z: 90}
   holdScale: {x: 113, y: 113, z: 113}
-  pedestalPositionOffset: {x: 0, y: 0.02, z: 0}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 180}
-  pedestalScale: {x: 75000, y: 75000, z: 75000}
+  pedestalScale: {x: 115, y: 115, z: 100}
 --- !u!1 &1473664549
 GameObject:
   m_ObjectHideFlags: 0
@@ -7854,9 +7854,9 @@ MonoBehaviour:
   holdPosition: {x: 0, y: 0, z: 0}
   holdRotation: {x: 0, y: 180, z: 90}
   holdScale: {x: 113, y: 113, z: 113}
-  pedestalPositionOffset: {x: 0, y: 0.02, z: 0}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 180}
-  pedestalScale: {x: 75000, y: 75000, z: 75000}
+  pedestalScale: {x: 115, y: 115, z: 100}
 --- !u!1 &1587170513
 GameObject:
   m_ObjectHideFlags: 0
@@ -10121,9 +10121,9 @@ MonoBehaviour:
   holdPosition: {x: 0, y: 0, z: 0}
   holdRotation: {x: 0, y: 180, z: 90}
   holdScale: {x: 113, y: 113, z: 113}
-  pedestalPositionOffset: {x: 0, y: 0.02, z: 0}
+  pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 180}
-  pedestalScale: {x: 75000, y: 75000, z: 75000}
+  pedestalScale: {x: 115, y: 115, z: 100}
 --- !u!1 &1916421587
 GameObject:
   m_ObjectHideFlags: 0
