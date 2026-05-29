@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OudheidExitPortal
   ownerPlayerIndex: 1
-  nextSceneName: MulitplayerMiddeleeuwenPuzzle1
+  nextSceneName: MiddeleeuwenPuzzle1
   blackFadeCanvasGroup: {fileID: 1795338623}
   waitingTextObject: {fileID: 1778279393}
   fadeDuration: 1
@@ -5491,7 +5491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OudheidExitPortal
   ownerPlayerIndex: 0
-  nextSceneName: MulitplayerMiddeleeuwenPuzzle1
+  nextSceneName: MiddeleeuwenPuzzle1
   blackFadeCanvasGroup: {fileID: 543230509}
   waitingTextObject: {fileID: 700876792}
   fadeDuration: 1
