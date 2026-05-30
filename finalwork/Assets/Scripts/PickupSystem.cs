@@ -18,6 +18,14 @@ public class PickupSystem : MonoBehaviour
     public float dropForwardForce = 1f;
     public float dropDistanceFromPlayer = 1.5f;
 
+    [Header("Crosshair")]
+public RectTransform crosshair;
+public float normalCrosshairScale = 1f;
+public float pickupCrosshairScale = 1.6f;
+public float crosshairSmoothSpeed = 12f;
+
+private GameObject currentPickupTarget;
+
     private GameObject heldObject;
     private Rigidbody heldRb;
     private GameObject heldVisual;
@@ -37,6 +45,8 @@ public class PickupSystem : MonoBehaviour
     void Update()
     {
         if (!Application.isFocused) return;
+
+        UpdatePickupTarget();
 
         if (!blockPickupInput && PressedInteract())
         {
@@ -146,31 +156,24 @@ public class PickupSystem : MonoBehaviour
     }
 
     void TryPickup()
+{
+    if (currentPickupTarget == null) return;
+
+    GameObject obj = currentPickupTarget;
+
+    ItemData itemData = obj.GetComponent<ItemData>();
+    Sprite icon = itemData != null ? itemData.icon : null;
+
+    bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
+
+    if (!added)
     {
-        if (playerCamera == null) return;
-
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-
-        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
-        {
-            if (!hit.collider.CompareTag("Pickup")) return;
-
-            GameObject obj = hit.collider.gameObject;
-
-            ItemData itemData = obj.GetComponent<ItemData>();
-            Sprite icon = itemData != null ? itemData.icon : null;
-
-            bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
-
-            if (!added)
-            {
-                Debug.Log("Inventory is full.");
-                return;
-            }
-
-            PickObjectToHand(obj);
-        }
+        Debug.Log("Inventory is full.");
+        return;
     }
+
+    PickObjectToHand(obj);
+}
 
     void HoldInventoryItem(GameObject obj)
     {
@@ -288,4 +291,64 @@ heldObject.SetActive(false);
         if (animator != null)
             animator.SetBool("IsHolding", false);
     }
+
+    void UpdatePickupTarget()
+{
+    currentPickupTarget = FindPickupTarget();
+
+    float targetScale = currentPickupTarget != null
+        ? pickupCrosshairScale
+        : normalCrosshairScale;
+
+    if (crosshair != null)
+    {
+        Vector3 target = Vector3.one * targetScale;
+
+        crosshair.localScale = Vector3.Lerp(
+            crosshair.localScale,
+            target,
+            Time.deltaTime * crosshairSmoothSpeed
+        );
+    }
+}
+
+GameObject FindPickupTarget()
+{
+    if (playerCamera == null) return null;
+
+    Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+    if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
+    {
+        GameObject pickup = GetPickupObject(hit.collider);
+
+        if (pickup != null)
+            return pickup;
+    }
+
+    return null;
+}
+
+GameObject GetPickupObject(Collider col)
+{
+    if (col == null) return null;
+
+    if (col.CompareTag("Pickup"))
+        return col.gameObject;
+
+    Transform current = col.transform;
+
+    while (current != null)
+    {
+        if (current.CompareTag("Pickup"))
+            return current.gameObject;
+
+        if (current.GetComponent<ItemData>() != null)
+            return current.gameObject;
+
+        current = current.parent;
+    }
+
+    return null;
+}
 }
