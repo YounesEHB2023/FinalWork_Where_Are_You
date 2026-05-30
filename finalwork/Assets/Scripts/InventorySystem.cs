@@ -32,6 +32,9 @@ public class InventorySystem : MonoBehaviour
 
     void Start()
     {
+        transform.root.gameObject.SetActive(true);
+gameObject.SetActive(true);
+
         items = new GameObject[maxSlots];
         SetInputUI(true);
         UpdateUI();

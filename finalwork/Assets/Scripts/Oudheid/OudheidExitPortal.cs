@@ -1,19 +1,16 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class OudheidExitPortal : MonoBehaviour
 {
     public int ownerPlayerIndex = 0;
-    public string nextSceneName = "MulitplayerMiddeleeuwenPuzzle1";
+    public string nextSceneName = "MiddeleeuwenPuzzle1";
 
     public CanvasGroup blackFadeCanvasGroup;
-    public GameObject waitingTextObject;
+    public LevelCompletePopupPlayer playerPopup;
+    public LevelCompletePopupManager popupManager;
 
     public float fadeDuration = 1f;
-
-    private static bool player1Ready = false;
-    private static bool player2Ready = false;
 
     private bool triggered = false;
 
@@ -25,9 +22,6 @@ public class OudheidExitPortal : MonoBehaviour
             blackFadeCanvasGroup.blocksRaycasts = false;
             blackFadeCanvasGroup.gameObject.SetActive(false);
         }
-
-        if (waitingTextObject != null)
-            waitingTextObject.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -43,23 +37,10 @@ public class OudheidExitPortal : MonoBehaviour
         triggered = true;
 
         HideInventoryUI(ownerPlayerIndex);
-        StartCoroutine(FadeToBlack());
-
-        if (ownerPlayerIndex == 0)
-            player1Ready = true;
-        else
-            player2Ready = true;
-
-        if (player1Ready && player2Ready)
-        {
-            player1Ready = false;
-            player2Ready = false;
-
-            StartCoroutine(LoadSceneAfterSmallDelay());
-        }
+        StartCoroutine(FadeThenShowPopup());
     }
 
-    IEnumerator FadeToBlack()
+    IEnumerator FadeThenShowPopup()
     {
         if (blackFadeCanvasGroup != null)
         {
@@ -80,17 +61,17 @@ public class OudheidExitPortal : MonoBehaviour
             blackFadeCanvasGroup.alpha = 1f;
         }
 
-        if (waitingTextObject != null)
-        {
-            waitingTextObject.SetActive(true);
-            waitingTextObject.transform.SetAsLastSibling();
-        }
-    }
+        if (popupManager != null)
+            popupManager.nextSceneName = nextSceneName;
 
-    IEnumerator LoadSceneAfterSmallDelay()
-    {
-        yield return new WaitForSeconds(fadeDuration + 0.2f);
-        SceneManager.LoadScene(nextSceneName);
+if (popupManager != null)
+{
+    popupManager.nextSceneName = nextSceneName;
+    popupManager.StartCheckingPlayers();
+}
+
+        if (playerPopup != null)
+            playerPopup.Open();
     }
 
     void HideInventoryUI(int playerIndex)

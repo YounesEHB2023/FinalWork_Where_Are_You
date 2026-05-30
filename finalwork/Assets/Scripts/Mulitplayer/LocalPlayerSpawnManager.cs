@@ -34,16 +34,30 @@ public class LocalPlayerSpawnManager : MonoBehaviour
         }
 
         PickupSystem pickup = player.GetComponentInChildren<PickupSystem>(true);
-if (pickup != null)
-{
-    pickup.playerIndex = playerIndex;
-}
 
-InventorySystem inventory = player.GetComponentInChildren<InventorySystem>(true);
-if (inventory != null)
-{
-    inventory.playerIndex = playerIndex;
-}
+        if (pickup != null)
+        {
+            pickup.playerIndex = playerIndex;
+        }
+
+        InventorySystem inventory = player.GetComponentInChildren<InventorySystem>(true);
+
+        if (inventory != null)
+        {
+            inventory.playerIndex = playerIndex;
+        }
+
+        // Réactive l'inventory si elle a été cachée dans la scène précédente
+        Transform[] children = player.GetComponentsInChildren<Transform>(true);
+
+        foreach (Transform child in children)
+        {
+            if (child.name.Contains("Inventory_Player1") ||
+                child.name.Contains("Inventory_Player2"))
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
 
         Camera cam = player.GetComponentInChildren<Camera>(true);
 
@@ -55,15 +69,17 @@ if (inventory != null)
         }
 
         AudioListener[] listeners = player.GetComponentsInChildren<AudioListener>(true);
+
         foreach (AudioListener listener in listeners)
         {
             listener.enabled = playerIndex == 0;
         }
+
         Canvas[] canvases = player.GetComponentsInChildren<Canvas>(true);
 
         foreach (Canvas canvas in canvases)
         {
-           canvas.targetDisplay = displayIndex;
+            canvas.targetDisplay = displayIndex;
         }
     }
 }

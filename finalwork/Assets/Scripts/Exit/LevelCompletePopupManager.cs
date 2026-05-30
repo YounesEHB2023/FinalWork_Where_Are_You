@@ -39,4 +39,9 @@ public class LevelCompletePopupManager : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene(nextSceneName);
     }
+
+    public void StartCheckingPlayers()
+{
+    popupActive = true;
+}
 }
