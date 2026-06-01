@@ -14,11 +14,10 @@ GameObject:
   - component: {fileID: 1638556076931940461}
   - component: {fileID: 6282268668991438191}
   - component: {fileID: 3093797845370153494}
-  - component: {fileID: 1019515362231490986}
-  - component: {fileID: 1132708114290458053}
   - component: {fileID: 3667354318140424148}
-  - component: {fileID: 8532307551022788390}
   - component: {fileID: 3549516938420138499}
+  - component: {fileID: 7067490490198646017}
+  - component: {fileID: 4745751306254410443}
   m_Layer: 0
   m_Name: PrehistoricAxe
   m_TagString: Pickup
@@ -171,37 +170,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1019515362231490986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6413965683757793667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &1132708114290458053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6413965683757793667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 4
 --- !u!114 &3667354318140424148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,31 +184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: 28418fe065f61ad478f5f8eaef03a91f, type: 3}
   greekWeaponType: 0
---- !u!114 &8532307551022788390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6413965683757793667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1731086012
-  InScenePlacedSourceGlobalObjectIdHash: 167518485
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &3549516938420138499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,3 +202,33 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &7067490490198646017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413965683757793667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &4745751306254410443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413965683757793667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
