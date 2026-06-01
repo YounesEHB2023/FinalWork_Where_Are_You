@@ -34,6 +34,8 @@ public class PickupSystem : MonoBehaviour
     private Rigidbody heldRb;
     private GameObject heldVisual;
 
+    private InteractableObject currentInteractableTarget;
+
     private bool blockPickupInput = false;
 
     void Awake()
@@ -53,12 +55,20 @@ public class PickupSystem : MonoBehaviour
         UpdatePickupTarget();
 
         if (!blockPickupInput && PressedInteract())
-        {
-            if (heldObject == null)
-                TryPickup();
-            else
-                DropHeldObject();
-        }
+{
+    if (currentInteractableTarget != null)
+    {
+        currentInteractableTarget.Interact(this);
+    }
+    else if (heldObject == null)
+    {
+        TryPickup();
+    }
+    else
+    {
+        DropHeldObject();
+    }
+}
 
         HandleInventorySelection();
     }
@@ -320,6 +330,7 @@ public class PickupSystem : MonoBehaviour
         UpdateProximityGlow();
 
         GameObject newTarget = FindPickupTarget();
+        currentInteractableTarget = FindInteractableTarget();
 
         if (newTarget != currentPickupTarget)
         {
@@ -343,9 +354,9 @@ public class PickupSystem : MonoBehaviour
             }
         }
 
-        float targetScale = currentPickupTarget != null
-            ? pickupCrosshairScale
-            : normalCrosshairScale;
+        float targetScale = currentPickupTarget != null || currentInteractableTarget != null
+    ? pickupCrosshairScale
+    : normalCrosshairScale;
 
         if (crosshair != null)
         {
@@ -470,4 +481,21 @@ if (distance <= glow.proximityDistance &&
         currentProximityGlow = null;
         currentPickupTarget = null;
     }
+    InteractableObject FindInteractableTarget()
+{
+    if (playerCamera == null) return null;
+
+    Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+    if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
+    {
+        InteractableObject interactable =
+            hit.collider.GetComponentInParent<InteractableObject>();
+
+        if (interactable != null && interactable.ownerPlayerIndex == playerIndex)
+            return interactable;
+    }
+
+    return null;
+}
 }

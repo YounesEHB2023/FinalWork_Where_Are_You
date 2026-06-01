@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 79cbc053728792f4ab6f058f4e9ebbcd
+guid: 0a1ac486e741d5b4084a01ac0b84b5db
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: assetsDemonSlayer
+    second: {fileID: 2100000, guid: 9f173976cf657df41a268caeadf08e8c, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: color_assetsDemonSlayer
+    second: {fileID: 2800000, guid: c34df5e29ef62934ba0e963833cc9d94, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: normal_assetsDemonSlayer
+    second: {fileID: 2800000, guid: 2929e30651b6e964699f0cd1dc5abea3, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
