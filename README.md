@@ -1,7 +1,7 @@
-![Banner](https://res.cloudinary.com/dvldobi1m/image/upload/v1779445889/MainMenu_zjy44j.png)
-# 🎮 Final Work – Co-op Escape Game
+![Banner](https://res.cloudinary.com/dvldobi1m/image/upload/v1780339834/MainMenuTekst_fn5xd8.png)
+# 🎮 Final Work – 3D Co-op Escape Game
 ## 👨‍💻 Authors
-This project was developed by **Younes** and **Hamza** as part of our Bachelor's Final Work for the program Multimedia & Creative Technologies at Erasmushogeschool Brussel (Campus Kaai).
+This project was developed by **Younes Ben Ali** and **Hamza Sahmoudi** as part of our Bachelor's Final Work for the program Multimedia & Creative Technologies at Erasmushogeschool Brussel (Campus Kaai).
 
 ---
 ## 📌 Project Overview
@@ -37,10 +37,12 @@ The goal of this project is to:
 - **C#** – Scripting
 - **Multiplayer Netcode** – Networked gameplay
 - **3D Assets & Shaders** – Visual design
+- **Maya & Blender** - 3d modeling
+- **Substance Painter** - Texture painting
 ---
 ## 🔗 Resources & References
 ### 📚 Research
-- [Onderwijsdoelen](https://onderwijsdoelen.be/resultaten)
+- [Onderwijsdoelen](https://onderwijsdoelen.be/resultaten?onderwijsstructuur=LO&version=V2_0&filters=onderwijsniveau%5B0%5D%5Bid%5D%3Df7dcdedc9e9c97a653c7dba05896ef57a333480b%26onderwijsniveau%5B0%5D%5Btitel%5D%3DBasisonderwijs%26onderwijsniveau%5B0%5D%5Bwaarde%5D%3DBasisonderwijs%26bo_onderwijs_subniveau%5B0%5D%5Bid%5D%3Dc6770d35508ce6bdab180b85cb08a171f2ed94be%26bo_onderwijs_subniveau%5B0%5D%5Btitel%5D%3DBasisonderwijs%20%3E%20Lager%20Onderwijs%26bo_onderwijs_subniveau%5B0%5D%5Bwaarde%5D%3DLager%20Onderwijs%26versie%5B0%5D%5Bwaarde%5D%3D2.0)
 ### 🧠 Development Resources
 | Topic | Link |
 |-------|------|
@@ -58,8 +60,9 @@ The goal of this project is to:
 | Unity clone Editor Extension | [Github](https://github.com/VeriorPies/ParrelSync)
 | Unity WebSocket Support | [Article](https://medium.com/@6386391ritesh/unity-websocket-support-ea2420df452c)
 | Network connection management | [Unity docs](https://docs.unity.com/en-us/mps-sdk/manage-session-network-connection )
+| Fade transitions | [Unity docs](https://jon-jenkins.medium.com/simple-screen-fade-using-timeline-in-unity-5ef08cbf54fe )
 
-### 🎨 Assets
+### 🎨 Assets ( Overview PackageManager Unity ) 
 | Asset | Source |
 |-------|--------|
 | Cave 3D Model | [Sketchfab](https://sketchfab.com/3d-models/cave-43b086dfaed343e1ba5b23416c260325) |
