@@ -13,14 +13,28 @@ public class PickupSystem : MonoBehaviour
     public InventorySystem inventory;
 
     [Header("Pickup Settings")]
-    public float pickupDistance = 4f;
-    public float pickupRadius = 0.6f;
+    public float pickupDistance = 5f;
+    public float pickupRadius = 1.5f;
     public float dropForwardForce = 1f;
     public float dropDistanceFromPlayer = 1.5f;
+
+    [Header("Crosshair")]
+    public RectTransform crosshair;
+    public float normalCrosshairScale = 1f;
+    public float pickupCrosshairScale = 1.6f;
+    public float crosshairSmoothSpeed = 12f;
+
+    
+
+    private GameObject currentPickupTarget;
+    private PickupGlow currentFocusGlow;
+    private PickupGlow currentProximityGlow;
 
     private GameObject heldObject;
     private Rigidbody heldRb;
     private GameObject heldVisual;
+
+    private InteractableObject currentInteractableTarget;
 
     private bool blockPickupInput = false;
 
@@ -38,13 +52,23 @@ public class PickupSystem : MonoBehaviour
     {
         if (!Application.isFocused) return;
 
+        UpdatePickupTarget();
+
         if (!blockPickupInput && PressedInteract())
-        {
-            if (heldObject == null)
-                TryPickup();
-            else
-                DropHeldObject();
-        }
+{
+    if (currentInteractableTarget != null)
+    {
+        currentInteractableTarget.Interact(this);
+    }
+    else if (heldObject == null)
+    {
+        TryPickup();
+    }
+    else
+    {
+        DropHeldObject();
+    }
+}
 
         HandleInventorySelection();
     }
@@ -138,6 +162,8 @@ public class PickupSystem : MonoBehaviour
             heldVisual = null;
         }
 
+        DisableAllGlow();
+
         heldObject = null;
         heldRb = null;
 
@@ -147,29 +173,25 @@ public class PickupSystem : MonoBehaviour
 
     void TryPickup()
     {
-        if (playerCamera == null) return;
+        if (currentPickupTarget == null) return;
 
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        GameObject obj = currentPickupTarget;
 
-        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
+        ItemData itemData = obj.GetComponent<ItemData>();
+        Sprite icon = itemData != null ? itemData.icon : null;
+
+        bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
+
+        if (!added)
         {
-            if (!hit.collider.CompareTag("Pickup")) return;
-
-            GameObject obj = hit.collider.gameObject;
-
-            ItemData itemData = obj.GetComponent<ItemData>();
-            Sprite icon = itemData != null ? itemData.icon : null;
-
-            bool added = inventory != null && inventory.AddItemToFirstEmptySlot(obj, icon);
-
-            if (!added)
-            {
-                Debug.Log("Inventory is full.");
-                return;
-            }
-
-            PickObjectToHand(obj);
+            Debug.Log("Inventory is full.");
+            return;
         }
+
+        DisableGlowOnObject(obj);
+        DisableAllGlow();
+
+        PickObjectToHand(obj);
     }
 
     void HoldInventoryItem(GameObject obj)
@@ -185,11 +207,14 @@ public class PickupSystem : MonoBehaviour
 
     void PickObjectToHand(GameObject obj)
     {
+        DisableGlowOnObject(obj);
+        DisableAllGlow();
+
         heldObject = obj;
         heldRb = heldObject.GetComponent<Rigidbody>();
 
         CreateHeldVisual(obj);
-heldObject.SetActive(false);
+        heldObject.SetActive(false);
 
         if (animator != null)
             animator.SetBool("IsHolding", true);
@@ -232,6 +257,10 @@ heldObject.SetActive(false);
         OutlineProximity outlineProximity = heldVisual.GetComponent<OutlineProximity>();
         if (outlineProximity != null)
             outlineProximity.enabled = false;
+
+        PickupGlow glow = heldVisual.GetComponentInChildren<PickupGlow>(true);
+        if (glow != null)
+            glow.SetGlowOff();
     }
 
     void HideHeldObject()
@@ -241,6 +270,8 @@ heldObject.SetActive(false);
             Destroy(heldVisual);
             heldVisual = null;
         }
+
+        DisableAllGlow();
 
         heldObject = null;
         heldRb = null;
@@ -264,6 +295,9 @@ heldObject.SetActive(false);
         if (inventory != null)
             inventory.RemoveItem(objectToDrop);
 
+        DisableGlowOnObject(objectToDrop);
+        DisableAllGlow();
+
         heldObject = null;
         heldRb = null;
 
@@ -285,7 +319,183 @@ heldObject.SetActive(false);
             rb.AddForce(playerCamera.transform.forward * dropForwardForce, ForceMode.Impulse);
         }
 
+        DisableGlowOnObject(objectToDrop);
+
         if (animator != null)
             animator.SetBool("IsHolding", false);
     }
+
+    void UpdatePickupTarget()
+    {
+        UpdateProximityGlow();
+
+        GameObject newTarget = FindPickupTarget();
+        currentInteractableTarget = FindInteractableTarget();
+
+        if (newTarget != currentPickupTarget)
+        {
+            if (currentFocusGlow != null)
+{
+    if (currentFocusGlow == currentProximityGlow)
+        currentFocusGlow.SetProximityGlow();
+    else
+        currentFocusGlow.SetGlowOff();
+}
+
+            currentPickupTarget = newTarget;
+            currentFocusGlow = null;
+
+            if (currentPickupTarget != null)
+            {
+                currentFocusGlow = currentPickupTarget.GetComponentInChildren<PickupGlow>();
+
+                if (currentFocusGlow != null)
+                    currentFocusGlow.SetFocusGlow();
+            }
+        }
+
+        float targetScale = currentPickupTarget != null || currentInteractableTarget != null
+    ? pickupCrosshairScale
+    : normalCrosshairScale;
+
+        if (crosshair != null)
+        {
+            crosshair.localScale = Vector3.Lerp(
+                crosshair.localScale,
+                Vector3.one * targetScale,
+                Time.deltaTime * crosshairSmoothSpeed
+            );
+        }
+    }
+
+    void UpdateProximityGlow()
+{
+    Collider[] hits = Physics.OverlapSphere(
+        transform.position,
+        10f,
+        ~0,
+        QueryTriggerInteraction.Collide
+    );
+
+        PickupGlow closestGlow = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider hit in hits)
+        {
+            GameObject pickup = GetPickupObject(hit);
+
+            if (pickup == null) continue;
+            if (!pickup.activeInHierarchy) continue;
+
+            PickupGlow glow = pickup.GetComponentInChildren<PickupGlow>();
+            if (glow == null) continue;
+
+            float distance = Vector3.Distance(transform.position, pickup.transform.position);
+
+if (distance <= glow.proximityDistance &&
+    distance < closestDistance)
+{
+    closestDistance = distance;
+    closestGlow = glow;
+}
+        }
+
+        if (closestGlow != currentProximityGlow)
+        {
+            if (currentProximityGlow != null && currentProximityGlow != currentFocusGlow)
+                currentProximityGlow.SetGlowOff();
+
+            currentProximityGlow = closestGlow;
+
+            if (currentProximityGlow != null && currentProximityGlow != currentFocusGlow)
+                currentProximityGlow.SetProximityGlow();
+        }
+
+        if (closestGlow == null)
+        {
+            if (currentProximityGlow != null)
+                currentProximityGlow.SetGlowOff();
+
+            currentProximityGlow = null;
+        }
+    }
+
+    GameObject FindPickupTarget()
+    {
+        if (playerCamera == null) return null;
+
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
+        {
+            GameObject pickup = GetPickupObject(hit.collider);
+
+            if (pickup != null)
+                return pickup;
+        }
+
+        return null;
+    }
+
+    GameObject GetPickupObject(Collider col)
+    {
+        if (col == null) return null;
+
+        if (col.CompareTag("Pickup"))
+            return col.gameObject;
+
+        Transform current = col.transform;
+
+        while (current != null)
+        {
+            if (current.CompareTag("Pickup"))
+                return current.gameObject;
+
+            if (current.GetComponent<ItemData>() != null)
+                return current.gameObject;
+
+            current = current.parent;
+        }
+
+        return null;
+    }
+
+    void DisableGlowOnObject(GameObject obj)
+    {
+        if (obj == null) return;
+
+        PickupGlow glow = obj.GetComponentInChildren<PickupGlow>(true);
+        if (glow != null)
+            glow.SetGlowOff();
+    }
+
+    void DisableAllGlow()
+    {
+        if (currentFocusGlow != null)
+            currentFocusGlow.SetGlowOff();
+
+        if (currentProximityGlow != null)
+            currentProximityGlow.SetGlowOff();
+
+        currentFocusGlow = null;
+        currentProximityGlow = null;
+        currentPickupTarget = null;
+    }
+    InteractableObject FindInteractableTarget()
+{
+    if (playerCamera == null) return null;
+
+    Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+    if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, ~0, QueryTriggerInteraction.Collide))
+    {
+        InteractableObject interactable =
+            hit.collider.GetComponentInParent<InteractableObject>();
+
+        if (interactable != null && interactable.ownerPlayerIndex == playerIndex)
+            return interactable;
+    }
+
+    return null;
+}
 }

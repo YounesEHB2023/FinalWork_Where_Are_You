@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 3309299fdf575ea4abee38877f76acdb
+guid: 089ea5c2977e5364db9bfc3bff8c14b5
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MedievalDiningRoom_FinalScene2blinn1
+    second: {fileID: 2100000, guid: 7fc2f78645bf30540934b47d3691a8ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MedievalDiningRoom_FinalScene2blinn2
+    second: {fileID: 2100000, guid: af7447178722bda4ea5b093a859cf93f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

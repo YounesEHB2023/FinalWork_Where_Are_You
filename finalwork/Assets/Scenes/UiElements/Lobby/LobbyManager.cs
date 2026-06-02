@@ -28,10 +28,12 @@ public class LobbyManager : MonoBehaviour
     private Color readyColor = new Color32(107, 217, 61, 255);
     private Color waitingColor = new Color32(218, 126, 25, 255);
 
-    private int selectedButtonIndex = 0; // 0 = Back, 1 = Start
-    private bool joystickReady = true;
+    private int selectedButtonIndex = 0;
     private bool isStarting = false;
     private bool autoSelectedStart = false;
+
+    private bool player1MoveReady = true;
+    private bool player2MoveReady = true;
 
     void Start()
     {
@@ -53,7 +55,9 @@ public class LobbyManager : MonoBehaviour
         if (!Application.isFocused || isStarting) return;
 
         HandleGamepadJoin();
-        HandleMenuControl();
+
+        HandleMenuControl(LocalMultiplayerData.player1Gamepad, ref player1MoveReady);
+        HandleMenuControl(LocalMultiplayerData.player2Gamepad, ref player2MoveReady);
 
         UpdateLobbyUI();
         UpdateButtonVisuals();
@@ -79,6 +83,43 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    void HandleMenuControl(Gamepad pad, ref bool moveReady)
+    {
+        if (pad == null) return;
+
+        Vector2 dpad = pad.dpad.ReadValue();
+        Vector2 stick = pad.leftStick.ReadValue();
+
+        if (moveReady)
+        {
+            if (dpad.x > 0.5f || stick.x > 0.5f)
+            {
+                if (startButton != null && startButton.interactable)
+                    selectedButtonIndex = 1;
+
+                moveReady = false;
+            }
+
+            if (dpad.x < -0.5f || stick.x < -0.5f)
+            {
+                selectedButtonIndex = 0;
+                moveReady = false;
+            }
+        }
+
+        if (Mathf.Abs(dpad.x) < 0.2f && Mathf.Abs(stick.x) < 0.2f)
+            moveReady = true;
+
+        if (pad.buttonSouth.wasPressedThisFrame)
+        {
+            if (selectedButtonIndex == 0)
+                BackToMenu();
+
+            if (selectedButtonIndex == 1 && startButton != null && startButton.interactable)
+                StartGame();
+        }
+    }
+
     void UpdateLobbyUI()
     {
         bool p1Ready = LocalMultiplayerData.HasPlayer1;
@@ -90,13 +131,13 @@ public class LobbyManager : MonoBehaviour
 
         if (player1StatusText != null)
         {
-            player1StatusText.text = p1Ready ? "READY" : "WAITING...";
+            player1StatusText.text = p1Ready ? "KLAAR" : "WACHTEN...";
             player1StatusText.color = p1Ready ? readyColor : waitingColor;
         }
 
         if (player2StatusText != null)
         {
-            player2StatusText.text = p2Ready ? "READY" : "WAITING...";
+            player2StatusText.text = p2Ready ? "KLAAR" : "WACHTEN...";
             player2StatusText.color = p2Ready ? readyColor : waitingColor;
         }
 
@@ -106,7 +147,7 @@ public class LobbyManager : MonoBehaviour
             if (p1Ready) count++;
             if (p2Ready) count++;
 
-            countText.text = count + " / 2 PLAYERS";
+            countText.text = count + " / 2 SPELERS";
         }
 
         if (startButton != null)
@@ -122,48 +163,6 @@ public class LobbyManager : MonoBehaviour
         {
             selectedButtonIndex = 0;
             autoSelectedStart = false;
-        }
-    }
-
-    void HandleMenuControl()
-    {
-        Gamepad pad = LocalMultiplayerData.player1Gamepad;
-
-        if (pad == null && Gamepad.all.Count > 0)
-            pad = Gamepad.all[0];
-
-        if (pad == null) return;
-
-        Vector2 dpad = pad.dpad.ReadValue();
-        Vector2 stick = pad.leftStick.ReadValue();
-
-        if (joystickReady)
-        {
-            if (dpad.x > 0.5f || stick.x > 0.5f)
-            {
-                if (startButton != null && startButton.interactable)
-                    selectedButtonIndex = 1;
-
-                joystickReady = false;
-            }
-
-            if (dpad.x < -0.5f || stick.x < -0.5f)
-            {
-                selectedButtonIndex = 0;
-                joystickReady = false;
-            }
-        }
-
-        if (Mathf.Abs(dpad.x) < 0.2f && Mathf.Abs(stick.x) < 0.2f)
-            joystickReady = true;
-
-        if (pad.buttonSouth.wasPressedThisFrame)
-        {
-            if (selectedButtonIndex == 0)
-                BackToMenu();
-
-            if (selectedButtonIndex == 1 && startButton != null && startButton.interactable)
-                StartGame();
         }
     }
 
