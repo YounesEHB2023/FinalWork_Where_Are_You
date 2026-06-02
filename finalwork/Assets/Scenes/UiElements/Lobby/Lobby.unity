@@ -2131,7 +2131,7 @@ MonoBehaviour:
   player2JoinHint: {fileID: 2018069798}
   fadePanel: {fileID: 1232216040}
   mainMenuSceneName: MainMenu
-  gameSceneName: MultiplayerPhrehistoricPuzzle1
+  gameSceneName: MiddeleeuwenPuzzle1
 --- !u!4 &1125740165
 Transform:
   m_ObjectHideFlags: 0

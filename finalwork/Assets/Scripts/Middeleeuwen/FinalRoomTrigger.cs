@@ -61,7 +61,7 @@ public class FinalRoomTrigger : MonoBehaviour
             return;
         }
 
-        string text = count + " / 2 players";
+        string text = count + " / 2 SPELERS";
 
         if (playerCountTextPlayer1 != null)
         {

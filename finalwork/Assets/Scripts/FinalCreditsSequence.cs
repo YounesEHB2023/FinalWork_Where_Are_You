@@ -103,7 +103,7 @@ public class FinalCreditsSequence : MonoBehaviour
         if (player2Inside) count++;
 
         bool show = count > 0;
-        string text = count + " / 2 players";
+        string text = count + " / 2 SPELERS";
 
         if (playerCountTextPlayer1 != null)
         {

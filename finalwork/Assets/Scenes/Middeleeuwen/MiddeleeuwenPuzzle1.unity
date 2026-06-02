@@ -37575,8 +37575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 500, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &458680959
 MonoBehaviour:
@@ -37598,7 +37598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Waiting for other player...
+  m_text: WACHTEN OP ANDERE SPELER...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
@@ -43412,7 +43412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 2 players
+  m_text: 0 / 2 SPELERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -98992,7 +98992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Waiting for other player...
+  m_text: WACHTEN OP ANDERE SPELER...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: 6193dcb95e7909e4aaf09bd22003705b, type: 2}
@@ -99088,8 +99088,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 500, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1384510967
 GameObject:
@@ -114112,7 +114112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 2 players
+  m_text: 0 / 2 SPELERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
