@@ -16,7 +16,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip middeleeuwenMusic;
 
     [Header("Settings")]
-    public float volume = 0.05f;
+    public float volume = 0.025f;
     public float fadeDuration = 1.5f;
 
     private AudioClip currentClip;

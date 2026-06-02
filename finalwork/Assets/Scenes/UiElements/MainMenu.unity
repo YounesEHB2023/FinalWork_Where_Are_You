@@ -1308,7 +1308,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 0.025
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1409,7 +1409,7 @@ MonoBehaviour:
   prehistorieMusic: {fileID: 8300000, guid: 77ca6d54dd5823b46878078a01f1ecd2, type: 3}
   oudheidMusic: {fileID: 8300000, guid: d304b86d3089a484d9b859491612b149, type: 3}
   middeleeuwenMusic: {fileID: 8300000, guid: 839339f67a559f84fb6dcb295144c649, type: 3}
-  volume: 0.05
+  volume: 0.025
   fadeDuration: 1.5
 --- !u!4 &1451293128
 Transform:
