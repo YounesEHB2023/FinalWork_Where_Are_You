@@ -2,11 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MedievalLeverDoor : MonoBehaviour
+public class MedievalLeverDoor : InteractableObject
 {
-    [Header("Owner")]
-    public int ownerPlayerIndex = 1;
-
     [Header("Lever")]
     public Transform leverStick;
     public Vector3 leverOpenRotation;
@@ -17,38 +14,47 @@ public class MedievalLeverDoor : MonoBehaviour
     public Vector3 doorOpenRotation;
     public Vector3 doorClosedRotation;
 
+    [Header("UI")]
+    public GameObject pressXUI;
+
     [Header("Settings")]
     public bool startsOpen = true;
     public float animationDuration = 0.4f;
 
     private bool isOpen;
-    private bool playerInside;
     private bool isAnimating;
     private bool locked = false;
-
-public void LockLever()
-{
-    locked = true;
-}
+    private bool playerInside = false;
 
     void Start()
     {
         isOpen = startsOpen;
         ApplyInstant();
+        HidePrompt();
     }
 
     void Update()
     {
-if (locked || !playerInside || isAnimating) return;
+        if (locked || isAnimating || !playerInside)
+        {
+            HidePrompt();
+            return;
+        }
+
+        ShowPrompt();
 
         Gamepad pad = GetGamepad();
 
-        bool pressed =
-            pad != null &&
-            pad.buttonSouth.wasPressedThisFrame;
-
-        if (pressed)
+        if (pad != null && pad.buttonSouth.wasPressedThisFrame)
+        {
             ToggleLever();
+        }
+    }
+
+    public override void Interact(PickupSystem player)
+    {
+        // On ne fait rien ici pour les leviers.
+        // Le levier utilise seulement son Box Collider Trigger.
     }
 
     void ToggleLever()
@@ -60,6 +66,7 @@ if (locked || !playerInside || isAnimating) return;
     IEnumerator AnimateLeverAndDoor()
     {
         isAnimating = true;
+        HidePrompt();
 
         Quaternion leverStart = leverStick.localRotation;
         Quaternion leverEnd = Quaternion.Euler(isOpen ? leverOpenRotation : leverClosedRotation);
@@ -131,10 +138,29 @@ if (locked || !playerInside || isAnimating) return;
         if (pickup.playerIndex != ownerPlayerIndex) return;
 
         playerInside = false;
+        HidePrompt();
+    }
+
+    void ShowPrompt()
+    {
+        if (pressXUI != null)
+            pressXUI.SetActive(true);
+    }
+
+    void HidePrompt()
+    {
+        if (pressXUI != null)
+            pressXUI.SetActive(false);
     }
 
     public bool IsClosed()
-{
-    return !isOpen;
-}
+    {
+        return !isOpen;
+    }
+
+    public void LockLever()
+    {
+        locked = true;
+        HidePrompt();
+    }
 }
