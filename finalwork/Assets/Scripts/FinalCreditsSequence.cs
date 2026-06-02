@@ -156,6 +156,11 @@ public class FinalCreditsSequence : MonoBehaviour
 {
     videoStarted = true;
 
+    if (MusicManager.Instance != null)
+{
+    MusicManager.Instance.audioSource.Stop();
+}
+
     if (waitingTextPlayer1 != null) waitingTextPlayer1.SetActive(false);
     if (waitingTextPlayer2 != null) waitingTextPlayer2.SetActive(false);
 

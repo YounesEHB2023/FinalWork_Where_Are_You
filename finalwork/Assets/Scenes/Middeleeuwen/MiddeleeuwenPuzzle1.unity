@@ -6227,7 +6227,6 @@ MonoBehaviour:
   pressXUI: {fileID: 170573979}
   startsOpen: 1
   animationDuration: 0.4
-  interactionDistance: 3
 --- !u!1 &83238374
 GameObject:
   m_ObjectHideFlags: 0
@@ -12187,7 +12186,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -134079,7 +134078,6 @@ MonoBehaviour:
   pressXUI: {fileID: 1799992801}
   startsOpen: 1
   animationDuration: 0.4
-  interactionDistance: 3
 --- !u!1001 &2038301118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134823,7 +134821,6 @@ MonoBehaviour:
   pressXUI: {fileID: 2003712976}
   startsOpen: 1
   animationDuration: 0.4
-  interactionDistance: 3
 --- !u!1001 &2064027924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135109,7 +135106,6 @@ MonoBehaviour:
   pressXUI: {fileID: 1472372984}
   startsOpen: 1
   animationDuration: 0.4
-  interactionDistance: 3
 --- !u!1001 &2066546356
 PrefabInstance:
   m_ObjectHideFlags: 0

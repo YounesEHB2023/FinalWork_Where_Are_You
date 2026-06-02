@@ -8918,53 +8918,19 @@ PrefabInstance:
       addedObject: {fileID: 627437574}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 627437573}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 627437572}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 912550093}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 627437577}
+      addedObject: {fileID: 912550095}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 912550094}
   m_SourcePrefab: {fileID: 100100000, guid: 9629094be754235439885f0538415637, type: 3}
 --- !u!1 &627437571 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9629094be754235439885f0538415637, type: 3}
   m_PrefabInstance: {fileID: 627437570}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &627437572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627437571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &627437573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627437571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &627437574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9027,31 +8993,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.03807506, y: 0.016339201, z: 0.09549959}
   m_Center: {x: -0.007825914, y: 0.0021959303, z: 0.047055732}
---- !u!114 &627437577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627437571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1814094944
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1 &627459318
 GameObject:
   m_ObjectHideFlags: 0
@@ -12419,16 +12360,13 @@ PrefabInstance:
       addedObject: {fileID: 889431273}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 889431272}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 889431271}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 889431270}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 889431269}
+      addedObject: {fileID: 889431275}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 889431274}
   m_SourcePrefab: {fileID: 100100000, guid: 40d587f8536ed6c4d93237b6884c797f, type: 3}
 --- !u!1 &889431265 stripped
 GameObject:
@@ -12488,31 +12426,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.022544367, y: 0.023869608, z: 0.0118887955}
   m_Center: {x: 0.0007808753, y: 1.3721272e-19, z: 0.00016002425}
---- !u!114 &889431269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889431265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3768048383
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &889431270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12531,37 +12444,6 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
---- !u!114 &889431271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889431265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &889431272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889431265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &889431273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12576,6 +12458,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: dd73c26e27dc8c44b898819a85fedd88, type: 3}
   greekWeaponType: 0
+--- !u!114 &889431274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889431265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &889431275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889431265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!1 &891121408
 GameObject:
   m_ObjectHideFlags: 0
@@ -12966,6 +12878,36 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &912550094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627437571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &912550095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627437571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!1001 &913493739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16575,16 +16517,13 @@ PrefabInstance:
       addedObject: {fileID: 1162209027}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1162209026}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1162209025}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1162209024}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1162209028}
+      addedObject: {fileID: 1732505357}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1732505356}
   m_SourcePrefab: {fileID: 100100000, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
 --- !u!1 &1162209021 stripped
 GameObject:
@@ -16657,37 +16596,6 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
---- !u!114 &1162209025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162209021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &1162209026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162209021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &1162209027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16702,31 +16610,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   icon: {fileID: 21300000, guid: dc324b45daff55f4b8ea24abad9275c6, type: 3}
   greekWeaponType: 0
---- !u!114 &1162209028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162209021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2151750893
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1001 &1169919526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18726,78 +18609,19 @@ PrefabInstance:
       addedObject: {fileID: 1267201285}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1267201284}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1267201283}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1267201288}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1267201282}
+      addedObject: {fileID: 1267201290}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1267201289}
   m_SourcePrefab: {fileID: 100100000, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
 --- !u!1 &1267201281 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a9cb04bc3be6bf4f839b505a9ffc753, type: 3}
   m_PrefabInstance: {fileID: 1267201280}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1267201282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267201281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 155569763
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
---- !u!114 &1267201283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267201281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &1267201284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267201281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &1267201285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18878,6 +18702,36 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &1267201289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267201281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &1267201290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267201281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!4 &1268474093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6985333857372317176, guid: 1f761016c03a561418ff210aec563e01, type: 3}
@@ -19676,53 +19530,19 @@ PrefabInstance:
       addedObject: {fileID: 1338891059}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1338891058}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1338891057}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1338891063}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1338891062}
+      addedObject: {fileID: 1338891065}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1338891064}
   m_SourcePrefab: {fileID: 100100000, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
 --- !u!1 &1338891056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b40e53aa1331794f99166f5a4655e07, type: 3}
   m_PrefabInstance: {fileID: 1338891055}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1338891057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338891056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &1338891058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338891056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &1338891059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19785,31 +19605,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.059746437, y: 0.021894205, z: 0.20700748}
   m_Center: {x: -0.004343067, y: -5.085906e-10, z: 0.0954719}
---- !u!114 &1338891062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338891056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1336183733
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &1338891063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19828,6 +19623,36 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &1338891064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338891056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &1338891065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338891056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!1 &1351558506
 GameObject:
   m_ObjectHideFlags: 0
@@ -23493,13 +23318,10 @@ PrefabInstance:
       addedObject: {fileID: 1680757871}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1680757870}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1680757869}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1680757868}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1680757873}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0ab6d82c85b7194bb449b4fcd39e003, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1680757872}
@@ -23575,37 +23397,6 @@ MonoBehaviour:
   pedestalPositionOffset: {x: 0, y: 0, z: 0}
   pedestalRotationOffset: {x: 0, y: 0, z: 0}
   pedestalScale: {x: 1, y: 1, z: 1}
---- !u!114 &1680757869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680757865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb2b83eff19d5f4ea3f5865b13a4854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineProximity
-  activationDistance: 5
---- !u!114 &1680757870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680757865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &1680757871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23629,22 +23420,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1680757865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3728608841
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &1680757873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680757865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!1 &1680762142
 GameObject:
   m_ObjectHideFlags: 0
@@ -24482,6 +24278,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 45b0b71fb9e93e044ab43b8286e379ca, type: 3}
   m_PrefabInstance: {fileID: 1162209020}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1732505356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162209021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040d2f75b6df5a44887536101ec0e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupGlow
+  proximityDistance: 6
+  proximityColor: {r: 1, g: 1, b: 1, a: 1}
+  proximityIntensity: 0.6
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  focusIntensity: 1.5
+--- !u!114 &1732505357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162209021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e9b0d0dde038744bd313cd6f12b761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRespawn
+  minY: -100
 --- !u!1001 &1746771451
 PrefabInstance:
   m_ObjectHideFlags: 0
