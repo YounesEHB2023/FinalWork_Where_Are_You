@@ -65,9 +65,9 @@ The goal of this project is to:
 | Topic | Link |
 |-------|------|
 | Generated level audio | [Gemini](https://gemini.google.com/share/22097386c013) |
-| Sound effect door | [Pixabay](https://pixabay.com/sound-effects/search/door%20opening/) |
-| Sound effect bell | [Pixabay](https://pixabay.com/sound-effects/search/bell/) |
-| Sound effect lever | [Pixabay](https://pixabay.com/sound-effects/search/lever/) |
+| Sound effect door | [Pixabay](https://pixabay.com/sound-effects/opening-door-sfx-454240/) |
+| Sound effect bell | [Pixabay](https://pixabay.com/sound-effects/film-special-effects-single-church-bell-2-352062/) |
+| Sound effect lever | [Pixabay](https://pixabay.com/sound-effects/film-special-effects-clank1-91862/) |
 | Sound effect treasure chest | [Freesound](https://freesound.org/people/steprock/sounds/771164/) |
 ### 🎨 Assets ( Overview PackageManager Unity ) 
 | Asset | Source |
