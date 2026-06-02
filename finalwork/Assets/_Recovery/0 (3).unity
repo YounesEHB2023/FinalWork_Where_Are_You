@@ -1405,10 +1405,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   audioSource: {fileID: 1451293126}
-  menuAndLobbyMusic: {fileID: 8300000, guid: 3396a1253171c604fb7f4f665ba6ac5c, type: 3}
-  prehistorieMusic: {fileID: 8300000, guid: 77ca6d54dd5823b46878078a01f1ecd2, type: 3}
-  oudheidMusic: {fileID: 8300000, guid: d304b86d3089a484d9b859491612b149, type: 3}
-  middeleeuwenMusic: {fileID: 8300000, guid: 839339f67a559f84fb6dcb295144c649, type: 3}
+  menuAndLobbyMusic: {fileID: 8300000, guid: aceac4a70c966a74f9be1dfcb87732e1, type: 3}
+  prehistorieMusic: {fileID: 8300000, guid: 62729fc005efc354f82dd04607cf11c2, type: 3}
+  oudheidMusic: {fileID: 0}
+  middeleeuwenMusic: {fileID: 0}
   volume: 0.05
   fadeDuration: 1.5
 --- !u!4 &1451293128

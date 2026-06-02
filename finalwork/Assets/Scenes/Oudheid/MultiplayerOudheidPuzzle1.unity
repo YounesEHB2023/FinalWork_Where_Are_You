@@ -1507,7 +1507,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!1 &259972907
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +4058,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!1001 &776224948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5886,7 +5886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: aca2da157941739439a76a0e8fa81e6a, type: 3}
+  icon: {fileID: 21300000, guid: 4c10dfb002e42c743b2962384329fc13, type: 3}
   greekWeaponType: 0
 --- !u!54 &1081848606
 Rigidbody:
@@ -5952,7 +5952,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!114 &1081848609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7692,7 +7692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: aca2da157941739439a76a0e8fa81e6a, type: 3}
+  icon: {fileID: 21300000, guid: e5aaebe0d09b3e14abbef72ded6975ba, type: 3}
   greekWeaponType: 0
 --- !u!54 &1447410814
 Rigidbody:
@@ -7776,7 +7776,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!114 &1447410818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8567,7 +8567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: aca2da157941739439a76a0e8fa81e6a, type: 3}
+  icon: {fileID: 21300000, guid: 0faf87123ff3fd2448d3ce4f37069883, type: 3}
   greekWeaponType: 0
 --- !u!54 &1549344745
 Rigidbody:
@@ -8651,7 +8651,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!114 &1549344750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9250,7 +9250,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!1 &1667676935
 GameObject:
   m_ObjectHideFlags: 0
@@ -11045,7 +11045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccfbccd73bfbb4697610f0f5f01b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  icon: {fileID: 21300000, guid: aca2da157941739439a76a0e8fa81e6a, type: 3}
+  icon: {fileID: 21300000, guid: e8060d8b767a9dd4d82b55bc5ebd2a93, type: 3}
   greekWeaponType: 0
 --- !u!54 &1915059929
 Rigidbody:
@@ -11129,7 +11129,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!114 &1915059934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12225,7 +12225,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!1001 &2037045483
 PrefabInstance:
   m_ObjectHideFlags: 0

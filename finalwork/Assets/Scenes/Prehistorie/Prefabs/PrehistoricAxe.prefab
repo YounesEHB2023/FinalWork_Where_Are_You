@@ -218,7 +218,7 @@ MonoBehaviour:
   proximityColor: {r: 1, g: 1, b: 1, a: 1}
   proximityIntensity: 0.6
   focusColor: {r: 1, g: 1, b: 1, a: 1}
-  focusIntensity: 1.5
+  focusIntensity: 0.1
 --- !u!114 &4745751306254410443
 MonoBehaviour:
   m_ObjectHideFlags: 0
