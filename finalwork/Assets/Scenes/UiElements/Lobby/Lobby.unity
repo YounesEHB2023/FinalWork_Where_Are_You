@@ -767,7 +767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.5, y: 236.9}
+  m_AnchoredPosition: {x: 0, y: 237.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &283051918
@@ -790,7 +790,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAYER 2
+  m_text: SPELER 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: READY
+  m_text: KLAAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -1087,8 +1087,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -750, y: -400}
-  m_SizeDelta: {x: 365, y: 105}
+  m_AnchoredPosition: {x: -702, y: -400}
+  m_SizeDelta: {x: 427.73, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &430511271
 MonoBehaviour:
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: READY
+  m_text: KLAAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -1934,7 +1934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110, y: 3}
+  m_AnchoredPosition: {x: -143, y: 3}
   m_SizeDelta: {x: 53.8668, y: 36.1878}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840582517
@@ -2131,7 +2131,7 @@ MonoBehaviour:
   player2JoinHint: {fileID: 2018069798}
   fadePanel: {fileID: 1232216040}
   mainMenuSceneName: MainMenu
-  gameSceneName: MiddeleeuwenPuzzle1
+  gameSceneName: MultiplayerPhrehistoricPuzzle1
 --- !u!4 &1125740165
 Transform:
   m_ObjectHideFlags: 0
@@ -2367,7 +2367,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1 / 2 PLAYERS
+  m_text: 1 / 2 SPELERS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -2993,7 +2993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 185, y: 0}
+  m_AnchoredPosition: {x: 152, y: 0}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1911162213
@@ -3016,7 +3016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BACK TO MENU
+  m_text: TERUG NAAR MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -3130,7 +3130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.5, y: 236.9}
+  m_AnchoredPosition: {x: 0, y: 237.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1914977904
@@ -3153,7 +3153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAYER 1
+  m_text: SPELER 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
   m_sharedMaterial: {fileID: -8895907410157822397, guid: da5df37a27190d2408f0465bfb77721c, type: 2}
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3565,7 +3565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 139.69995, y: 5}
+  m_AnchoredPosition: {x: 0, y: 5}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2096605600
@@ -3588,7 +3588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START GAME
+  m_text: SPEL STARTEN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
   m_sharedMaterial: {fileID: 6654887942950434934, guid: f19b491cf3c907043aa9389a864d3758, type: 2}
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
