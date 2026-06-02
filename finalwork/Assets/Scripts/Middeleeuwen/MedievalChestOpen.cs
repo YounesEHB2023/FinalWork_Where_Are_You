@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class MedievalChestOpen : InteractableObject
@@ -13,7 +12,11 @@ public class MedievalChestOpen : InteractableObject
     public GameObject pestParticle;
 
     [Header("UI")]
-public GameObject pressXUI;
+    public GameObject pressXUI;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
 
     [Header("Settings")]
     public float openDuration = 0.5f;
@@ -54,6 +57,9 @@ public GameObject pressXUI;
         isAnimating = true;
         HidePrompt();
 
+        if (audioSource != null && openSound != null)
+            audioSource.PlayOneShot(openSound);
+
         Quaternion startRot = chestTop.localRotation;
         Quaternion endRot = Quaternion.Euler(openRotation);
 
@@ -64,11 +70,14 @@ public GameObject pressXUI;
             t += Time.deltaTime;
             float p = Mathf.SmoothStep(0f, 1f, t / openDuration);
 
-            chestTop.localRotation = Quaternion.Lerp(startRot, endRot, p);
+            if (chestTop != null)
+                chestTop.localRotation = Quaternion.Lerp(startRot, endRot, p);
+
             yield return null;
         }
 
-        chestTop.localRotation = endRot;
+        if (chestTop != null)
+            chestTop.localRotation = endRot;
 
         if (pestParticle != null)
             pestParticle.SetActive(true);
@@ -101,10 +110,10 @@ public GameObject pressXUI;
     }
 
     void ShowPrompt()
-{
-    if (pressXUI != null)
-        pressXUI.SetActive(true);
-}
+    {
+        if (pressXUI != null)
+            pressXUI.SetActive(true);
+    }
 
     void HidePrompt()
     {

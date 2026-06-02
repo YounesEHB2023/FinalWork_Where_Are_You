@@ -17,6 +17,10 @@ public class MedievalLeverDoor : InteractableObject
     [Header("UI")]
     public GameObject pressXUI;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip leverSound;
+
     [Header("Settings")]
     public bool startsOpen = true;
     public float animationDuration = 0.4f;
@@ -46,19 +50,19 @@ public class MedievalLeverDoor : InteractableObject
         Gamepad pad = GetGamepad();
 
         if (pad != null && pad.buttonSouth.wasPressedThisFrame)
-        {
             ToggleLever();
-        }
     }
 
     public override void Interact(PickupSystem player)
     {
-        // On ne fait rien ici pour les leviers.
-        // Le levier utilise seulement son Box Collider Trigger.
+        // Lever uses only Box Collider Trigger + Update input.
     }
 
     void ToggleLever()
     {
+        if (audioSource != null && leverSound != null)
+            audioSource.PlayOneShot(leverSound);
+
         isOpen = !isOpen;
         StartCoroutine(AnimateLeverAndDoor());
     }
