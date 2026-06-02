@@ -61,6 +61,7 @@ The goal of this project is to:
 | Unity WebSocket Support | [Article](https://medium.com/@6386391ritesh/unity-websocket-support-ea2420df452c)
 | Network connection management | [Unity docs](https://docs.unity.com/en-us/mps-sdk/manage-session-network-connection )
 | Fade transitions | [Unity docs](https://jon-jenkins.medium.com/simple-screen-fade-using-timeline-in-unity-5ef08cbf54fe )
+| Missing Textures Unity | [Youtube](https://youtu.be/1XemiQUKobI?si=BJHuuFC7RuWT2u8S)
 ### 🔊 Audio 
 | Topic | Link |
 |-------|------|
