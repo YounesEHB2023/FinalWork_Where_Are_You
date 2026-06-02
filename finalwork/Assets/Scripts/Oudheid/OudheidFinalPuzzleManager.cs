@@ -1,45 +1,25 @@
-using Unity.Netcode;
 using UnityEngine;
 
-public class OudheidFinalPuzzleManager : NetworkBehaviour
+public class OudheidFinalPuzzleManager : MonoBehaviour
 {
+    public OudheidWeaponPuzzleManager player1Puzzle;
+    public OudheidWeaponPuzzleManager player2Puzzle;
+
     public OudheidDoorOpener[] doors;
 
-    private bool player1Solved = false;
-    private bool player2Solved = false;
     private bool finalSolved = false;
 
-    public void ReportPuzzleSolved(bool isPlayer1Puzzle)
-    {
-        if (!IsSpawned)
-        {
-            Debug.LogWarning("OudheidFinalPuzzleManager is not spawned yet.");
-            return;
-        }
-
-        ReportPuzzleSolvedServerRpc(isPlayer1Puzzle);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void ReportPuzzleSolvedServerRpc(bool isPlayer1Puzzle)
+    public void CheckFinalPuzzle()
     {
         if (finalSolved) return;
 
-        if (isPlayer1Puzzle)
-            player1Solved = true;
-        else
-            player2Solved = true;
+        if (player1Puzzle == null || player2Puzzle == null) return;
 
-        if (player1Solved && player2Solved)
-        {
-            finalSolved = true;
-            OpenDoorsClientRpc();
-        }
-    }
+        if (!player1Puzzle.IsSolved()) return;
+        if (!player2Puzzle.IsSolved()) return;
 
-    [ClientRpc]
-    void OpenDoorsClientRpc()
-    {
+        finalSolved = true;
+
         foreach (OudheidDoorOpener door in doors)
         {
             if (door != null)

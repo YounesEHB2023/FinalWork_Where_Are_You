@@ -2,13 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
-    public RectTransform createButton;
-    public RectTransform joinButton;
+    public RectTransform startButton;
     public RectTransform exitButton;
 
     [Header("Selection Pattern")]
@@ -31,9 +29,11 @@ public class MainMenu : MonoBehaviour
     private int selectedIndex = 0;
     private bool isBusy = false;
     private bool joystickReady = true;
+    private Coroutine selectorRoutine;
 
     void Start()
     {
+        LocalMultiplayerData.Reset();
         SelectOption(0, true);
         StartCoroutine(IntroFade());
     }
@@ -92,87 +92,63 @@ public class MainMenu : MonoBehaviour
 
     void SelectPreviousOption()
     {
-        int newIndex = selectedIndex - 1;
-
-        if (newIndex < 0)
-            newIndex = 2;
-
-        SelectOption(newIndex, false);
+        SelectOption(selectedIndex == 0 ? 1 : 0, false);
     }
 
     void SelectNextOption()
     {
-        int newIndex = selectedIndex + 1;
-
-        if (newIndex > 2)
-            newIndex = 0;
-
-        SelectOption(newIndex, false);
+        SelectOption(selectedIndex == 0 ? 1 : 0, false);
     }
 
-    public void SelectCreate()
+    public void SelectStart()
     {
+        Debug.Log("Hover Start");
         SelectOption(0, false);
-    }
-
-    public void SelectJoin()
-    {
-        SelectOption(1, false);
     }
 
     public void SelectExit()
     {
-        SelectOption(2, false);
+        SelectOption(1, false);
     }
 
-    public void ClickCreate()
+    public void ClickStart()
     {
         SelectOption(0, true);
         ConfirmSelection();
     }
 
-    public void ClickJoin()
+    public void ClickExit()
     {
         SelectOption(1, true);
         ConfirmSelection();
     }
 
-    public void ClickExit()
-    {
-        SelectOption(2, true);
-        ConfirmSelection();
-    }
-
     void SelectOption(int index, bool instant)
     {
-        if (selectedIndex == index && !instant) return;
-
         selectedIndex = index;
 
         RectTransform target = GetSelectedButton();
-
         if (target == null) return;
 
         if (instant)
         {
             if (selectorPattern != null)
-                selectorPattern.position = target.position;
-
+selectorPattern.position = target.position;
             if (selectorGroup != null)
                 selectorGroup.alpha = 1f;
         }
         else
         {
-            StopCoroutine(nameof(AnimateSelector));
-            StartCoroutine(AnimateSelector(target));
+            if (selectorRoutine != null)
+    StopCoroutine(selectorRoutine);
+
+selectorRoutine = StartCoroutine(AnimateSelector(target));
         }
     }
 
     RectTransform GetSelectedButton()
     {
-        if (selectedIndex == 0) return createButton;
-        if (selectedIndex == 1) return joinButton;
-        return exitButton;
+        return selectedIndex == 0 ? startButton : exitButton;
     }
 
     IEnumerator AnimateSelector(RectTransform target)
@@ -192,8 +168,7 @@ public class MainMenu : MonoBehaviour
         }
 
         if (selectorPattern != null)
-            selectorPattern.position = target.position;
-
+selectorPattern.position = target.position;
         if (selectorGroup != null)
         {
             float t = 0f;
@@ -214,35 +189,17 @@ public class MainMenu : MonoBehaviour
         if (isBusy) return;
 
         if (selectedIndex == 0)
-            StartCoroutine(ClickFeedbackThenCreate());
-        else if (selectedIndex == 1)
-            StartCoroutine(ClickFeedbackThenJoin());
+            StartCoroutine(ClickFeedbackThenStart());
         else
             StartCoroutine(ClickFeedbackThenQuit());
     }
 
-    IEnumerator ClickFeedbackThenCreate()
+    IEnumerator ClickFeedbackThenStart()
     {
         isBusy = true;
 
         yield return StartCoroutine(ClickPulse(GetSelectedButton()));
         yield return StartCoroutine(FadeToBlack());
-
-        if (NetworkManager.Singleton != null)
-            NetworkManager.Singleton.StartHost();
-
-        SceneManager.LoadScene(lobbySceneName);
-    }
-
-    IEnumerator ClickFeedbackThenJoin()
-    {
-        isBusy = true;
-
-        yield return StartCoroutine(ClickPulse(GetSelectedButton()));
-        yield return StartCoroutine(FadeToBlack());
-
-        if (NetworkManager.Singleton != null)
-            NetworkManager.Singleton.StartClient();
 
         SceneManager.LoadScene(lobbySceneName);
     }

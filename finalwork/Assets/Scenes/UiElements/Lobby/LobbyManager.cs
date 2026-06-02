@@ -1,48 +1,41 @@
 using System.Collections;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 public class LobbyManager : MonoBehaviour
 {
-    [Header("Texts")]
     public TextMeshProUGUI player1StatusText;
     public TextMeshProUGUI player2StatusText;
     public TextMeshProUGUI countText;
 
-    [Header("Buttons")]
     public Button startButton;
     public Button backButton;
 
-    [Header("Controller Selectors")]
-public GameObject backSelector;
-public GameObject startSelector;
+    public CanvasGroup backButtonGroup;
+    public CanvasGroup startButtonGroup;
 
-    [Header("Fade")]
+    public GameObject player1JoinHint;
+    public GameObject player2JoinHint;
+
     public CanvasGroup fadePanel;
 
-    [Header("Settings")]
     public string mainMenuSceneName = "MainMenu";
     public string gameSceneName = "MultiplayerPhrehistoricPuzzle1";
 
     private Color readyColor = new Color32(107, 217, 61, 255);
     private Color waitingColor = new Color32(218, 126, 25, 255);
 
-    private bool isStarting = false;
     private int selectedButtonIndex = 0; // 0 = Back, 1 = Start
     private bool joystickReady = true;
-
-    private InputSystemUIInputModule uiInputModule;
+    private bool isStarting = false;
+    private bool autoSelectedStart = false;
 
     void Start()
     {
-        ForceLobbyMode();
-
-        uiInputModule = FindFirstObjectByType<InputSystemUIInputModule>();
+        LocalMultiplayerData.Reset();
 
         if (startButton != null)
             startButton.onClick.AddListener(StartGame);
@@ -50,75 +43,99 @@ public GameObject startSelector;
         if (backButton != null)
             backButton.onClick.AddListener(BackToMenu);
 
-        selectedButtonIndex = 0;
-        UpdateSelectorVisual();
-
+        UpdateLobbyUI();
+        UpdateButtonVisuals();
         StartCoroutine(IntroFade());
     }
 
     void Update()
     {
-        bool focused = Application.isFocused;
+        if (!Application.isFocused || isStarting) return;
 
-        if (uiInputModule != null)
-            uiInputModule.enabled = focused;
+        HandleGamepadJoin();
+        HandleMenuControl();
 
-        if (!focused)
-            return;
-
-        ForceLobbyMode();
         UpdateLobbyUI();
-        HandleControllerSelection();
-        UpdateSelectorVisual();
+        UpdateButtonVisuals();
+    }
+
+    void HandleGamepadJoin()
+    {
+        foreach (Gamepad pad in Gamepad.all)
+        {
+            if (!pad.buttonNorth.wasPressedThisFrame) continue;
+
+            if (LocalMultiplayerData.player1Gamepad == null)
+            {
+                LocalMultiplayerData.player1Gamepad = pad;
+                return;
+            }
+
+            if (LocalMultiplayerData.player2Gamepad == null && pad != LocalMultiplayerData.player1Gamepad)
+            {
+                LocalMultiplayerData.player2Gamepad = pad;
+                return;
+            }
+        }
     }
 
     void UpdateLobbyUI()
     {
-        if (NetworkManager.Singleton == null) return;
+        bool p1Ready = LocalMultiplayerData.HasPlayer1;
+        bool p2Ready = LocalMultiplayerData.HasPlayer2;
+        bool bothReady = p1Ready && p2Ready;
 
-        int playerCount = NetworkManager.Singleton.ConnectedClientsList.Count;
-        bool isHost = NetworkManager.Singleton.IsHost;
+        if (player1JoinHint != null) player1JoinHint.SetActive(!p1Ready);
+        if (player2JoinHint != null) player2JoinHint.SetActive(!p2Ready);
 
         if (player1StatusText != null)
         {
-            player1StatusText.text = "READY";
-            player1StatusText.color = readyColor;
+            player1StatusText.text = p1Ready ? "READY" : "WAITING...";
+            player1StatusText.color = p1Ready ? readyColor : waitingColor;
         }
 
         if (player2StatusText != null)
         {
-            if (playerCount >= 2)
-            {
-                player2StatusText.text = "READY";
-                player2StatusText.color = readyColor;
-            }
-            else
-            {
-                player2StatusText.text = "WAITING...";
-                player2StatusText.color = waitingColor;
-            }
+            player2StatusText.text = p2Ready ? "READY" : "WAITING...";
+            player2StatusText.color = p2Ready ? readyColor : waitingColor;
         }
 
         if (countText != null)
-            countText.text = playerCount + " / 2 PLAYERS";
-
-        if (startButton != null)
         {
-            bool canStart = isHost && playerCount >= 2 && !isStarting;
-            startButton.interactable = canStart;
+            int count = 0;
+            if (p1Ready) count++;
+            if (p2Ready) count++;
+
+            countText.text = count + " / 2 PLAYERS";
         }
 
-        if (selectedButtonIndex == 1 && startButton != null && !startButton.interactable)
+        if (startButton != null)
+            startButton.interactable = bothReady && !isStarting;
+
+        if (bothReady && !autoSelectedStart)
+        {
+            selectedButtonIndex = 1;
+            autoSelectedStart = true;
+        }
+
+        if (!bothReady)
+        {
             selectedButtonIndex = 0;
+            autoSelectedStart = false;
+        }
     }
 
-    void HandleControllerSelection()
+    void HandleMenuControl()
     {
-        if (isStarting) return;
-        if (Gamepad.current == null) return;
+        Gamepad pad = LocalMultiplayerData.player1Gamepad;
 
-        Vector2 dpad = Gamepad.current.dpad.ReadValue();
-        Vector2 stick = Gamepad.current.leftStick.ReadValue();
+        if (pad == null && Gamepad.all.Count > 0)
+            pad = Gamepad.all[0];
+
+        if (pad == null) return;
+
+        Vector2 dpad = pad.dpad.ReadValue();
+        Vector2 stick = pad.leftStick.ReadValue();
 
         if (joystickReady)
         {
@@ -140,7 +157,7 @@ public GameObject startSelector;
         if (Mathf.Abs(dpad.x) < 0.2f && Mathf.Abs(stick.x) < 0.2f)
             joystickReady = true;
 
-        if (Gamepad.current.buttonSouth.wasPressedThisFrame)
+        if (pad.buttonSouth.wasPressedThisFrame)
         {
             if (selectedButtonIndex == 0)
                 BackToMenu();
@@ -151,52 +168,32 @@ public GameObject startSelector;
     }
 
     public void HoverBackButton()
-{
-    selectedButtonIndex = 0;
-    UpdateSelectorVisual();
-}
-
-public void HoverStartButton()
-{
-    if (startButton != null && startButton.interactable)
-        selectedButtonIndex = 1;
-
-    UpdateSelectorVisual();
-}
-
-    void UpdateSelectorVisual()
-{
-    if (backSelector != null)
-        backSelector.SetActive(selectedButtonIndex == 0);
-
-    if (startSelector != null)
-        startSelector.SetActive(selectedButtonIndex == 1);
-}
-
-    void ForceLobbyMode()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        selectedButtonIndex = 0;
+    }
 
-        GameObject[] allObjects =
-            FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    public void HoverStartButton()
+    {
+        if (startButton != null && startButton.interactable)
+            selectedButtonIndex = 1;
+    }
 
-        foreach (GameObject obj in allObjects)
-        {
-            if (obj.name.Contains("InventoryCanvas"))
-                obj.SetActive(false);
+    void UpdateButtonVisuals()
+    {
+        SetButtonOpacity(backButtonGroup, selectedButtonIndex == 0 ? 1f : 0.5f);
+        SetButtonOpacity(startButtonGroup, selectedButtonIndex == 1 ? 1f : 0.5f);
+    }
 
-            if (obj.name.Contains("InventoryUI"))
-                obj.SetActive(false);
-        }
+    void SetButtonOpacity(CanvasGroup group, float alpha)
+    {
+        if (group == null) return;
+        group.alpha = alpha;
     }
 
     void StartGame()
     {
         if (isStarting) return;
-        if (NetworkManager.Singleton == null) return;
-        if (!NetworkManager.Singleton.IsHost) return;
-        if (NetworkManager.Singleton.ConnectedClientsList.Count < 2) return;
+        if (!LocalMultiplayerData.HasPlayer1 || !LocalMultiplayerData.HasPlayer2) return;
 
         StartCoroutine(StartGameRoutine());
     }
@@ -204,34 +201,20 @@ public void HoverStartButton()
     IEnumerator StartGameRoutine()
     {
         isStarting = true;
-
-        if (startButton != null)
-            yield return StartCoroutine(ButtonClickAnimation(startButton.transform));
-
-        yield return StartCoroutine(FadeToBlack());
-
-        NetworkManager.Singleton.SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
+        yield return FadeToBlack();
+        SceneManager.LoadScene(gameSceneName);
     }
 
     void BackToMenu()
     {
         if (isStarting) return;
-
-        StartCoroutine(BackToMenuRoutine());
+        StartCoroutine(BackRoutine());
     }
 
-    IEnumerator BackToMenuRoutine()
+    IEnumerator BackRoutine()
     {
         isStarting = true;
-
-        if (backButton != null)
-            yield return StartCoroutine(ButtonClickAnimation(backButton.transform));
-
-        yield return StartCoroutine(FadeToBlack());
-
-        if (NetworkManager.Singleton != null)
-            NetworkManager.Singleton.Shutdown();
-
+        yield return FadeToBlack();
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
@@ -241,20 +224,16 @@ public void HoverStartButton()
 
         fadePanel.gameObject.SetActive(true);
         fadePanel.alpha = 1f;
-        fadePanel.blocksRaycasts = true;
 
-        float duration = 0.8f;
         float t = 0f;
-
-        while (t < duration)
+        while (t < 0.8f)
         {
             t += Time.deltaTime;
-            fadePanel.alpha = Mathf.Lerp(1f, 0f, t / duration);
+            fadePanel.alpha = Mathf.Lerp(1f, 0f, t / 0.8f);
             yield return null;
         }
 
         fadePanel.alpha = 0f;
-        fadePanel.blocksRaycasts = false;
         fadePanel.gameObject.SetActive(false);
     }
 
@@ -264,48 +243,15 @@ public void HoverStartButton()
 
         fadePanel.gameObject.SetActive(true);
         fadePanel.alpha = 0f;
-        fadePanel.blocksRaycasts = true;
 
-        float duration = 0.6f;
         float t = 0f;
-
-        while (t < duration)
+        while (t < 0.6f)
         {
             t += Time.deltaTime;
-            fadePanel.alpha = Mathf.Lerp(0f, 1f, t / duration);
+            fadePanel.alpha = Mathf.Lerp(0f, 1f, t / 0.6f);
             yield return null;
         }
 
         fadePanel.alpha = 1f;
-    }
-
-    IEnumerator ButtonClickAnimation(Transform buttonTransform)
-    {
-        Vector3 startScale = buttonTransform.localScale;
-        Vector3 bigScale = startScale * 1.08f;
-
-        float duration = 0.18f;
-        float half = duration / 2f;
-        float t = 0f;
-
-        while (t < half)
-        {
-            t += Time.deltaTime;
-            float p = Mathf.SmoothStep(0f, 1f, t / half);
-            buttonTransform.localScale = Vector3.Lerp(startScale, bigScale, p);
-            yield return null;
-        }
-
-        t = 0f;
-
-        while (t < half)
-        {
-            t += Time.deltaTime;
-            float p = Mathf.SmoothStep(0f, 1f, t / half);
-            buttonTransform.localScale = Vector3.Lerp(bigScale, startScale, p);
-            yield return null;
-        }
-
-        buttonTransform.localScale = startScale;
     }
 }

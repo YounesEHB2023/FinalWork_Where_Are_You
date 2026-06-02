@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
-public class TransferTunnel : NetworkBehaviour
+public class TransferTunnel : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 0; // Player 1 = 0, Player 2 = 1
+
     [Header("Points")]
     public Transform visualStartPoint;
     public Transform inPoint;
@@ -16,9 +18,7 @@ public class TransferTunnel : NetworkBehaviour
 
     private bool playerInside;
     private bool isTransferring;
-    private bool usingController;
-
-    private static TransferTunnel activeTunnel;
+    private bool usingController = true;
 
     private InventorySystem playerInventory;
     private PickupSystem playerPickupSystem;
@@ -33,86 +33,65 @@ public class TransferTunnel : NetworkBehaviour
         if (!Application.isFocused) return;
 
         DetectInputDevice();
-
-        if (activeTunnel != this) return;
-
         UpdateUI();
 
-        bool keyboardTransfer =
-            Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame;
+        if (!playerInside) return;
+        if (isTransferring) return;
+        if (playerInventory == null) return;
+        if (playerPickupSystem == null) return;
 
-        bool controllerTransfer =
-            Gamepad.current != null &&
-            Gamepad.current.buttonSouth.wasPressedThisFrame;
+        GameObject selectedItem = playerInventory.GetSelectedItem();
+        if (selectedItem == null) return;
 
-        if (
-            playerInside &&
-            playerInventory != null &&
-            playerInventory.GetSelectedItem() != null &&
-            !isTransferring &&
-            (keyboardTransfer || controllerTransfer)
-        )
+        if (PressedTransfer())
         {
-            GameObject selectedItem = playerInventory.GetSelectedItem();
-            NetworkObject netObj = selectedItem.GetComponent<NetworkObject>();
-
-            if (netObj == null)
-            {
-                Debug.LogWarning("Transfer object needs NetworkObject: " + selectedItem.name);
-                return;
-            }
-
-            RequestTransferServerRpc(netObj.NetworkObjectId);
-
             playerInventory.RemoveItem(selectedItem);
+            playerPickupSystem.ClearHandAfterTransfer();
 
-            if (playerPickupSystem != null)
-                playerPickupSystem.ClearHandAfterTransfer();
+            StartCoroutine(TransferObject(selectedItem));
         }
     }
 
-    void DetectInputDevice()
+    bool PressedTransfer()
     {
-        if (Gamepad.current != null)
-        {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
-            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+        bool keyboardPressed =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
 
-            if (
-                dpad != Vector2.zero ||
-                leftStick.magnitude > 0.1f ||
-                rightStick.magnitude > 0.1f ||
-                Gamepad.current.buttonSouth.wasPressedThisFrame ||
-                Gamepad.current.buttonNorth.wasPressedThisFrame ||
-                Gamepad.current.buttonEast.wasPressedThisFrame ||
-                Gamepad.current.buttonWest.wasPressedThisFrame
-            )
-            {
-                usingController = true;
-            }
-        }
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
-            usingController = false;
+        bool controllerPressed =
+            pad != null &&
+            pad.buttonSouth.wasPressedThisFrame;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
-            usingController = false;
+        return keyboardPressed || controllerPressed;
+    }
+
+    Gamepad GetAssignedGamepad(int playerIndex)
+    {
+        if (Gamepad.all.Count <= playerIndex)
+            return null;
+
+        return Gamepad.all[playerIndex];
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
 
-        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
-        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null || inventory == null) return;
 
+        if (pickup.playerIndex != ownerPlayerIndex) return;
+
+        playerPickupSystem = pickup;
+        playerInventory = inventory;
         playerInside = true;
-        activeTunnel = this;
+
+        Debug.Log("Tunnel owner " + ownerPlayerIndex + " entered by player " + pickup.playerIndex);
 
         UpdateUI();
     }
@@ -121,38 +100,37 @@ public class TransferTunnel : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
+        playerPickupSystem = null;
+        playerInventory = null;
 
-        if (activeTunnel == this)
-        {
-            activeTunnel = null;
-            playerInventory = null;
-            playerPickupSystem = null;
-            HideUI();
-        }
+        HideUI();
     }
 
     void UpdateUI()
     {
-        if (activeTunnel != this) return;
-
-        bool hasSelectedItem =
-            playerInventory != null &&
-            playerInventory.GetSelectedItem() != null;
-
         bool showUI =
             playerInside &&
-            hasSelectedItem &&
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null &&
             !isTransferring;
 
+        if (!showUI)
+        {
+            HideUI();
+            return;
+        }
+
         if (pressEUI != null)
-            pressEUI.SetActive(showUI && !usingController);
+            pressEUI.SetActive(!usingController);
 
         if (pressXUI != null)
-            pressXUI.SetActive(showUI && usingController);
+            pressXUI.SetActive(usingController);
     }
 
     void HideUI()
@@ -164,19 +142,25 @@ public class TransferTunnel : NetworkBehaviour
             pressXUI.SetActive(false);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    void RequestTransferServerRpc(ulong networkObjectId)
+    void DetectInputDevice()
     {
-        TransferObjectClientRpc(networkObjectId);
-    }
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
 
-    [ClientRpc]
-    void TransferObjectClientRpc(ulong networkObjectId)
-    {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
-            return;
+        if (pad != null)
+        {
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 stick = pad.leftStick.ReadValue();
+            Vector2 rightStick = pad.rightStick.ReadValue();
 
-        StartCoroutine(TransferObject(netObj.gameObject));
+            if (dpad != Vector2.zero || stick.magnitude > 0.1f || rightStick.magnitude > 0.1f)
+                usingController = true;
+        }
+
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+            usingController = false;
+
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+            usingController = false;
     }
 
     IEnumerator TransferObject(GameObject objectToTransfer)
@@ -217,19 +201,20 @@ public class TransferTunnel : NetworkBehaviour
                 Vector3.Lerp(startPos, inPoint.position, progress);
 
             Quaternion smoothRotation =
-    Quaternion.Lerp(startRot, inPoint.rotation, progress);
+                Quaternion.Lerp(startRot, inPoint.rotation, progress);
 
-Quaternion spinRotation =
-    Quaternion.Euler(0f, progress * 180f, 0f);
+            Quaternion spinRotation =
+                Quaternion.Euler(0f, progress * 180f, 0f);
 
-objectToTransfer.transform.rotation =
-    smoothRotation * spinRotation;
+            objectToTransfer.transform.rotation =
+                smoothRotation * spinRotation;
 
             yield return null;
         }
 
         objectToTransfer.transform.position = targetSpawnPoint.position;
         objectToTransfer.transform.rotation = targetSpawnPoint.rotation;
+        objectToTransfer.tag = "Pickup";
 
         if (rb != null)
         {
@@ -238,7 +223,6 @@ objectToTransfer.transform.rotation =
         }
 
         isTransferring = false;
-
         UpdateUI();
     }
 }

@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
 public class WeaponPedestalSocket : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 0;
+
     [Header("Puzzle")]
     public OudheidWeaponPuzzleManager puzzleManager;
     public string expectedWeaponName;
@@ -21,10 +23,9 @@ public class WeaponPedestalSocket : MonoBehaviour
     public GameObject pressEUI;
     public GameObject pressXUI;
 
-    private static WeaponPedestalSocket activeSocket;
 
     private bool playerInside;
-    private bool usingController;
+    private bool usingController = true;
     private bool isPlacing;
     private bool isLocked;
 
@@ -46,35 +47,23 @@ public class WeaponPedestalSocket : MonoBehaviour
 
         DetectInputDevice();
 
-        if (playerInside)
-            UpdateActiveSocket();
-
-        bool isActive = activeSocket == this;
-
-        if (!isActive)
-            return;
+        
 
         UpdateUI();
 
         if (isPlacing || isLocked) return;
         if (playerInventory == null) return;
 
-        bool pressed =
-            (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) ||
-            (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame);
-
-        if (!pressed) return;
-
-        GameObject selectedItem = playerInventory.GetSelectedItem();
+        if (!PressedInteract()) return;
 
         if (placedWeapon != null)
-{
-    TakeBackPlacedWeapon();
-    return;
-}
+        {
+            TakeBackPlacedWeapon();
+            return;
+        }
 
+        GameObject selectedItem = playerInventory.GetSelectedItem();
         if (selectedItem == null) return;
-        if (placedWeapon != null) return;
 
         Vector3 startPos = selectedItem.transform.position;
         Quaternion startRot = selectedItem.transform.rotation;
@@ -93,6 +82,30 @@ public class WeaponPedestalSocket : MonoBehaviour
         StartCoroutine(PlaceWeaponAnimation(selectedItem, startPos, startRot));
     }
 
+    bool PressedInteract()
+    {
+        bool keyboardPressed =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
+
+        bool controllerPressed =
+            pad != null &&
+            pad.buttonSouth.wasPressedThisFrame;
+
+        return keyboardPressed || controllerPressed;
+    }
+
+    Gamepad GetAssignedGamepad(int playerIndex)
+    {
+        if (Gamepad.all.Count <= playerIndex)
+            return null;
+
+        return Gamepad.all[playerIndex];
+    }
+
     public bool HasWeaponPlaced()
     {
         return placedWeapon != null;
@@ -101,7 +114,6 @@ public class WeaponPedestalSocket : MonoBehaviour
     public bool IsCorrectWeaponPlaced()
     {
         if (placedWeapon == null) return false;
-
         return placedWeapon.name.ToLower().Contains(expectedWeaponName.ToLower());
     }
 
@@ -111,55 +123,44 @@ public class WeaponPedestalSocket : MonoBehaviour
         HideUI();
     }
 
-    void UpdateActiveSocket()
-    {
-        if (currentPlayer == null) return;
-
-        if (activeSocket == null || !activeSocket.playerInside)
-        {
-            activeSocket = this;
-            return;
-        }
-
-        float myDistance = Vector3.Distance(currentPlayer.position, transform.position);
-        float activeDistance = Vector3.Distance(currentPlayer.position, activeSocket.transform.position);
-
-        if (myDistance < activeDistance)
-            activeSocket = this;
-    }
+    
 
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
+
+        if (pickup == null || inventory == null) return;
+        if (pickup.playerIndex != ownerPlayerIndex) return;
 
         currentPlayer = other.transform;
-        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
-        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        playerInventory = inventory;
+        playerPickupSystem = pickup;
 
         playerInside = true;
-        activeSocket = this;
+        Debug.Log("ENTER SOCKET: " + gameObject.name + " | owner: " + ownerPlayerIndex);
 
-        if (playerPickupSystem != null)
-    playerPickupSystem.SetPickupInputBlocked(true);
+        playerPickupSystem.SetPickupInputBlocked(true);
+
+        UpdateUI();
     }
 
     void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
 
-        if (activeSocket == this)
-            activeSocket = null;
+        
 
         if (playerPickupSystem != null)
-        playerPickupSystem.SetPickupInputBlocked(false);
+            playerPickupSystem.SetPickupInputBlocked(false);
 
         currentPlayer = null;
         playerInventory = null;
@@ -178,16 +179,17 @@ public class WeaponPedestalSocket : MonoBehaviour
             playerInside &&
             !isPlacing &&
             !isLocked &&
-            (
-                hasSelectedWeapon ||
-                placedWeapon != null
-            );
+            (hasSelectedWeapon || placedWeapon != null);
 
+        if (!canShow)
+    return;
+
+Debug.Log("SHOW UI FROM: " + gameObject.name);
         if (pressEUI != null)
-            pressEUI.SetActive(canShow && !usingController);
+            pressEUI.SetActive(!usingController);
 
         if (pressXUI != null)
-            pressXUI.SetActive(canShow && usingController);
+            pressXUI.SetActive(usingController);
     }
 
     void HideUI()
@@ -313,15 +315,15 @@ public class WeaponPedestalSocket : MonoBehaviour
             col.enabled = true;
 
         placedWeapon.SetActive(false);
-placedWeapon = null;
+        placedWeapon = null;
 
-if (playerPickupSystem != null)
-{
-    playerPickupSystem.SetPickupInputBlocked(true);
-    playerPickupSystem.SyncHandWithSelectedSlot();
-}
+        if (playerPickupSystem != null)
+        {
+            playerPickupSystem.SetPickupInputBlocked(true);
+            playerPickupSystem.SyncHandWithSelectedSlot();
+        }
 
-UpdateUI();
+        UpdateUI();
 
         if (puzzleManager != null)
             puzzleManager.CheckPuzzle();
@@ -329,25 +331,29 @@ UpdateUI();
 
     void DetectInputDevice()
     {
-        if (Gamepad.current != null)
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
+
+        if (pad != null)
         {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
-            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 leftStick = pad.leftStick.ReadValue();
+            Vector2 rightStick = pad.rightStick.ReadValue();
 
             if (
                 dpad != Vector2.zero ||
                 leftStick.magnitude > 0.1f ||
                 rightStick.magnitude > 0.1f ||
-                Gamepad.current.buttonSouth.wasPressedThisFrame
+                pad.buttonSouth.wasPressedThisFrame
             )
+            {
                 usingController = true;
+            }
         }
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             usingController = false;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
             usingController = false;
     }
 }

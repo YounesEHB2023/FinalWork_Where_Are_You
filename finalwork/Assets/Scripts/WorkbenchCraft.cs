@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
-public class WorkbenchCraft : NetworkBehaviour
+public class WorkbenchCraft : MonoBehaviour
 {
+    [Header("Owner")]
+    public int ownerPlayerIndex = 1; // Player 2 = 1
+
     [Header("Slots")]
     public Transform[] slots;
     public Transform craftCenter;
@@ -31,7 +33,7 @@ public class WorkbenchCraft : NetworkBehaviour
 
     private bool crafted = false;
     private bool playerInside = false;
-    private bool usingController = false;
+    private bool usingController = true;
     private bool isPlacing = false;
     private bool isCrafting = false;
 
@@ -50,68 +52,75 @@ public class WorkbenchCraft : NetworkBehaviour
         DetectInputDevice();
         UpdateUI();
 
-        bool keyboardPlace = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
-        bool controllerPlace = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
+        if (!playerInside) return;
+        if (playerInventory == null) return;
+        if (playerPickupSystem == null) return;
+        if (crafted || isPlacing || isCrafting) return;
+        if (placedObjects.Count >= slots.Length) return;
 
-        if (
-            playerInside &&
-            playerInventory != null &&
-            playerInventory.GetSelectedItem() != null &&
-            !crafted &&
-            !isPlacing &&
-            !isCrafting &&
-            placedObjects.Count < slots.Length &&
-            (keyboardPlace || controllerPlace)
-        )
+        GameObject selectedItem = playerInventory.GetSelectedItem();
+        if (selectedItem == null) return;
+
+        if (PressedPlace())
         {
-            GameObject selectedItem = playerInventory.GetSelectedItem();
-            NetworkObject itemNetObj = selectedItem.GetComponent<NetworkObject>();
-
-            if (itemNetObj == null)
-            {
-                Debug.LogWarning("Workbench item needs NetworkObject: " + selectedItem.name);
-                return;
-            }
-
             Vector3 startPos = selectedItem.transform.position;
             Quaternion startRot = selectedItem.transform.rotation;
 
-            if (playerPickupSystem != null && playerPickupSystem.GetHeldVisual() != null)
+            if (playerPickupSystem.GetHeldVisual() != null)
             {
                 startPos = playerPickupSystem.GetHeldVisual().transform.position;
                 startRot = playerPickupSystem.GetHeldVisual().transform.rotation;
             }
 
-            RequestPlaceObjectServerRpc(itemNetObj.NetworkObjectId, startPos, startRot);
-
             playerInventory.RemoveItem(selectedItem);
+            playerPickupSystem.ClearHandAfterTransfer();
 
-            if (playerPickupSystem != null)
-                playerPickupSystem.ClearHandAfterTransfer();
+            StartCoroutine(PlaceObjectAnimated(selectedItem, startPos, startRot));
         }
+    }
+
+    bool PressedPlace()
+    {
+        bool keyboardPressed =
+            ownerPlayerIndex == 0 &&
+            Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame;
+
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
+
+        bool controllerPressed =
+            pad != null &&
+            pad.buttonSouth.wasPressedThisFrame;
+
+        return keyboardPressed || controllerPressed;
+    }
+
+    Gamepad GetAssignedGamepad(int playerIndex)
+    {
+        if (Gamepad.all.Count <= playerIndex)
+            return null;
+
+        return Gamepad.all[playerIndex];
     }
 
     void DetectInputDevice()
     {
-        if (Gamepad.current != null)
-        {
-            Vector2 dpad = Gamepad.current.dpad.ReadValue();
-            Vector2 leftStick = Gamepad.current.leftStick.ReadValue();
-            Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+        Gamepad pad = GetAssignedGamepad(ownerPlayerIndex);
 
-            if (
-                dpad != Vector2.zero ||
-                leftStick.magnitude > 0.1f ||
-                rightStick.magnitude > 0.1f ||
-                Gamepad.current.buttonSouth.wasPressedThisFrame
-            )
+        if (pad != null)
+        {
+            Vector2 dpad = pad.dpad.ReadValue();
+            Vector2 leftStick = pad.leftStick.ReadValue();
+            Vector2 rightStick = pad.rightStick.ReadValue();
+
+            if (dpad != Vector2.zero || leftStick.magnitude > 0.1f || rightStick.magnitude > 0.1f)
                 usingController = true;
         }
 
-        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
+        if (ownerPlayerIndex == 0 && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
             usingController = false;
 
-        if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
+        if (ownerPlayerIndex == 0 && Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > 0.01f)
             usingController = false;
     }
 
@@ -119,13 +128,16 @@ public class WorkbenchCraft : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        InventorySystem inventory = other.GetComponentInChildren<InventorySystem>(true);
 
-        playerInventory = other.GetComponentInChildren<InventorySystem>(true);
-        playerPickupSystem = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null || inventory == null) return;
+        if (pickup.playerIndex != ownerPlayerIndex) return;
 
+        playerPickupSystem = pickup;
+        playerInventory = inventory;
         playerInside = true;
+
         UpdateUI();
     }
 
@@ -133,8 +145,9 @@ public class WorkbenchCraft : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        NetworkObject playerNetObj = other.GetComponent<NetworkObject>();
-        if (playerNetObj != null && !playerNetObj.IsOwner) return;
+        PickupSystem pickup = other.GetComponentInChildren<PickupSystem>(true);
+        if (pickup == null) return;
+        if (pickup != playerPickupSystem) return;
 
         playerInside = false;
         playerInventory = null;
@@ -145,7 +158,9 @@ public class WorkbenchCraft : NetworkBehaviour
 
     void UpdateUI()
     {
-        bool hasSelectedItem = playerInventory != null && playerInventory.GetSelectedItem() != null;
+        bool hasSelectedItem =
+            playerInventory != null &&
+            playerInventory.GetSelectedItem() != null;
 
         bool showUI =
             playerInside &&
@@ -155,38 +170,23 @@ public class WorkbenchCraft : NetworkBehaviour
             !isCrafting &&
             placedObjects.Count < slots.Length;
 
+        if (!showUI)
+        {
+            HideUI();
+            return;
+        }
+
         if (pressEUI != null)
-            pressEUI.SetActive(showUI && !usingController);
+            pressEUI.SetActive(!usingController);
 
         if (pressXUI != null)
-            pressXUI.SetActive(showUI && usingController);
+            pressXUI.SetActive(usingController);
     }
 
     void HideUI()
     {
-        if (pressEUI != null)
-            pressEUI.SetActive(false);
-
-        if (pressXUI != null)
-            pressXUI.SetActive(false);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    void RequestPlaceObjectServerRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
-    {
-        PlaceObjectClientRpc(networkObjectId, startPos, startRot);
-    }
-
-    [ClientRpc]
-    void PlaceObjectClientRpc(ulong networkObjectId, Vector3 startPos, Quaternion startRot)
-    {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out NetworkObject netObj))
-            return;
-
-        if (placedObjects.Contains(netObj.gameObject)) return;
-        if (placedObjects.Count >= slots.Length) return;
-
-        StartCoroutine(PlaceObjectAnimated(netObj.gameObject, startPos, startRot));
+        if (pressEUI != null) pressEUI.SetActive(false);
+        if (pressXUI != null) pressXUI.SetActive(false);
     }
 
     IEnumerator PlaceObjectAnimated(GameObject obj, Vector3 startPos, Quaternion startRot)
@@ -302,36 +302,18 @@ public class WorkbenchCraft : NetworkBehaviour
             yield return null;
         }
 
-        for (int i = 0; i < placedObjects.Count; i++)
+        foreach (GameObject obj in placedObjects)
         {
-            placedObjects[i].transform.position = craftCenter.position;
-            placedObjects[i].transform.localScale = Vector3.zero;
-        }
-
-        if (IsServer)
-        {
-            foreach (GameObject obj in placedObjects)
-            {
-                NetworkObject netObj = obj.GetComponent<NetworkObject>();
-
-                if (netObj != null && netObj.IsSpawned)
-                    netObj.Despawn(true);
-                else
-                    Destroy(obj);
-            }
-
-            GameObject axe = Instantiate(axePrefab, axeSpawnPoint.position, axeSpawnPoint.rotation);
-
-            NetworkObject axeNetObj = axe.GetComponent<NetworkObject>();
-
-            if (axeNetObj != null)
-                axeNetObj.Spawn();
-
-            if (axeNetObj != null)
-                ShowCraftedAxeClientRpc(axeNetObj.NetworkObjectId);
+            Destroy(obj);
         }
 
         placedObjects.Clear();
+
+        GameObject axe = Instantiate(axePrefab, axeSpawnPoint.position, axeSpawnPoint.rotation);
+        axe.SetActive(true);
+        axe.tag = "Pickup";
+
+        StartCoroutine(ShowAxeAnimation(axe));
 
         crafted = true;
         isCrafting = false;
@@ -339,19 +321,8 @@ public class WorkbenchCraft : NetworkBehaviour
         Debug.Log("AXE CREATED");
     }
 
-    [ClientRpc]
-    void ShowCraftedAxeClientRpc(ulong axeNetworkObjectId)
-    {
-        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(axeNetworkObjectId, out NetworkObject axeNetObj))
-            return;
-
-        StartCoroutine(ShowAxeAnimation(axeNetObj.gameObject));
-    }
-
     IEnumerator ShowAxeAnimation(GameObject axe)
     {
-        axe.SetActive(true);
-        axe.tag = "Pickup";
         axe.transform.position = axeSpawnPoint.position;
         axe.transform.rotation = axeSpawnPoint.rotation;
 
@@ -374,8 +345,6 @@ public class WorkbenchCraft : NetworkBehaviour
         foreach (Collider col in colliders)
             col.enabled = true;
 
-        DisableAxeOutline(axe);
-
         float t = 0f;
 
         while (t < axeAppearDuration)
@@ -391,48 +360,10 @@ public class WorkbenchCraft : NetworkBehaviour
 
         axe.transform.localScale = finalScale;
 
-        yield return null;
-        yield return null;
-
-        ForceRefreshAxeOutline(axe);
-
         if (axeRb != null)
         {
             axeRb.useGravity = true;
             axeRb.isKinematic = false;
-        }
-    }
-
-    void DisableAxeOutline(GameObject axe)
-    {
-        OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
-        if (outlineProximity != null)
-            outlineProximity.enabled = false;
-
-        Outline outline = axe.GetComponent<Outline>();
-        if (outline != null)
-            outline.enabled = false;
-    }
-
-    void ForceRefreshAxeOutline(GameObject axe)
-    {
-        Outline outline = axe.GetComponent<Outline>();
-
-        if (outline != null)
-        {
-            outline.enabled = false;
-            outline.OutlineMode = Outline.Mode.OutlineAll;
-            outline.OutlineWidth = 5f;
-            outline.enabled = true;
-        }
-
-        OutlineProximity outlineProximity = axe.GetComponent<OutlineProximity>();
-
-        if (outlineProximity != null)
-        {
-            outlineProximity.enabled = false;
-            outlineProximity.activationDistance = 4f;
-            outlineProximity.enabled = true;
         }
     }
 
